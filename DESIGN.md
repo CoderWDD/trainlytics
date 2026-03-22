@@ -1063,6 +1063,401 @@ The first design pass should not stop at one ideal-state mockup per page. These 
 - No templates yet
 - Normal populated state with default markers
 
+## P0 Low-Fidelity Screen Specifications
+
+This section is more concrete than the blueprint section above. It is intended to let a designer build first-pass mobile wireframes without guessing layout hierarchy or interaction priority.
+
+### Today: Low-Fidelity Spec
+
+**Primary job**
+
+- Let the user understand today's state instantly
+- Let the user act on the next missing thing with one tap
+
+**Screen hierarchy**
+
+1. Top app bar
+   - Title: `Today`
+   - Date context
+   - Overflow entry
+2. Daily summary block
+   - Phase label
+   - Logging progress snapshot
+   - Form template indicator
+3. Body section
+4. Meals section
+5. Training section
+6. Notes section
+7. Bottom navigation and Quick Add trigger
+
+**Above-the-fold content**
+
+- Daily summary block
+- Body section summary
+- Meals section header and first meal card
+
+**Default section behavior**
+
+- Body section starts expanded if no weight is logged yet
+- Meals section starts expanded to summary level
+- Training section starts collapsed if empty, summary-open if workout exists
+- Notes section stays collapsed unless notes already exist
+
+**Daily summary block layout**
+
+- Left side: date and phase
+- Right side: completion state and form template link
+- Secondary line: short summary such as `2 meals logged • no workout yet`
+
+**Body section layout**
+
+- One dominant weight row or card
+- One secondary row for body fat and waist
+- One tertiary row for recovery or activity metrics
+- Primary CTA anchored to the section header or footer
+
+**Meals section layout**
+
+- Section header with add-meal action
+- Four meal cards in vertical order
+- Each meal card should show:
+  - Meal name
+  - Logged time or empty hint
+  - Calories and protein first
+  - Optional template marker
+  - Status state
+
+**Training section layout**
+
+- If empty:
+  - empty-state block
+  - start-workout CTA
+- If in progress:
+  - session summary strip
+  - continue-workout CTA
+  - optional last edited timestamp
+- If complete:
+  - compact session summary
+  - top-set or volume highlight
+  - open-detail CTA
+
+**Notes section layout**
+
+- One-line preview when collapsed
+- Full text field when expanded
+
+**Interaction priorities**
+
+1. Record weight
+2. Add the next meal
+3. Start or continue workout
+4. Fill notes or auxiliary metrics
+
+**Wireframe rules**
+
+- The most important missing action should be obvious without scrolling
+- The screen should never look like a long editable spreadsheet
+- Summary states must remain readable when most sections are collapsed
+
+### Quick Add: Low-Fidelity Spec
+
+**Primary job**
+
+- Get the user into the right capture flow in one decision
+
+**Sheet structure**
+
+1. Title row
+2. Four action buttons
+3. Optional small recent-context row later if testing proves it useful
+
+**Action card structure**
+
+- Icon or short visual marker
+- Action title
+- Short supporting line only if needed
+
+**Ordering**
+
+- Record weight
+- Add meal
+- Start workout
+- Add recovery or activity metric
+
+**Wireframe rules**
+
+- Actions should fit in one glance
+- This surface should not require scrolling on a typical phone
+
+### Meal Entry: Low-Fidelity Spec
+
+**Primary job**
+
+- Capture one meal in under a minute
+
+**Form structure**
+
+1. Sheet header with meal context
+2. Meal slot selector
+3. Time selector
+4. Calories field
+5. Protein field
+6. Optional carbs and fat row
+7. Template chip row
+8. Notes field
+9. Expandable food-item block
+10. Primary save action
+
+**Default behavior**
+
+- Open on totals-first mode
+- Auto-focus the first numeric field after slot selection when possible
+- Keep food-item detail collapsed by default
+
+**Field priority**
+
+- Calories and protein are first-class
+- Carbs and fat are secondary
+- Notes and food items are tertiary
+
+**Template behavior**
+
+- Template entry should appear before notes
+- Applied template should visibly change the sheet state
+
+**Save behavior**
+
+- Save CTA should remain reachable when keyboard is open
+- Dismiss should not silently lose entered values
+
+**Wireframe rules**
+
+- Use a clear vertical rhythm
+- Avoid side-by-side fields except for carb and fat
+- Do not visually punish the user for leaving food items empty
+
+### Active Workout: Low-Fidelity Spec
+
+**Primary job**
+
+- Make real-time set logging fast enough to use inside the gym
+
+**Screen hierarchy**
+
+1. Workout header
+   - Workout name
+   - Elapsed time
+   - Overflow actions
+2. Exercise list
+3. Add exercise action
+4. Sticky finish-workout action
+
+**Exercise card structure**
+
+- Exercise title row
+- Optional metadata row
+- Set list
+- Add-set action
+
+**Set row structure**
+
+- Set number
+- Weight field
+- Reps field
+- Optional RPE field
+- Optional row action
+
+**Default exercise behavior**
+
+- Template-based exercises arrive pre-created
+- Completed set rows remain visible and editable
+- Custom exercises append to the bottom by default
+
+**Density rules**
+
+- Set rows should be compact
+- Header spacing should be tighter than Today
+- The exercise list should dominate the screen height
+
+**Save and exit rules**
+
+- Set edits should auto-save or commit with minimal friction
+- Finishing the workout should be an explicit action
+- Leaving the screen mid-session should preserve progress
+
+**Wireframe rules**
+
+- Avoid full-width decorative cards between exercises
+- Make row alignment strong so weights and reps compare easily
+- Use one stable bottom action instead of many floating actions
+
+### History: Low-Fidelity Spec
+
+**Primary job**
+
+- Help the user find a day and understand what happened on it
+
+**Screen hierarchy**
+
+1. Top app bar
+2. Date navigation region
+3. Calendar strip or month entry
+4. Timeline of recent days
+
+**Timeline row structure**
+
+- Date label
+- Weight summary
+- Meal status
+- Workout indicator
+- Completion state chip
+
+**Default behavior**
+
+- Recent days appear first
+- Today remains easy to distinguish from past days
+- Selecting a day opens historical day detail
+
+**Wireframe rules**
+
+- Rows should prioritize legibility over density
+- Missing data should be visible without turning the list into a warning board
+
+### Insights Overview: Low-Fidelity Spec
+
+**Primary job**
+
+- Let the user judge whether the cut is on track
+
+**Screen hierarchy**
+
+1. Top app bar
+2. Summary strip
+3. Weight chart card
+4. Nutrition chart card
+5. Training chart card
+6. Optional recovery or activity chart card
+7. Weekly review entry card
+
+**Summary strip content**
+
+- Current 7-day bodyweight direction
+- One concise comparison to the previous period
+
+**Chart card structure**
+
+- Metric title
+- Timeframe
+- Main visual
+- Short takeaway footer
+
+**Default behavior**
+
+- Weight card appears first
+- Weekly review entry should be visible without going to the bottom of a very long page
+
+**Wireframe rules**
+
+- One chart card should answer one question
+- Avoid tiny multi-metric combo charts in the first pass
+
+### Weekly Review: Low-Fidelity Spec
+
+**Primary job**
+
+- Turn the week into a readable review, not just more charts
+
+**Screen hierarchy**
+
+1. Week selector
+2. Headline state card
+3. Body section
+4. Intake section
+5. Training section
+6. Recovery or activity section
+7. Notes section
+
+**Headline state card should contain**
+
+- Average weight change
+- One review label
+- One short supporting line
+
+**Section structure**
+
+- Key stat row
+- Comparison to prior week
+- Optional supporting context
+
+**Wireframe rules**
+
+- Sections should read top to bottom like a review checklist
+- The headline must not overshadow the rest of the week breakdown
+
+### Templates Home: Low-Fidelity Spec
+
+**Primary job**
+
+- Help the user manage templates without confusing structure and content
+
+**Screen hierarchy**
+
+1. Top app bar
+2. Form templates group
+3. Training templates group
+4. Meal templates group
+5. Create-template actions
+
+**Group structure**
+
+- Group title
+- Short group description
+- Template list or cards
+- Add action
+
+**Wireframe rules**
+
+- Form templates must look categorically different from meal and training templates
+- Default templates should be identifiable in one glance
+
+## Interaction Behavior Rules
+
+These rules should be honored across wireframes so the flows behave coherently.
+
+### Save Model
+
+- Embedded edits on Today can auto-save
+- Bottom-sheet entry flows should use an explicit save action
+- Active workout row edits should save with near-zero friction
+
+### Back Navigation
+
+- If nothing changed, back closes immediately
+- If a sheet has unsaved manual entry, the user should get a lightweight discard or continue prompt
+- Leaving an active workout should preserve progress unless the user explicitly discards it
+
+### Keyboard Behavior
+
+- Numeric fields should summon numeric-first keyboards
+- Focus should move in a practical logging order
+- Save actions should remain visible or easily reachable while typing
+
+### Scroll Behavior
+
+- Each screen should have one dominant vertical scroll region
+- Nested scrolling should be minimized, especially in workout logging
+
+### Quick Add Visibility
+
+- Quick Add remains visible on top-level screens
+- Quick Add should be hidden or de-emphasized inside full-screen workout logging
+
+### Feedback Behavior
+
+- Successful low-risk actions can use toast or snackbar confirmation
+- Validation should appear inline near the field
+- Failure copy should say what happened and what can be retried
+
 ## Design Priorities For Wireframes
 
 Design order should be:
