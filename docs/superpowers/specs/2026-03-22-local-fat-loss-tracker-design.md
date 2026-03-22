@@ -468,3 +468,16 @@ Build V1 as a focused local-first Android app with:
 - Raw data export
 
 This keeps the product narrow, useful, and extensible without turning V1 into a generic health platform.
+
+## Design Companion
+
+The UI and UX surface inventory for this product is maintained in [DESIGN.md](../../../DESIGN.md).
+
+That document should guide:
+
+- Wireframes
+- Screen prioritization
+- Component inventory
+- High-fidelity design planning
+
+Implementation planning should use this spec and `DESIGN.md` together.
