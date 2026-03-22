@@ -686,6 +686,383 @@ Even though the app is local-first, the design still needs explicit failure stat
 3. Reuse Today-style layout for that date
 4. Add missing meals, notes, or metrics
 
+## P0 Wireframe Blueprints
+
+This section translates the screen inventory into concrete mobile layout guidance for first-pass wireframes.
+
+### Today Wireframe Blueprint
+
+**Mobile layout order**
+
+1. Top app bar
+2. Daily summary block
+3. Body status section
+4. Meals section
+5. Training section
+6. Daily notes section
+7. Bottom navigation
+
+**Daily summary block should contain**
+
+- Current date
+- Active phase label
+- A small completion overview
+- A small entry point to switch today's form template
+
+**Body status section should contain**
+
+- Primary weight card
+- Secondary body metrics row
+- Auxiliary recovery or activity metric row
+- One primary action to record or edit check-in
+
+**Meals section should contain**
+
+- One card per meal slot
+- Summary state visible even when collapsed
+- Inline action to add a missing meal
+- Optional small template indicator if a meal came from a preset
+
+**Training section should contain**
+
+- Empty state with start-workout CTA
+- Or active session summary if a workout exists
+- If completed, show concise workout highlights instead of the full set table
+
+**Daily notes section should contain**
+
+- Short notes preview
+- Expandable full editor
+
+**Wireframe rules**
+
+- Only one section should feel primary at a time
+- The page should scan well in under five seconds
+- Do not make every section the same height
+- Use compact summaries first, detail second
+
+### Quick Add Blueprint
+
+**Form factor**
+
+- Bottom sheet
+- Opens from any primary screen
+
+**Content**
+
+- Sheet title
+- Four high-frequency actions
+- Optional recent action row only if it proves useful later
+
+**Actions**
+
+- Record weight
+- Add meal
+- Start workout
+- Add recovery or activity metric
+
+**Wireframe rules**
+
+- This should read like a fast launcher, not a settings menu
+- Actions should be immediately tappable with no explanatory copy overload
+
+### Meal Entry Blueprint
+
+**Form factor**
+
+- Bottom sheet by default
+
+**Layout**
+
+1. Meal slot selector
+2. Time row
+3. Calories field
+4. Protein field
+5. Optional carb and fat row
+6. Template entry point
+7. Notes field
+8. Expand-to-detail area for food items
+9. Save action
+
+**Wireframe rules**
+
+- Calories and protein should appear before anything optional
+- Food-item detail should be visually secondary
+- Numeric entry flow must feel linear and quick
+
+### Active Workout Blueprint
+
+**Form factor**
+
+- Full-screen dedicated flow
+
+**Layout**
+
+1. Session header with workout name, elapsed time, and overflow actions
+2. Exercise list
+3. Within each exercise card:
+   - Exercise title row
+   - Optional notes
+   - Set table
+   - Add set action
+4. Add exercise action
+5. Sticky finish-workout action
+
+**Wireframe rules**
+
+- The exercise list is the core of the screen, not the header
+- Set rows need high information density
+- Finish action must remain reachable without excessive scrolling
+- Avoid decorative banners or oversized spacing in this flow
+
+### History Blueprint
+
+**Layout**
+
+1. Top app bar
+2. Calendar strip or month entry point
+3. Timeline list of recent days
+4. Day rows with completion and context summary
+
+**Each day row should be able to show**
+
+- Date
+- Weight summary
+- Meal completion or count
+- Workout presence
+- Partial or complete status
+
+**Wireframe rules**
+
+- The user should be able to identify incomplete days instantly
+- Do not overload the row with tiny badges for every metric
+
+### Insights Overview Blueprint
+
+**Layout**
+
+1. Top app bar
+2. Summary strip with the most important recent signal
+3. Weight chart card
+4. Nutrition chart card
+5. Training chart card
+6. Optional activity or recovery card
+7. Weekly review entry point
+
+**Wireframe rules**
+
+- Weight should be visually first
+- Charts should be scrollable cards, not tiny sparklines with no context
+- Weekly review should feel like the synthesis destination for this tab
+
+### Weekly Review Blueprint
+
+**Layout**
+
+1. Week selector
+2. Headline summary card
+3. Bodyweight section
+4. Intake section
+5. Training section
+6. Recovery or activity section
+7. Notes section
+
+**Wireframe rules**
+
+- The page should feel structured like a review template
+- Keep comparisons to last week obvious
+- Avoid making every stat equally prominent
+
+### Templates Home Blueprint
+
+**Layout**
+
+1. Top app bar
+2. Form templates group
+3. Training templates group
+4. Meal templates group
+5. Create template actions
+
+**Wireframe rules**
+
+- Clearly separate structure templates from content templates
+- Use naming and grouping to reduce cognitive load
+
+## Component Anatomy And Layout Rules
+
+These rules should keep the app coherent before visual styling begins.
+
+### Section Container
+
+Used on Today, Insights, and Templates.
+
+Should include:
+
+- Section title
+- Optional summary line
+- Optional primary action
+- Expand or collapse affordance when needed
+
+Rule:
+
+- Sections should behave like modular blocks, not heavy card walls
+
+### Daily Summary Block
+
+Used on Today and historical day detail.
+
+Should include:
+
+- Date or day context
+- Phase label
+- Completion snapshot
+- Lightweight template context
+
+Rule:
+
+- This is orientation first, not analytics
+
+### Numeric Input Row
+
+Used on body, meal, and set entry surfaces.
+
+Should include:
+
+- Label
+- Value field
+- Unit
+- Inline validation space
+
+Rule:
+
+- Labels and units must remain visible while editing
+
+### Meal Card
+
+Should include:
+
+- Meal name
+- Logged time
+- Macro summary
+- Template marker when relevant
+- Edit entry point
+
+Rule:
+
+- The collapsed card must already be useful without opening details
+
+### Exercise Card
+
+Should include:
+
+- Exercise title
+- Optional metadata such as notes or template origin
+- Repeated set rows
+- Add set action
+
+Rule:
+
+- The card should prioritize loggable rows over ornamental structure
+
+### Set Row
+
+Should include:
+
+- Set index
+- Weight
+- Reps
+- Optional RPE
+- Row actions if needed
+
+Rule:
+
+- Rows must be easy to edit one-handed and easy to compare vertically
+
+### Chart Card
+
+Should include:
+
+- Metric title
+- Time range context
+- Main chart
+- Reference line or target when helpful
+- Short footer summary
+
+Rule:
+
+- Every chart should answer one question clearly
+
+### Template Card
+
+Should include:
+
+- Template name
+- Template type
+- Short description or included content summary
+- Last-used or default marker when useful
+
+Rule:
+
+- Cards should help the user choose quickly, not read long descriptions
+
+### Empty State Panel
+
+Should include:
+
+- Clear reason the section is empty
+- One obvious next action
+- Minimal supporting copy
+
+Rule:
+
+- Empty states should motivate action without sounding judgmental
+
+## Wireframe State Coverage Checklist
+
+The first design pass should not stop at one ideal-state mockup per page. These state variants need explicit frames.
+
+### Today
+
+- Empty new day
+- Partial day with meals missing
+- Training day with completed workout
+- Rest day with no training section emphasis
+
+### Meal Entry
+
+- Fresh manual entry
+- Template-applied entry
+- Entry expanded with food items
+- Validation error state
+
+### Active Workout
+
+- Fresh workout from template
+- Mid-session with several completed sets
+- Custom exercise added
+- Finish-review state
+
+### History
+
+- Empty history
+- Mixed complete and partial days
+- Selected past day
+
+### Insights Overview
+
+- First-use no-data state
+- Normal state with three to five chart cards
+
+### Weekly Review
+
+- Strong week with clear progress
+- Mixed-signal week where bodyweight and training tell a more nuanced story
+
+### Templates Home
+
+- No templates yet
+- Normal populated state with default markers
+
 ## Design Priorities For Wireframes
 
 Design order should be:
