@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-Hans"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Template Editor - Add Food</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed-variant": "#515d64",
+              "surface": "#0e0e0e",
+              "outline": "#767575",
+              "on-secondary": "#47545a",
+              "background": "#0e0e0e",
+              "on-surface-variant": "#adaaaa",
+              "surface-container-lowest": "#000000",
+              "on-primary-container": "#004f24",
+              "on-primary-fixed": "#004820",
+              "surface-container-high": "#20201f",
+              "outline-variant": "#484847",
+              "tertiary-fixed-dim": "#77a1ff",
+              "on-secondary-container": "#c5d2da",
+              "surface-dim": "#0e0e0e",
+              "inverse-surface": "#fcf9f8",
+              "on-error": "#490006",
+              "secondary-fixed-dim": "#c9d6de",
+              "on-background": "#ffffff",
+              "inverse-primary": "#006e35",
+              "tertiary-dim": "#0f6df3",
+              "secondary-dim": "#c9d6de",
+              "on-primary-fixed-variant": "#006832",
+              "surface-bright": "#2c2c2c",
+              "surface-container-low": "#131313",
+              "on-error-container": "#ffa8a3",
+              "inverse-on-surface": "#565555",
+              "tertiary-fixed": "#8eafff",
+              "on-tertiary-fixed": "#00163d",
+              "on-tertiary-fixed-variant": "#003580",
+              "primary": "#3fff8b",
+              "on-secondary-fixed": "#354147",
+              "error-container": "#9f0519",
+              "surface-variant": "#262626",
+              "primary-fixed-dim": "#24f07e",
+              "on-surface": "#ffffff",
+              "error-dim": "#d7383b",
+              "on-primary": "#005d2c",
+              "surface-container": "#1a1a1a",
+              "primary-container": "#13ea79",
+              "on-tertiary-container": "#000000",
+              "surface-container-highest": "#262626",
+              "tertiary-container": "#2778fe",
+              "tertiary": "#6e9bff",
+              "error": "#ff716c",
+              "secondary-fixed": "#d7e4ec",
+              "primary-dim": "#24f07e",
+              "secondary-container": "#3c494f",
+              "secondary": "#d7e4ec",
+              "primary-fixed": "#3fff8b",
+              "surface-tint": "#3fff8b",
+              "on-tertiary": "#001d4e"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-black">
+<!-- Top App Bar (As per JSON) -->
+<header class="bg-[#0e0e0e] flex justify-between items-center w-full px-6 py-4 fixed top-0 z-40">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#3fff8b] hover:bg-[#20201f] transition-colors duration-200 p-2 rounded-full cursor-pointer active:opacity-80 transition-transform scale-95" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-['Manrope'] font-bold text-2xl tracking-tight text-[#00E676]">Template Editor</h1>
+</div>
+<span class="material-symbols-outlined text-[#3fff8b] hover:bg-[#20201f] transition-colors duration-200 p-2 rounded-full cursor-pointer active:opacity-80 transition-transform scale-95" data-icon="save">save</span>
+</header>
+<!-- Main Content (The "Background" screen) -->
+<main class="pt-20 pb-24 px-6 min-h-screen">
+<section class="mb-10">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline font-extrabold text-4xl mb-1 tracking-tighter">增肌模板 A</h2>
+<p class="text-on-surface-variant font-medium">最后编辑：2023年10月24日</p>
+</div>
+<div class="bg-surface-container-high px-4 py-2 rounded-xl text-primary font-bold font-headline text-lg">
+                    2,450 kcal
+                </div>
+</div>
+<!-- Bento Grid - Template Stats -->
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="bg-surface-container-low p-5 rounded-xl border-l-4 border-primary">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-2 block">蛋白质</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-headline font-bold">180</span>
+<span class="text-sm text-on-surface-variant">/ 200g</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-2 block">碳水化合物</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-headline font-bold">245</span>
+<span class="text-sm text-on-surface-variant">/ 300g</span>
+</div>
+</div>
+</div>
+<!-- Meal List -->
+<div class="space-y-4">
+<div class="bg-surface-container-low rounded-xl p-5 flex justify-between items-center group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close up of a healthy salad with grilled chicken breast and avocado on a dark ceramic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe9EIoey6t6MBC_9RR7E8TCeSxsoGrm4euSBvMvzzNS70AwpSkb3umi3P4ljAzYh6oc1cuiQ8f7K1_ebtJkFPLvRdH2d7Jx0t9KzSp8Rgbwgc5HAxm3_dmgQx8APhOxmPO-HypvfcCeVbjP-gkEgPwcertLenECetfTN3RYbe0rf-w1VXBRiBLX21W9SQKUJKYAaB530cNpy6JH-hqbr07YxCMsPfLuIGEUrbS1Py5Y9-UyGzGSkjc4rLZM5UdxGXS4gqRrqy2FVU"/>
+</div>
+<div>
+<h3 class="font-bold text-lg">早餐：全麦鸡肉卷</h3>
+<p class="text-on-surface-variant text-sm">450 kcal • 35g 蛋白质</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Overlay / Backdrop -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"></div>
+<!-- Bottom Sheet Interaction -->
+<div class="fixed bottom-0 left-0 w-full z-50 bg-surface rounded-t-[2.5rem] shadow-[0px_-24px_64px_rgba(0,0,0,0.8)] flex flex-col max-h-[813px]">
+<!-- Pull Handle -->
+<div class="flex justify-center py-4">
+<div class="w-12 h-1.5 bg-outline-variant/30 rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="px-8 pb-4">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline font-extrabold text-3xl tracking-tight">添加食物</h2>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-on-surface" data-icon="close">close</span>
+</button>
+</div>
+<!-- Search Bar -->
+<div class="relative mb-6 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-2xl py-4 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary transition-all font-medium" placeholder="搜索食物库..." type="text"/>
+</div>
+<!-- Categories Horizontal Scroll -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="whitespace-nowrap px-6 py-2.5 bg-primary text-black font-bold rounded-full text-sm">常用</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">肉类</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">蛋奶</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">五谷</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">果蔬</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">零食</button>
+</div>
+</div>
+<!-- Food List -->
+<div class="flex-1 overflow-y-auto px-8 py-2 space-y-3">
+<!-- Food Item 1 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors rounded-2xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="freshly baked whole grain bread loaf sliced on a dark wooden board with flour dusting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG7dxtHxlVq1b-Qg9qo5jR4TirCBb1Tuz8rSHlsgKypy800xXcLic6PKof7Y6sTad58tfi841Q5O4DO8DuZmu7fGZtbKnreUwd88pDMRSvJUTs56hg3JC2wtTNQxqBpSAzhHG55aDYvCAbKAyTAQcEPGMhIzmUXzD64gSwLrMPHkc_m6nSFzug9RBMGjroiMQtpQTEwqg22_lUN-0zQy3RDtoeo0_o0jjFijIX_tUXUKvCf0-dHMN5I-jNhLopoda8GA9jxMJQvyA"/>
+</div>
+<div>
+<h4 class="font-bold text-lg leading-tight">全麦面包</h4>
+<p class="text-on-surface-variant text-xs font-medium mt-1">100克 • 247 kcal • 9g 蛋白质</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary font-bold" data-icon="add" style="font-variation-settings: 'wght' 700;">add</span>
+</button>
+</div>
+<!-- Food Item 2 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors rounded-2xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="raw organic chicken breast fillets on a black stone surface with rosemary sprigs and sea salt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiDjsMSuB44ro68C_7eiB1UTuQ3rbxlvw6Ca_j_PampYdlqplZ_RoGwzw1o3tZJVWvkhuoy1_6LSjYbqnqsuowu_D5bMh0o8z96_jauE8hV1qZrNiXWbxd-o_LcYg44C4Z-BpOrxU2H27XtmnwakhiC11vl-9ktTkLkCHb5U55nchGlbo_XOPSHQksxNl1frSgiIFzoeAa9ncVpCvEwyy2To98RBKmElHGQ_8AbQPbLGy1WhHr92whnxIUNq3Kmjm55UOsj40H20U"/>
+</div>
+<div>
+<h4 class="font-bold text-lg leading-tight">鸡胸肉</h4>
+<p class="text-on-surface-variant text-xs font-medium mt-1">100克 • 165 kcal • 31g 蛋白质</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary font-bold" data-icon="add" style="font-variation-settings: 'wght' 700;">add</span>
+</button>
+</div>
+<!-- Food Item 3 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors rounded-2xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close up of several brown organic eggs in a rustic wooden bowl with moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpFOBBztJgOG6DpeQitCfwsrZ9ZzirMRb3F3WkIXu_APHnvkQELSN6xkztDfZ6imE9yYoDXunJuMMrf4Ffb7dsAkH9R1wIwKnALJ5_WH4K3x-PzG58zEXeBYSwn1loPgnID8Cv7TM-tx8O5OBv8_RaYpxvoE-S-yyIKExsB9asUErAJ_AHpZIgkL6Vsx44tjWKzXMqMDrQd-bG77M20-BiLXLAsapkrH9xfFXJDi4DaafUaFRYsUXwGJAoG1C_PINVDbEyoJEfmPg"/>
+</div>
+<div>
+<h4 class="font-bold text-lg leading-tight">水煮蛋</h4>
+<p class="text-on-surface-variant text-xs font-medium mt-1">1个 • 78 kcal • 6g 蛋白质</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary font-bold" data-icon="add" style="font-variation-settings: 'wght' 700;">add</span>
+</button>
+</div>
+<!-- Food Item 4 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors rounded-2xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-xl bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="glass of fresh cold white milk on a dark background with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQLXJTu2CNK4kcPUHNEUMVBNnUgTaPdOdOul6CX3Xmox0_jVcLVEFqVdMzwvgXvbATuenjOE-uxUt4wky0y2H9Q033fUIKjE7ICAbsHS1xQo5FUNoKLMsNIlr-m3-JXO1NB_wdtDexIkOB_dNCZfvmLbgqd17Z8xCeHKrkNEaAC5ZMDnhva4QM4J6lex_yelH28F-2PSXBsh2ZZnn8a5IevNssxjj5CQnHC_vbz2j86rezWFKJndw8OqS4pGKAGZVjcN60vg0a5e0"/>
+</div>
+<div>
+<h4 class="font-bold text-lg leading-tight">脱脂牛奶</h4>
+<p class="text-on-surface-variant text-xs font-medium mt-1">250毫升 • 88 kcal • 8g 蛋白质</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary font-bold" data-icon="add" style="font-variation-settings: 'wght' 700;">add</span>
+</button>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-8 bg-surface-container-low/50 backdrop-blur-md">
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 py-4 rounded-2xl bg-surface-container-high text-on-surface font-bold hover:bg-surface-container-highest transition-all border border-outline-variant/20">
+<span class="material-symbols-outlined text-xl" data-icon="edit_note">edit_note</span>
+<span>手动输入</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-4 rounded-2xl bg-gradient-to-br from-[#3fff8b] to-[#13ea79] text-black font-extrabold hover:opacity-90 transition-all shadow-[0_8px_24px_rgba(63,255,139,0.2)]">
+<span class="material-symbols-outlined text-xl" data-icon="center_focus_weak">center_focus_weak</span>
+<span>AI 识别</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Nav Bar (As per JSON - Not shown due to overlay focus, but defined as blueprint) -->
+<nav class="hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-[#0e0e0e]/70 dark:bg-[#0e0e0e]/70 backdrop-blur-xl z-50 border-t border-[#484847]/20 shadow-[0px_-12px_32px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col items-center justify-center text-[#484847] p-2 hover:text-[#3fff8b] transition-all tap-highlight-none active:scale-90">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-['Inter'] font-semibold text-[10px] uppercase tracking-widest mt-1">Journal</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#3fff8b] to-[#13ea79] text-black rounded-xl p-2 active:scale-90">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-['Inter'] font-semibold text-[10px] uppercase tracking-widest mt-1">Workouts</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#484847] p-2 hover:text-[#3fff8b] transition-all tap-highlight-none active:scale-90">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-['Inter'] font-semibold text-[10px] uppercase tracking-widest mt-1">Nutrition</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#484847] p-2 hover:text-[#3fff8b] transition-all tap-highlight-none active:scale-90">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] font-semibold text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

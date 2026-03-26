@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trainlytics - 记录餐食</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface-variant": "#adaaaa",
+              "surface-container-low": "#131313",
+              "tertiary-fixed": "#8eafff",
+              "background": "#0e0e0e",
+              "on-tertiary-fixed-variant": "#003580",
+              "secondary-fixed": "#d7e4ec",
+              "surface-bright": "#2c2c2c",
+              "surface-variant": "#262626",
+              "primary-fixed": "#3fff8b",
+              "primary-dim": "#24f07e",
+              "error-container": "#9f0519",
+              "tertiary-container": "#2778fe",
+              "secondary-dim": "#c9d6de",
+              "tertiary-fixed-dim": "#77a1ff",
+              "on-secondary": "#47545a",
+              "on-primary": "#005d2c",
+              "primary": "#3fff8b",
+              "on-tertiary-fixed": "#00163d",
+              "surface-container": "#1a1a1a",
+              "outline": "#767575",
+              "on-secondary-fixed": "#354147",
+              "primary-fixed-dim": "#24f07e",
+              "tertiary": "#6e9bff",
+              "on-primary-container": "#004f24",
+              "on-tertiary": "#001d4e",
+              "surface": "#0e0e0e",
+              "error-dim": "#d7383b",
+              "on-tertiary-container": "#000000",
+              "primary-container": "#13ea79",
+              "surface-tint": "#3fff8b",
+              "on-primary-fixed-variant": "#006832",
+              "surface-dim": "#0e0e0e",
+              "on-secondary-container": "#c5d2da",
+              "on-secondary-fixed-variant": "#515d64",
+              "error": "#ff716c",
+              "inverse-primary": "#006e35",
+              "on-primary-fixed": "#004820",
+              "on-error": "#490006",
+              "secondary-container": "#3c494f",
+              "inverse-on-surface": "#565555",
+              "on-surface": "#ffffff",
+              "secondary-fixed-dim": "#c9d6de",
+              "tertiary-dim": "#0f6df3",
+              "surface-container-lowest": "#000000",
+              "outline-variant": "#484847",
+              "secondary": "#d7e4ec",
+              "on-error-container": "#ffa8a3",
+              "on-background": "#ffffff",
+              "surface-container-high": "#20201f",
+              "inverse-surface": "#fcf9f8",
+              "surface-container-highest": "#262626"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(14, 14, 14, 0.7);
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<header class="bg-[#0e0e0e] flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto top-0 z-40">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<h1 class="font-headline font-bold text-[#00E676] tracking-tighter text-2xl">Trainlytics</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors text-slate-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-[#1a1a1a] transition-colors text-slate-400">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<main class="px-6 pb-32 pt-4 max-w-4xl mx-auto">
+<div class="mb-8">
+<p class="text-on-surface-variant font-medium text-sm tracking-widest uppercase mb-1">性能概览</p>
+<div class="flex items-baseline gap-2">
+<h2 class="font-headline text-4xl font-extrabold tracking-tight">每日摄入</h2>
+<span class="text-primary font-bold">1,840 / 2,400 千卡</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-tertiary">water_drop</span>
+<span class="text-xs font-bold text-on-surface-variant">补水情况</span>
+</div>
+<div class="text-2xl font-headline font-bold">2.4L <span class="text-sm font-normal text-on-surface-variant">/ 3.5L</span></div>
+<div class="mt-4 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[68%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<span class="text-xs font-bold text-on-surface-variant">活动消耗</span>
+</div>
+<div class="text-2xl font-headline font-bold">482 <span class="text-sm font-normal text-on-surface-variant">千卡已燃烧</span></div>
+<div class="mt-4 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[45%]"></div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="font-headline text-xl font-bold">最近记录</h3>
+<div class="bg-surface-container rounded-xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">restaurant</span>
+</div>
+<div>
+<div class="font-semibold">烤鸡肉藜麦饭</div>
+<div class="text-xs text-on-surface-variant">12:30 PM • 540 千卡</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+</main>
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end justify-center">
+<div class="w-full max-w-2xl bg-surface-container-low rounded-t-[2.5rem] shadow-[0px_-12px_48px_rgba(0,0,0,0.6)] border-t border-white/5 animate-in slide-in-from-bottom duration-500">
+<div class="flex justify-center py-4">
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full"></div>
+</div>
+<div class="px-8 pb-10">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-3xl font-extrabold tracking-tight">添加餐食</h2>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="mb-8">
+<div class="relative group">
+<textarea class="w-full bg-surface-container-highest border-0 rounded-2xl p-6 font-body text-lg focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/40 min-h-[160px] resize-none transition-all" placeholder="AI 扫描/粘贴：'2个鸡蛋，1片吐司和一杯中杯拿铁'..."></textarea>
+<div class="absolute bottom-4 right-4 flex items-center gap-2">
+<button class="bg-primary/10 text-primary px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+                            分析餐食
+                        </button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div class="bg-surface-container p-4 rounded-xl">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">热量</label>
+<input class="bg-transparent border-0 p-0 text-xl font-headline font-bold w-full focus:ring-0" type="text" value="0"/>
+</div>
+<div class="bg-surface-container p-4 rounded-xl border-b-2 border-primary/40">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">蛋白质 (克)</label>
+<input class="bg-transparent border-0 p-0 text-xl font-headline font-bold w-full focus:ring-0" type="text" value="0"/>
+</div>
+<div class="bg-surface-container p-4 rounded-xl border-b-2 border-tertiary/40">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">碳水 (克)</label>
+<input class="bg-transparent border-0 p-0 text-xl font-headline font-bold w-full focus:ring-0" type="text" value="0"/>
+</div>
+<div class="bg-surface-container p-4 rounded-xl border-b-2 border-error/40">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">脂肪 (克)</label>
+<input class="bg-transparent border-0 p-0 text-xl font-headline font-bold w-full focus:ring-0" type="text" value="0"/>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 mb-8">
+<div class="flex-1">
+<button class="w-full bg-surface-container-highest px-6 py-4 rounded-xl flex items-center justify-between text-on-surface group hover:bg-surface-variant transition-all">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">library_add_check</span>
+<span class="font-medium">应用模板</span>
+</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-y-0.5 transition-transform">expand_more</span>
+</button>
+</div>
+</div>
+<button class="kinetic-gradient w-full py-5 rounded-2xl text-on-primary-container font-headline font-extrabold text-lg tracking-tight active:scale-95 transition-all shadow-[0_8px_32px_rgba(63,255,139,0.2)]">
+                保存餐食记录
+            </button>
+</div>
+</div>
+</div>
+</body></html>

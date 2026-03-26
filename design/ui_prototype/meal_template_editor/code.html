@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>饮食模板编辑 - Trainlytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#0e0e0e",
+              "on-error": "#490006",
+              "on-tertiary-container": "#000000",
+              "on-error-container": "#ffa8a3",
+              "tertiary-fixed-dim": "#77a1ff",
+              "surface-container-low": "#131313",
+              "on-primary": "#005d2c",
+              "on-secondary": "#47545a",
+              "error-dim": "#d7383b",
+              "on-primary-container": "#004f24",
+              "inverse-surface": "#fcf9f8",
+              "on-tertiary": "#001d4e",
+              "secondary-fixed": "#d7e4ec",
+              "surface-container-high": "#20201f",
+              "surface-bright": "#2c2c2c",
+              "outline-variant": "#484847",
+              "secondary-dim": "#c9d6de",
+              "error-container": "#9f0519",
+              "surface-container": "#1a1a1a",
+              "primary": "#3fff8b",
+              "surface-container-lowest": "#000000",
+              "on-surface": "#ffffff",
+              "inverse-primary": "#006e35",
+              "surface-dim": "#0e0e0e",
+              "secondary": "#d7e4ec",
+              "on-tertiary-fixed-variant": "#003580",
+              "primary-dim": "#24f07e",
+              "primary-fixed-dim": "#24f07e",
+              "error": "#ff716c",
+              "primary-fixed": "#3fff8b",
+              "secondary-container": "#3c494f",
+              "tertiary": "#6e9bff",
+              "on-secondary-fixed": "#354147",
+              "tertiary-fixed": "#8eafff",
+              "on-background": "#ffffff",
+              "surface-variant": "#262626",
+              "primary-container": "#13ea79",
+              "outline": "#767575",
+              "on-secondary-container": "#c5d2da",
+              "surface-container-highest": "#262626",
+              "on-tertiary-fixed": "#00163d",
+              "tertiary-dim": "#0f6df3",
+              "tertiary-container": "#2778fe",
+              "background": "#0e0e0e",
+              "secondary-fixed-dim": "#c9d6de",
+              "on-surface-variant": "#adaaaa",
+              "on-primary-fixed-variant": "#006832",
+              "inverse-on-surface": "#565555",
+              "surface-tint": "#3fff8b",
+              "on-primary-fixed": "#004820",
+              "on-secondary-fixed-variant": "#515d64"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#0e0e0e] fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">arrow_back</span>
+<h1 class="font-['Manrope'] font-semibold tracking-tight text-on-surface text-xl">编辑模板</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-error font-medium px-4 py-2 hover:bg-error/10 rounded-lg transition-colors">删除</button>
+<button class="kinetic-gradient text-on-primary-container font-bold px-6 py-2 rounded-xl active:scale-95 transition-all">保存</button>
+</div>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 pt-24 pb-12 space-y-10">
+<!-- Header Section: Bento Style -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-xl flex flex-col justify-end min-h-[160px]">
+<label class="text-on-surface-variant text-xs font-semibold tracking-widest uppercase mb-2">模板名称</label>
+<input class="bg-transparent border-none p-0 text-3xl md:text-4xl font-headline font-extrabold tracking-tighter focus:ring-0 placeholder:text-surface-variant w-full" placeholder="模板名称" type="text" value="高蛋白早餐"/>
+</div>
+<div class="bg-surface-container p-8 rounded-xl flex flex-col justify-center items-center text-center">
+<span class="text-on-surface-variant text-xs font-semibold tracking-widest uppercase mb-1">总能量</span>
+<div class="flex items-baseline gap-1">
+<input class="bg-transparent border-none p-0 text-4xl font-headline font-extrabold tracking-tighter focus:ring-0 w-24 text-center" type="number" value="640"/>
+<span class="text-primary font-bold">kcal</span>
+</div>
+</div>
+</section>
+<!-- Macros Grid -->
+<section>
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+                宏量营养素概览
+            </h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Protein Card -->
+<div class="bg-surface-container-high p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+<label class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">蛋白质</label>
+<div class="flex items-baseline gap-2 mt-4">
+<input class="bg-transparent border-none p-0 text-3xl font-headline font-bold focus:ring-0 w-16" type="number" value="45"/>
+<span class="text-on-surface-variant font-medium">克</span>
+</div>
+<div class="w-full h-1 bg-surface-variant mt-4 rounded-full">
+<div class="h-full bg-primary w-[70%] rounded-full"></div>
+</div>
+</div>
+<!-- Carbs Card -->
+<div class="bg-surface-container-high p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">grain</span>
+</div>
+<label class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">碳水化合物</label>
+<div class="flex items-baseline gap-2 mt-4">
+<input class="bg-transparent border-none p-0 text-3xl font-headline font-bold focus:ring-0 w-16" type="number" value="52"/>
+<span class="text-on-surface-variant font-medium">克</span>
+</div>
+<div class="w-full h-1 bg-surface-variant mt-4 rounded-full">
+<div class="h-full bg-tertiary w-[50%] rounded-full"></div>
+</div>
+</div>
+<!-- Fat Card -->
+<div class="bg-surface-container-high p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+<label class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">脂肪</label>
+<div class="flex items-baseline gap-2 mt-4">
+<input class="bg-transparent border-none p-0 text-3xl font-headline font-bold focus:ring-0 w-16" type="number" value="18"/>
+<span class="text-on-surface-variant font-medium">克</span>
+</div>
+<div class="w-full h-1 bg-surface-variant mt-4 rounded-full">
+<div class="h-full bg-error w-[30%] rounded-full"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Food Breakdown -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="font-headline font-bold text-lg flex items-center gap-2">
+<span class="w-1.5 h-6 bg-tertiary rounded-full"></span>
+                    食物明细
+                </h3>
+<button class="flex items-center gap-2 text-primary text-sm font-bold hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                    添加食物
+                </button>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<!-- Food Item -->
+<div class="flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">egg</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">有机全蛋</h4>
+<p class="text-xs text-on-surface-variant">3 个大号鸡蛋 • 210 kcal</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:block text-right">
+<span class="block text-xs font-bold text-on-surface-variant uppercase">蛋白质: 18g</span>
+<span class="block text-xs font-bold text-on-surface-variant uppercase">碳水: 1g</span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<div class="h-px bg-white/5 mx-5"></div>
+<!-- Food Item -->
+<div class="flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">bakery_dining</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">希腊酸奶（原味）</h4>
+<p class="text-xs text-on-surface-variant">200克 • 120 kcal</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:block text-right">
+<span class="block text-xs font-bold text-on-surface-variant uppercase">蛋白质: 20g</span>
+<span class="block text-xs font-bold text-on-surface-variant uppercase">碳水: 8g</span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<div class="h-px bg-white/5 mx-5"></div>
+<!-- Food Item -->
+<div class="flex items-center justify-between p-5 hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">nutrition</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">即食燕麦</h4>
+<p class="text-xs text-on-surface-variant">80克 • 310 kcal</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:block text-right">
+<span class="block text-xs font-bold text-on-surface-variant uppercase">蛋白质: 7g</span>
+<span class="block text-xs font-bold text-on-surface-variant uppercase">碳水: 43g</span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Template Meta -->
+<section class="bg-surface-container-highest/30 border border-white/5 p-6 rounded-xl">
+<h4 class="text-sm font-bold text-on-surface-variant mb-4 uppercase tracking-widest">补充说明</h4>
+<textarea class="w-full bg-surface-container-high border-none rounded-lg p-4 text-sm text-on-surface focus:ring-1 focus:ring-primary/50 transition-all resize-none" placeholder="添加准备说明或用餐时间提示..." rows="3"></textarea>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#0e0e0e]/70 backdrop-blur-xl shadow-[0px_-12px_32px_rgba(0,0,0,0.4)] border-t border-white/5">
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined mb-1">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">今日</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined mb-1">history</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">历史</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">洞察</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#3fff8b] bg-[#1a1a1a] rounded-xl px-3 py-1 scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">模板</span>
+</a>
+</nav>
+</body></html>

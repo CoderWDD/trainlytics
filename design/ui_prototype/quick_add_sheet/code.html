@@ -1,0 +1,204 @@
+<!DOCTYPE html><html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Trainlytics | 快速添加</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#000000",
+                        "on-error": "#490006",
+                        "surface-container-low": "#131313",
+                        "outline-variant": "#484847",
+                        "outline": "#767575",
+                        "primary-fixed": "#3fff8b",
+                        "surface": "#0e0e0e",
+                        "on-secondary-fixed-variant": "#515d64",
+                        "surface-container-highest": "#262626",
+                        "primary-container": "#13ea79",
+                        "surface-container-lowest": "#000000",
+                        "on-surface": "#ffffff",
+                        "secondary": "#d7e4ec",
+                        "primary": "#3fff8b",
+                        "on-primary-container": "#004f24",
+                        "tertiary-fixed-dim": "#77a1ff",
+                        "on-primary-fixed": "#004820",
+                        "on-primary": "#005d2c",
+                        "error": "#ff716c",
+                        "secondary-dim": "#c9d6de",
+                        "on-secondary": "#47545a",
+                        "on-primary-fixed-variant": "#006832",
+                        "error-dim": "#d7383b",
+                        "tertiary-dim": "#0f6df3",
+                        "surface-container-high": "#20201f",
+                        "surface-dim": "#0e0e0e",
+                        "surface-bright": "#2c2c2c",
+                        "secondary-fixed": "#d7e4ec",
+                        "tertiary-fixed": "#8eafff",
+                        "on-tertiary-fixed-variant": "#003580",
+                        "secondary-container": "#3c494f",
+                        "primary-fixed-dim": "#24f07e",
+                        "on-background": "#ffffff",
+                        "inverse-on-surface": "#565555",
+                        "inverse-primary": "#006e35",
+                        "surface-variant": "#262626",
+                        "on-tertiary-fixed": "#00163d",
+                        "surface-container": "#1a1a1a",
+                        "tertiary-container": "#2778fe",
+                        "on-secondary-fixed": "#354147",
+                        "on-tertiary": "#001d4e",
+                        "on-surface-variant": "#adaaaa",
+                        "background": "#0e0e0e",
+                        "tertiary": "#6e9bff",
+                        "primary-dim": "#24f07e",
+                        "inverse-surface": "#fcf9f8",
+                        "error-container": "#9f0519",
+                        "surface-tint": "#3fff8b",
+                        "secondary-fixed-dim": "#c9d6de",
+                        "on-secondary-container": "#c5d2da",
+                        "on-error-container": "#ffa8a3"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-container overflow-hidden">
+<!-- Mock Background Content (Blurred Today Screen) -->
+<div class="fixed inset-0 z-0 overflow-y-auto filter blur-md grayscale-[0.2] opacity-40 pointer-events-none">
+<!-- TopAppBar Placeholder -->
+<header class="bg-[#0e0e0e] text-on-surface flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-xl" style="">person</span>
+</div>
+<h1 class="text-2xl font-bold text-[#00E676] tracking-tighter font-headline" style="">Trainlytics</h1>
+</div>
+<span class="material-symbols-outlined text-slate-400" style="">more_vert</span>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-10 pb-32">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+<div class="md:col-span-8 space-y-10">
+<section>
+<h2 class="font-headline text-5xl font-extrabold tracking-tight mb-8" style="">今日 <span class="text-primary" style="">体能</span></h2>
+<div class="bg-surface-container-low p-8 rounded-xl aspect-[16/7] flex items-end">
+<div class="w-full h-32 bg-surface-container rounded-lg"></div>
+</div>
+</section>
+</div>
+<div class="md:col-span-4 space-y-6">
+<div class="bg-surface-container-low p-6 rounded-xl h-64"></div>
+<div class="bg-surface-container-low p-6 rounded-xl h-64"></div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 bg-surface-lowest/90 backdrop-blur-md z-[100] transition-opacity"></div>
+<!-- Quick Add Bottom Sheet -->
+<div class="fixed inset-x-0 bottom-0 z-[110] flex justify-center items-end px-0 md:px-6 md:pb-6">
+<div class="bg-surface-container-low w-full max-w-2xl rounded-t-[2.5rem] md:rounded-[2.5rem] shadow-[0px_-12px_32px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-white/5 bg-surface">
+<!-- Handle -->
+<div class="w-full flex justify-center py-4">
+<div class="w-12 h-1.5 bg-outline-variant/40 rounded-full"></div>
+</div>
+<div class="px-8 pb-10 pt-2">
+<!-- Header -->
+<div class="flex justify-between items-center mb-10">
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface" style="">快速添加</h2>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-surface-variant transition-colors group" style="">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface text-xl" style="">close</span>
+</button>
+</div>
+<!-- Grid of Actions -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Record Weight -->
+<button class="group flex flex-col items-start p-6 bg-surface-container hover:bg-surface-container-high rounded-2xl transition-all duration-300 border border-white/5 hover:border-primary/20 text-left" style="">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl" data-icon="monitor_weight" style="">monitor_weight</span>
+</div>
+<span class="font-headline font-semibold text-lg text-on-surface" style="">记录体重</span>
+<p class="font-body text-xs text-on-surface-variant mt-1" style="">追踪身体成分</p>
+</button>
+<!-- Add Meal -->
+<button class="group flex flex-col items-start p-6 bg-surface-container hover:bg-surface-container-high rounded-2xl transition-all duration-300 border border-white/5 hover:border-primary/20 text-left" style="">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl" data-icon="restaurant" style="">restaurant</span>
+</div>
+<span class="font-headline font-semibold text-lg text-on-surface" style="">添加餐食</span>
+<p class="font-body text-xs text-on-surface-variant mt-1" style="">记录宏量营养素和热量</p>
+</button>
+<!-- Start Workout -->
+<button class="group flex flex-col items-start p-6 bg-surface-container hover:bg-surface-container-high rounded-2xl transition-all duration-300 border border-white/5 hover:border-primary/20 text-left" style="">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl" data-icon="fitness_center" style="">fitness_center</span>
+</div>
+<span class="font-headline font-semibold text-lg text-on-surface" style="">开始训练</span>
+<p class="font-body text-xs text-on-surface-variant mt-1" style="">开始训练课程或使用模板</p>
+</button>
+<!-- Add Metric -->
+<div class="flex flex-col items-start p-6 bg-surface-container/40 rounded-2xl border border-white/5 opacity-50 cursor-not-allowed text-left">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest/50 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant" data-icon="lock" style="">lock</span>
+</div>
+<span class="font-headline font-semibold text-lg text-on-surface-variant" style="">敬请期待</span>
+<p class="font-body text-xs text-on-surface-variant/60 mt-1" style="">更多精彩功能正在开发中</p>
+</div>
+</div>
+<!-- Footer/Secondary Action -->
+<div class="mt-8 pt-8 border-t border-white/5 flex justify-center">
+<p class="font-body text-sm text-on-surface-variant flex items-center gap-2" style=""><br></p>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Bottom Nav Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-[60] flex justify-around items-center px-4 pb-6 pt-3 bg-[#0e0e0e]/70 backdrop-blur-xl border-t border-white/5 shadow-[0px_-12px_32px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-[#3fff8b] bg-[#1a1a1a] rounded-xl px-3 py-1 transition-all" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today" style="">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide" style="">今日</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="history" style="">history</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide" style="">历史</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="analytics" style="">analytics</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide" style="">洞察</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="description" style="">description</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide" style="">模板</span>
+</a>
+</nav>
+<!-- FAB (Suppressed contextually if modal open, but rendered for visual completeness of the trigger requirement) -->
+<div class="fixed bottom-24 right-6 z-[70] md:hidden">
+<button class="w-16 h-16 rounded-2xl bg-gradient-primary text-on-primary-container shadow-[0px_8px_24px_rgba(63,255,139,0.3)] flex items-center justify-center active:scale-95 transition-all" style="">
+<span class="material-symbols-outlined text-3xl font-bold" data-icon="add" style="">add</span>
+</button>
+</div>
+</body></html>

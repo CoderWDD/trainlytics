@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manual Food Entry - Trainlytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#000000",
+              "error-dim": "#d7383b",
+              "on-secondary": "#47545a",
+              "outline": "#767575",
+              "secondary-fixed-dim": "#c9d6de",
+              "tertiary-fixed": "#8eafff",
+              "on-primary": "#005d2c",
+              "primary-dim": "#24f07e",
+              "secondary-fixed": "#d7e4ec",
+              "secondary": "#d7e4ec",
+              "inverse-primary": "#006e35",
+              "primary-container": "#13ea79",
+              "tertiary": "#6e9bff",
+              "surface-container-highest": "#262626",
+              "on-primary-container": "#004f24",
+              "on-error": "#490006",
+              "on-secondary-fixed": "#354147",
+              "secondary-dim": "#c9d6de",
+              "on-surface-variant": "#adaaaa",
+              "surface-container-low": "#131313",
+              "primary-fixed": "#3fff8b",
+              "on-primary-fixed-variant": "#006832",
+              "primary-fixed-dim": "#24f07e",
+              "on-tertiary-fixed": "#00163d",
+              "error": "#ff716c",
+              "surface-container-high": "#20201f",
+              "on-primary-fixed": "#004820",
+              "on-tertiary-fixed-variant": "#003580",
+              "on-background": "#ffffff",
+              "surface-tint": "#3fff8b",
+              "inverse-on-surface": "#565555",
+              "inverse-surface": "#fcf9f8",
+              "on-tertiary": "#001d4e",
+              "surface-bright": "#2c2c2c",
+              "on-surface": "#ffffff",
+              "surface-container": "#1a1a1a",
+              "surface": "#0e0e0e",
+              "tertiary-container": "#2778fe",
+              "on-secondary-container": "#c5d2da",
+              "background": "#0e0e0e",
+              "error-container": "#9f0519",
+              "on-error-container": "#ffa8a3",
+              "tertiary-dim": "#0f6df3",
+              "outline-variant": "#484847",
+              "surface-variant": "#262626",
+              "primary": "#3fff8b",
+              "tertiary-fixed-dim": "#77a1ff",
+              "on-secondary-fixed-variant": "#515d64",
+              "surface-dim": "#0e0e0e",
+              "secondary-container": "#3c494f",
+              "surface-container-lowest": "#000000"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+        }
+        .glass-header {
+            background: rgba(14, 14, 14, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-[#0e0e0e] flex items-center justify-between px-6 h-16">
+<div class="flex items-center gap-4">
+<button class="active:opacity-80 transition-opacity text-zinc-400">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Manrope'] font-bold tracking-tight uppercase text-zinc-400 text-sm">记录营养</h1>
+</div>
+<div class="text-xl font-black text-[#3fff8b] tracking-tighter font-headline">LOG NUTRITION</div>
+<button class="active:opacity-80 transition-opacity text-zinc-400">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<main class="px-6 mt-8 max-w-2xl mx-auto">
+<!-- Form Header Strategy: Asymmetry & Data Density -->
+<section class="mb-10">
+<div class="flex flex-col gap-2">
+<span class="text-primary font-headline font-bold text-[10px] tracking-[0.25em] uppercase">The Kinetic Lab</span>
+<h2 class="text-4xl font-headline font-extrabold tracking-tight">手动录入</h2>
+<p class="text-on-surface-variant text-sm max-w-xs leading-relaxed">输入精确的宏量营养素，保持您的巅峰表现。</p>
+</div>
+</section>
+<!-- Main Form Grid -->
+<form class="flex flex-col gap-8">
+<!-- Food Name & Weight (Primary Asymmetric Block) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 group">
+<label class="block text-[10px] font-bold tracking-[0.15em] text-on-surface-variant uppercase mb-2 ml-1">食物名称</label>
+<div class="bg-surface-container-low rounded-xl p-1 focus-within:ring-1 focus-within:ring-primary/30 transition-all">
+<input class="w-full bg-surface-container-high border-none rounded-lg text-on-surface placeholder:text-outline-variant focus:ring-0 py-4 px-5 font-semibold" placeholder="例如：燕麦片" type="text"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-[10px] font-bold tracking-[0.15em] text-on-surface-variant uppercase mb-2 ml-1">重量 (克)</label>
+<div class="bg-surface-container-low rounded-xl p-1 focus-within:ring-1 focus-within:ring-primary/30 transition-all">
+<input class="w-full bg-surface-container-high border-none rounded-lg text-on-surface placeholder:text-outline-variant focus:ring-0 py-4 px-5 font-semibold text-center" placeholder="100" type="number"/>
+</div>
+</div>
+</div>
+<!-- Macro Bento Grid (Data as Hero) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Calories -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl" data-icon="local_fire_department">local_fire_department</span>
+</div>
+<label class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">热量</label>
+<div class="flex items-baseline gap-1">
+<input class="bg-transparent border-none p-0 text-3xl font-headline font-extrabold w-full focus:ring-0 text-on-surface" placeholder="0" type="number"/>
+<span class="text-xs font-bold text-outline-variant">kcal</span>
+</div>
+</div>
+<!-- Protein -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl" data-icon="fitness_center">fitness_center</span>
+</div>
+<label class="text-[10px] font-bold tracking-widest text-tertiary uppercase">蛋白质</label>
+<div class="flex items-baseline gap-1">
+<input class="bg-transparent border-none p-0 text-3xl font-headline font-extrabold w-full focus:ring-0 text-on-surface" placeholder="0" type="number"/>
+<span class="text-xs font-bold text-outline-variant">g</span>
+</div>
+</div>
+<!-- Carbs -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl" data-icon="grain">grain</span>
+</div>
+<label class="text-[10px] font-bold tracking-widest text-primary-container uppercase">碳水</label>
+<div class="flex items-baseline gap-1">
+<input class="bg-transparent border-none p-0 text-3xl font-headline font-extrabold w-full focus:ring-0 text-on-surface" placeholder="0" type="number"/>
+<span class="text-xs font-bold text-outline-variant">g</span>
+</div>
+</div>
+<!-- Fats -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl" data-icon="water_drop">water_drop</span>
+</div>
+<label class="text-[10px] font-bold tracking-widest text-error uppercase">脂肪</label>
+<div class="flex items-baseline gap-1">
+<input class="bg-transparent border-none p-0 text-3xl font-headline font-extrabold w-full focus:ring-0 text-on-surface" placeholder="0" type="number"/>
+<span class="text-xs font-bold text-outline-variant">g</span>
+</div>
+</div>
+</div>
+<!-- Insight Section (Expansive Breathing Room) -->
+<div class="mt-4 p-6 bg-surface-container-highest rounded-xl border-l-4 border-primary/40">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<div>
+<h4 class="font-bold text-sm mb-1">精准校对</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">确保宏量营养素总量与热量密度一致（蛋白质/碳水 4kcal/g，脂肪 9kcal/g），以保证数据准确。</p>
+</div>
+</div>
+</div>
+<!-- Visual Asset -->
+<div class="rounded-2xl overflow-hidden h-32 w-full mt-4 bg-surface-container">
+<img alt="Healthy meal preparation" class="w-full h-full object-cover mix-blend-luminosity opacity-40" data-alt="Close-up of vibrant healthy food ingredients on a dark kitchen surface with soft atmospheric top lighting and dramatic shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXw0U0r12g9SdUgfQYcglDGGIcou-yLmeP2PfR0IzO5GS4BfBwjCRo_hc9Sbvgny2ypxq2COCUNhhZXLgPBSof7WO-tBwtV5I3CIPzYlOoWSFcr91B9lR8Z4VRl3VpE5x8I0qS23UMNbUPgyga1YzcdqS92wNIWWzE1N4rrhJr9Z6bhtRW8Zf6061utYhwFTs7mp_Lru-JfyNCLpVJhpqis2iizwPgUPem5kctIw48ZyZRbQOOl9Bl17i3_NkiSh7y-CFUF2j6QnY"/>
+</div>
+</form>
+</main>
+<!-- Fixed Action Footer -->
+<div class="fixed bottom-0 left-0 w-full p-6 glass-header border-t border-white/5 z-50">
+<div class="max-w-2xl mx-auto flex flex-col gap-4">
+<button class="kinetic-gradient w-full py-5 rounded-xl text-on-primary-container font-headline font-black text-sm tracking-[0.2em] uppercase shadow-[0px_12px_32px_rgba(63,255,139,0.2)] active:scale-95 transition-all">
+                保存到餐食
+            </button>
+</div>
+</div>
+<!-- Bottom Nav -->
+</body></html>

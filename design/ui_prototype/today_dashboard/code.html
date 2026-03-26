@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#000000",
+              "on-error": "#490006",
+              "surface-container-low": "#131313",
+              "outline-variant": "#484847",
+              "outline": "#767575",
+              "primary-fixed": "#3fff8b",
+              "surface": "#0e0e0e",
+              "on-secondary-fixed-variant": "#515d64",
+              "surface-container-highest": "#262626",
+              "primary-container": "#13ea79",
+              "surface-container-lowest": "#000000",
+              "on-surface": "#ffffff",
+              "secondary": "#d7e4ec",
+              "primary": "#3fff8b",
+              "on-primary-container": "#004f24",
+              "tertiary-fixed-dim": "#77a1ff",
+              "on-primary-fixed": "#004820",
+              "on-primary": "#005d2c",
+              "error": "#ff716c",
+              "secondary-dim": "#c9d6de",
+              "on-secondary": "#47545a",
+              "on-primary-fixed-variant": "#006832",
+              "error-dim": "#d7383b",
+              "tertiary-dim": "#0f6df3",
+              "surface-container-high": "#20201f",
+              "surface-dim": "#0e0e0e",
+              "surface-bright": "#2c2c2c",
+              "secondary-fixed": "#d7e4ec",
+              "tertiary-fixed": "#8eafff",
+              "on-tertiary-fixed-variant": "#003580",
+              "secondary-container": "#3c494f",
+              "primary-fixed-dim": "#24f07e",
+              "on-background": "#ffffff",
+              "inverse-on-surface": "#565555",
+              "inverse-primary": "#006e35",
+              "surface-variant": "#262626",
+              "on-tertiary-fixed": "#00163d",
+              "surface-container": "#1a1a1a",
+              "tertiary-container": "#2778fe",
+              "on-secondary-fixed": "#354147",
+              "on-tertiary": "#001d4e",
+              "on-surface-variant": "#adaaaa",
+              "background": "#0e0e0e",
+              "tertiary": "#6e9bff",
+              "primary-dim": "#24f07e",
+              "inverse-surface": "#fcf9f8",
+              "error-container": "#9f0519",
+              "surface-tint": "#3fff8b",
+              "secondary-fixed-dim": "#c9d6de",
+              "on-secondary-container": "#c5d2da",
+              "on-error-container": "#ffa8a3"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-nav {
+        background: rgba(14, 14, 14, 0.7);
+        backdrop-filter: blur(20px);
+      }
+      .primary-gradient {
+        background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-container">
+<!-- Top App Bar -->
+<header class="bg-[#0e0e0e] fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="用户头像" class="w-full h-full object-cover" data-alt="User athletic profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-xNvu9JMvSvySrvlhPqCy9jsKO8SIwZVF69Lg8siGfXuDwD8jp1hgV3_WRSJYq5tSTz4yYGqTDNcbfK6drTCKM5MY36rpc9UwV1fXtAmVGJrwwBaM9PINgQ92qSFs7XlXLUuRwVo6lKOhuo2zwGCk1-2VClndXPPd50nsMx4XzZxgTTZI5XPiRn4x4h7hjajUMMxMfNT2IWRL9K1yFKWnIlABO5AIoibfdQqsgKf2YfbZG5oz8_6MwUGngUglw0jIBIf0nK-hfGY"/>
+</div>
+<h1 class="text-2xl font-bold text-[#00E676] tracking-tighter font-headline">Trainlytics</h1>
+</div>
+<button class="text-[#00E676] hover:bg-[#1a1a1a] transition-colors p-2 rounded-lg">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto space-y-10">
+<!-- Header Section -->
+<section class="flex flex-col gap-1">
+<span class="text-primary font-headline font-bold text-4xl tracking-tight">今日</span>
+<span class="text-on-surface-variant font-medium tracking-wide text-sm">2026-03-23</span>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+<!-- Daily Summary Card (Hero Bento) -->
+<div class="md:col-span-8 bg-surface-container-low rounded-xl p-6 relative overflow-hidden">
+<div class="flex flex-col h-full justify-between gap-6">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<span class="text-xs uppercase tracking-widest text-on-surface-variant font-semibold">当前阶段</span>
+<h2 class="text-2xl font-headline font-extrabold text-on-surface">减脂期</h2>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-full flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-xs font-label font-bold text-primary">已记录 2/4</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-on-surface-variant text-sm">今日方案</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+<span class="text-lg font-headline font-semibold">训练日</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Body Stats Section -->
+<div class="md:col-span-4 bg-surface-container rounded-xl p-6 flex flex-col justify-between">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline font-bold text-on-surface">体重</h3>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                        [记录]
+                    </button>
+</div>
+<div class="flex items-baseline gap-2 mb-6">
+<span class="text-4xl font-headline font-extrabold">75.2</span>
+<span class="text-on-surface-variant font-medium">kg</span>
+</div>
+<div class="flex gap-4 pt-4 border-t border-outline-variant/20">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase text-on-surface-variant font-bold tracking-tighter">体脂率</span>
+<span class="text-sm font-semibold">18.5%</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase text-on-surface-variant font-bold tracking-tighter">BMI</span>
+<span class="text-sm font-semibold">23.1</span>
+</div>
+</div>
+</div>
+<!-- Meals Section -->
+<div class="md:col-span-5 bg-surface-container-low rounded-xl p-6 space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline font-bold">营养</h3>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+<div class="space-y-3">
+<!-- Breakfast recorded -->
+<div class="bg-surface-container-high p-4 rounded-lg flex justify-between items-center">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="restaurant">restaurant</span>
+<span class="font-semibold text-sm">早餐</span>
+</div>
+<p class="text-[11px] text-on-surface-variant">08:30 | 520 千卡</p>
+</div>
+<span class="text-xs font-bold text-tertiary">蛋白质: 35g</span>
+</div>
+<!-- Lunch placeholder -->
+<div class="bg-surface-container/50 border border-dashed border-outline-variant/30 p-4 rounded-lg flex justify-between items-center group cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="text-sm text-on-surface-variant italic">[未记录]</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">add</span>
+</div>
+<!-- Dinner placeholder -->
+<div class="flex items-center justify-between px-4 py-2 opacity-40">
+<span class="text-xs font-medium">晚餐</span>
+<span class="material-symbols-outlined text-xs">lock</span>
+</div>
+<!-- Snacks placeholder -->
+<div class="flex items-center justify-between px-4 py-2 opacity-40">
+<span class="text-xs font-medium">加餐</span>
+<span class="material-symbols-outlined text-xs">lock</span>
+</div>
+</div>
+</div>
+<!-- Training Section -->
+<div class="md:col-span-7 bg-surface-container-low rounded-xl p-6 space-y-6 flex flex-col">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h3 class="font-headline font-bold">推力日训练</h3>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-xs font-medium text-primary-fixed">进行中 | 45 分钟</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">fitness_center</span>
+</div>
+<div class="flex-grow flex items-center gap-8 py-2">
+<div class="flex flex-col">
+<span class="text-3xl font-headline font-black">5</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">动作数量</span>
+</div>
+<div class="w-px h-10 bg-outline-variant/20"></div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline font-black">15</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">已完组数</span>
+</div>
+</div>
+<button class="primary-gradient w-full py-4 rounded-xl text-on-primary-container font-headline font-extrabold tracking-tight text-sm active:scale-95 transition-all">
+                    [继续训练]
+                </button>
+</div>
+</div>
+<!-- Daily Notes -->
+<section class="bg-surface-container-low rounded-xl px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">edit_note</span>
+<span class="text-on-surface-variant text-sm font-medium">添加备注...</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">chevron_right</span>
+</section>
+</main>
+<!-- FAB -->
+<button class="fixed right-6 bottom-28 w-14 h-14 primary-gradient rounded-full shadow-[0px_12px_32px_rgba(0,0,0,0.4)] flex items-center justify-center z-40 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full z-50 glass-nav flex justify-around items-center px-4 pb-6 pt-3 shadow-[0px_-12px_32px_rgba(0,0,0,0.4)] border-t border-white/5">
+<!-- Today Active -->
+<a class="flex flex-col items-center justify-center text-[#3fff8b] bg-[#1a1a1a] rounded-xl px-3 py-1 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">今日</span>
+</a>
+<!-- History Inactive -->
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] hover:opacity-100 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">历史</span>
+</a>
+<!-- Insights Inactive -->
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] hover:opacity-100 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">分析</span>
+</a>
+<!-- Templates Inactive -->
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] hover:opacity-100 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">模板</span>
+</a>
+</nav>
+</body></html>

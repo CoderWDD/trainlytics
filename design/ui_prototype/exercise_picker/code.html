@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-Hans"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>选择动作 - Kinetic Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ff716c",
+                        "surface-tint": "#3fff8b",
+                        "on-secondary-fixed": "#354147",
+                        "secondary-container": "#3c494f",
+                        "on-surface": "#ffffff",
+                        "tertiary-fixed": "#8eafff",
+                        "surface-variant": "#262626",
+                        "on-tertiary-container": "#000000",
+                        "on-primary-container": "#004f24",
+                        "tertiary-dim": "#0f6df3",
+                        "tertiary": "#6e9bff",
+                        "surface": "#0e0e0e",
+                        "inverse-surface": "#fcf9f8",
+                        "secondary-fixed-dim": "#c9d6de",
+                        "on-secondary": "#47545a",
+                        "on-tertiary-fixed": "#00163d",
+                        "secondary": "#d7e4ec",
+                        "on-primary": "#005d2c",
+                        "primary-container": "#13ea79",
+                        "primary-dim": "#24f07e",
+                        "on-secondary-container": "#c5d2da",
+                        "surface-container": "#1a1a1a",
+                        "surface-container-low": "#131313",
+                        "secondary-dim": "#c9d6de",
+                        "on-primary-fixed-variant": "#006832",
+                        "inverse-primary": "#006e35",
+                        "outline-variant": "#484847",
+                        "primary-fixed-dim": "#24f07e",
+                        "tertiary-fixed-dim": "#77a1ff",
+                        "on-secondary-fixed-variant": "#515d64",
+                        "on-error-container": "#ffa8a3",
+                        "surface-bright": "#2c2c2c",
+                        "inverse-on-surface": "#565555",
+                        "secondary-fixed": "#d7e4ec",
+                        "on-surface-variant": "#adaaaa",
+                        "surface-container-lowest": "#000000",
+                        "on-primary-fixed": "#004820",
+                        "surface-container-high": "#20201f",
+                        "on-tertiary": "#001d4e",
+                        "on-background": "#ffffff",
+                        "background": "#0e0e0e",
+                        "surface-dim": "#0e0e0e",
+                        "tertiary-container": "#2778fe",
+                        "on-error": "#490006",
+                        "outline": "#767575",
+                        "primary": "#3fff8b",
+                        "error-dim": "#d7383b",
+                        "error-container": "#9f0519",
+                        "surface-container-highest": "#262626",
+                        "primary-fixed": "#3fff8b",
+                        "on-tertiary-fixed-variant": "#003580"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "3xl": "2.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .action-gradient { background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30 min-h-screen">
+<!-- Backdrop Overlay -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+<!-- Bottom Sheet Container -->
+<div class="fixed bottom-0 left-0 right-0 z-50 bg-surface rounded-t-3xl shadow-[0px_-24px_64px_rgba(0,0,0,0.8)] flex flex-col max-h-[92dvh] animate-in slide-in-from-bottom duration-300">
+<!-- Pull Handle -->
+<div class="flex justify-center py-4">
+<div class="w-12 h-1.5 bg-outline-variant/30 rounded-full"></div>
+</div>
+<!-- Header Section -->
+<div class="px-6 pb-4">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline font-extrabold text-3xl tracking-tight">选择动作</h2>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-surface-container-highest transition-colors active:scale-90">
+<span class="material-symbols-outlined text-on-surface" data-icon="close">close</span>
+</button>
+</div>
+<!-- Search Bar -->
+<div class="relative mb-6 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-2xl py-4 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary transition-all font-medium" placeholder="搜索动作名称..." type="text"/>
+</div>
+<!-- Categories Horizontal Scroll -->
+<div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+<button class="whitespace-nowrap px-6 py-2.5 bg-primary text-on-primary-container font-bold rounded-full text-sm">全部</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">胸部</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">背部</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">腿部</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">肩部</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">手臂</button>
+<button class="whitespace-nowrap px-6 py-2.5 bg-surface-container-high text-on-surface-variant font-bold rounded-full text-sm hover:text-on-surface transition-colors">核心</button>
+</div>
+</div>
+<!-- Scrollable Action List -->
+<div class="flex-1 overflow-y-auto px-6 py-2 space-y-3 pb-32">
+<!-- Exercise Card 1 -->
+<label class="block group cursor-pointer">
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-[0.98]">
+<div class="w-16 h-16 rounded-xl bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Exercise diagram" class="w-10 h-10 opacity-80" data-alt="stylized geometric icon of a human chest muscle group highlighted in neon green on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5hZSB2UTZAKv6wPgwxQzytunsqjH5Msrz8X_GmZyG6bke2wtClM59j1K_f7DLmCBdvnwOCGNxSe89uGuKBt52pwKveJHTdUwb84CbJ6120zu4rw1ACt6Yi4xxMh9KVZbgwrj2wYVzZu0FMfO8DDf4un-9MO0x1DxHrrjeRJW35yNPoSVTqqGULXAhQJtyHMvZaxQvQ8IFYj0VufVFRyIy7nqTYNP5_GB4SXqeFGyWFBuGHBg5c8xvWaeINMKd5RmxzMXTBR2bgSU"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-bold text-on-surface text-lg leading-tight">杠铃卧推</h3>
+<p class="text-xs font-medium text-on-surface-variant mt-1">胸部 · 复合动作</p>
+</div>
+<div class="relative w-6 h-6">
+<input class="peer hidden" type="checkbox"/>
+<div class="w-6 h-6 border-2 border-outline-variant/30 rounded-md flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined text-black text-sm scale-0 peer-checked:scale-100 transition-transform" data-icon="check" style="font-variation-settings: 'FILL' 0, 'wght' 700;">check</span>
+</div>
+</div>
+</div>
+</label>
+<!-- Exercise Card 2 -->
+<label class="block group cursor-pointer">
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-[0.98]">
+<div class="w-16 h-16 rounded-xl bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Exercise diagram" class="w-10 h-10 opacity-80" data-alt="abstract athletic icon representing movement and muscle tension in a minimalist scientific lab style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIBuO1jLkR-bOZVjRcuCvy30Cyvc4GU55z--h6mRuDATYZvS3bHcyZriGhHzcFAGxKyaFFLtjwNvVBjoLPxNLPZ9XwGkwglDldXTE1C3HQO7viXEKpOqz4sJ85fvitijf7yo63zUntfxGROUbwFQlJAWxh08-sepraQ_-1l9VDv9gSmFge_UbTVdVcL7aF_ykUdkwDp74QGcP1CP5MFEjmxA7PR8rAZC5c0omuLtTzZmI9e6BdrwQfVM_tGTD2tPMAZkUyr8M3snA"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-bold text-on-surface text-lg leading-tight">哑铃飞鸟</h3>
+<p class="text-xs font-medium text-on-surface-variant mt-1">胸部 · 孤立动作</p>
+</div>
+<div class="relative w-6 h-6">
+<input checked="" class="peer hidden" type="checkbox"/>
+<div class="w-6 h-6 border-2 border-outline-variant/30 rounded-md flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined text-black text-sm scale-0 peer-checked:scale-100 transition-transform" data-icon="check" style="font-variation-settings: 'FILL' 0, 'wght' 700;">check</span>
+</div>
+</div>
+</div>
+</label>
+<!-- Exercise Card 3 -->
+<label class="block group cursor-pointer">
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-[0.98]">
+<div class="w-16 h-16 rounded-xl bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Exercise diagram" class="w-10 h-10 opacity-80" data-alt="high contrast technical diagram of upper back muscle anatomy for professional sports performance application" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD37X1EZ6nK9XAQjktIfocIu_EUqo7f6Mr8VXS7MRQ-thNPF9MoFAboz4Q6u5qPMg0x_9Dz3tW3u0nup1PsPbK4dGOXxkXJA8BV2Y0pKC8roPxonPGmB24vEp_FJowPjgm7IZfpN4wtnzDNYu0X7ilFakSo7BKoWy72XYqkNrAMkFdLXUdFFC36EH9DZi0G1R96wSXwxT4pZ4u8_z1Pc64CKOIvXHbTiJ4_UVresghygWq_uzGflLG5tjZUtlx_tczfjvSU9Kq5Pos"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-bold text-on-surface text-lg leading-tight">引体向上</h3>
+<p class="text-xs font-medium text-on-surface-variant mt-1">背部 · 自重动作</p>
+</div>
+<div class="relative w-6 h-6">
+<input class="peer hidden" type="checkbox"/>
+<div class="w-6 h-6 border-2 border-outline-variant/30 rounded-md flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined text-black text-sm scale-0 peer-checked:scale-100 transition-transform" data-icon="check" style="font-variation-settings: 'FILL' 0, 'wght' 700;">check</span>
+</div>
+</div>
+</div>
+</label>
+<!-- Exercise Card 4 -->
+<label class="block group cursor-pointer">
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all active:scale-[0.98]">
+<div class="w-16 h-16 rounded-xl bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Exercise diagram" class="w-10 h-10 opacity-80" data-alt="minimalist icon of a barbell squat movement showing kinetic energy lines and joint alignment indicators" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB01lT-tzYIcZvlb-P3sUpzjhzr2uiH4sV2iHJzqjTle-IWTmj2rmuTBZRw-RGyH-WeB6bSDwdFG_4n2ORDGRNYSxZijuiWeKSD_ySPJHqrwoWyb_iQaZcD6l_QnF4fOLRuYzLq0ME2k-jZCoaeEwSQp2CNbJpWY85RSyBHLvyLDRILAf7IKEQDMj1A3E1EKP0-7DJ8MtGGB8bsfUmU5T6HGgNWwtDqN1D0gV_pWgHUVvzQGLJDdwxnBw_KH7Fh0FZQB7OkrdEfDkE"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-bold text-on-surface text-lg leading-tight">深蹲</h3>
+<p class="text-xs font-medium text-on-surface-variant mt-1">腿部 · 复合动作</p>
+</div>
+<div class="relative w-6 h-6">
+<input class="peer hidden" type="checkbox"/>
+<div class="w-6 h-6 border-2 border-outline-variant/30 rounded-md flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined text-black text-sm scale-0 peer-checked:scale-100 transition-transform" data-icon="check" style="font-variation-settings: 'FILL' 0, 'wght' 700;">check</span>
+</div>
+</div>
+</div>
+</label>
+</div>
+<!-- Sticky Footer -->
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-surface-container-low/80 backdrop-blur-lg border-t border-outline-variant/10 rounded-b-none">
+<button class="w-full h-16 rounded-2xl bg-gradient-to-br from-[#3fff8b] to-[#13ea79] text-black font-extrabold text-lg shadow-[0_8px_24px_rgba(63,255,139,0.3)] flex items-center justify-center gap-2 active:scale-[0.97] transition-all">
+<span>添加所选 (1)</span>
+<span class="material-symbols-outlined font-bold" data-icon="add" style="font-variation-settings: 'wght' 700;">add</span>
+</button>
+</div>
+</div>
+<!-- Background Content (Simulated for visual context) -->
+<main class="max-w-screen-xl mx-auto p-6 blur-sm pointer-events-none">
+<header class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">fitness_center</span>
+<h1 class="font-headline font-bold text-2xl text-primary">Kinetic Lab</h1>
+</div>
+</header>
+<div class="bg-surface-container-low rounded-3xl p-8 aspect-video flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-6xl mb-4">settings</span>
+<p class="font-medium">后台训练计划内容...</p>
+</div>
+</main>
+</body></html>

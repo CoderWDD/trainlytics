@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trainlytics — Material Design 3 Color Reference</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['DM Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --seed: #00E676;
+      --bg: #0A0C0A;
+      --surface: #131613;
+      --surface-raised: #1A1D1A;
+      --surface-elevated: #222622;
+      --border: #2A2E2A;
+      --text-primary: #E8EAE5;
+      --text-secondary: #9A9E98;
+      --text-tertiary: #5C605C;
+      --accent: #00E676;
+      --accent-dim: #00C864;
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+    /* Color swatch */
+    .swatch {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Copy toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      z-index: 1000;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      backdrop-filter: blur(12px);
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Tone bar */
+    .tone-bar {
+      transition: transform 0.15s ease;
+      cursor: pointer;
+    }
+    .tone-bar:hover {
+      transform: scaleY(1.3);
+      z-index: 10;
+    }
+
+    /* Section reveal */
+    .section-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .section-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Theme toggle */
+    .theme-pill {
+      transition: all 0.25s ease;
+    }
+    .theme-pill.active {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+    }
+
+    /* Harmony ring */
+    .harmony-dot {
+      transition: transform 0.2s ease;
+    }
+    .harmony-dot:hover {
+      transform: scale(1.15);
+    }
+
+    /* Noise overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Hero gradient */
+    .hero-glow {
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0, 230, 118, 0.08) 0%, transparent 70%);
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.15); }
+      50% { box-shadow: 0 0 40px rgba(0, 230, 118, 0.3); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .float-anim { animation: float 4s ease-in-out infinite; }
+    .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+  </style>
+</head>
+<body class="min-h-screen relative">
+  <div class="noise-overlay"></div>
+  
+  <!-- Toast notification -->
+  <div id="toast" class="toast font-mono">Copied!</div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-xl" style="background: rgba(10,12,10,0.85); border-color: var(--border);">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-black text-sm" style="background: var(--seed);">T</div>
+        <span class="font-semibold text-lg" style="color: var(--text-primary);">Color Reference</span>
+        <span class="text-xs px-2 py-0.5 rounded-full font-mono" style="background: var(--surface-elevated); color: var(--text-tertiary);">MD3</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="scrollToSection('primary')" class="text-sm px-3 py-1.5 rounded-lg hover:bg-[var(--surface-elevated)] transition-colors" style="color: var(--text-secondary);">Colors</button>
+        <button onclick="scrollToSection('surfaces')" class="text-sm px-3 py-1.5 rounded-lg hover:bg-[var(--surface-elevated)] transition-colors" style="color: var(--text-secondary);">Surfaces</button>
+        <button onclick="scrollToSection('harmonies')" class="text-sm px-3 py-1.5 rounded-lg hover:bg-[var(--surface-elevated)] transition-colors" style="color: var(--text-secondary);">Harmonies</button>
+        <button onclick="scrollToSection('tonal')" class="text-sm px-3 py-1.5 rounded-lg hover:bg-[var(--surface-elevated)] transition-colors" style="color: var(--text-secondary);">Tonal</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative z-10 pt-16">
+    
+    <!-- Hero -->
+    <section class="hero-glow">
+      <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
+          <div class="flex-1">
+            <p class="text-sm font-mono uppercase tracking-widest mb-4" style="color: var(--accent);">Material Design 3</p>
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-4" style="color: var(--text-primary);">
+              Trainlytics<br>
+              <span style="color: var(--accent);">Color System</span>
+            </h1>
+            <p class="text-lg max-w-xl leading-relaxed" style="color: var(--text-secondary);">
+              Complete Material You color tokens derived from <span class="font-mono font-semibold" style="color: var(--text-primary);">#00E676</span>. 
+              Covers light &amp; dark themes, tonal palettes, surface hierarchies, and color harmonies.
+            </p>
+          </div>
+          <div class="flex items-center gap-4 float-anim">
+            <div class="w-32 h-32 rounded-3xl pulse-glow flex items-center justify-center" style="background: var(--seed);">
+              <span class="font-mono font-bold text-xl text-black/80">#00E676</span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <div class="w-20 h-20 rounded-2xl" style="background: #006D35;"></div>
+              <div class="w-20 h-20 rounded-2xl" style="background: #62FF96;"></div>
+              <div class="w-20 h-20 rounded-2xl" style="background: #3A656E;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Theme Switcher -->
+    <section class="border-b" style="border-color: var(--border);">
+      <div class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+        <p class="text-sm font-medium" style="color: var(--text-secondary);">Preview Theme</p>
+        <div class="flex gap-1 p-1 rounded-xl" style="background: var(--surface-raised);">
+          <button onclick="setTheme('light')" id="btn-light" class="theme-pill px-4 py-2 rounded-lg text-sm font-medium active">
+            ☀ Light
+          </button>
+          <button onclick="setTheme('dark')" id="btn-dark" class="theme-pill px-4 py-2 rounded-lg text-sm font-medium" style="color: var(--text-secondary);">
+            ● Dark
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Primary / Secondary / Tertiary / Error Roles -->
+    <section id="primary" class="section-reveal">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-6 rounded-full" style="background: var(--accent);"></div>
+          <h2 class="text-2xl font-bold">Color Roles</h2>
+        </div>
+        <p class="text-sm mb-10 ml-4" style="color: var(--text-secondary);">Semantic color tokens for primary, secondary, tertiary, and error — light &amp; dark</p>
+
+        <div id="color-roles-container"></div>
+      </div>
+    </section>
+
+    <!-- Surface & Neutral Roles -->
+    <section id="surfaces" class="section-reveal">
+      <div class="max-w-7xl mx-auto px-6 py-16 border-t" style="border-color: var(--border);">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-6 rounded-full" style="background: var(--accent);"></div>
+          <h2 class="text-2xl font-bold">Neutral &amp; Surface</h2>
+        </div>
+        <p class="text-sm mb-10 ml-4" style="color: var(--text-secondary);">Backgrounds, surfaces, outlines, and inverse colors</p>
+
+        <div id="surface-roles-container"></div>
+      </div>
+    </section>
+
+    <!-- Surface Elevation -->
+    <section class="section-reveal">
+      <div class="max-w-7xl mx-auto px-6 py-16 border-t" style="border-color: var(--border);">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-6 rounded-full" style="background: var(--accent);"></div>
+          <h2 class="text-2xl font-bold">Surface Elevation Hierarchy</h2>
+        </div>
+        <p class="text-sm mb-10 ml-4" style="color: var(--text-secondary);">How surface tones map to elevation levels in light &amp; dark themes</p>
+
+        <div id="elevation-container"></div>
+      </div>
+    </section>
+
+    <!-- Color Harmonies -->
+    <section id="harmonies" class="section-reveal">
+      <div class="max-w-7xl mx-auto px-6 py-16 border-t" style="border-color: var(--border);">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-6 rounded-full" style="background: var(--accent);"></div>
+          <h2 class="text-2xl font-bold">Color Harmonies</h2>
+        </div>
+        <p class="text-sm mb-10 ml-4" style="color: var(--text-secondary);">Derived from seed #00E676 (H:153° S:100% L:45%) — shows how M3 chooses Secondary &amp; Tertiary hues</p>
+
+        <div id="harmonies-container"></div>
+      </div>
+    </section>
+
+    <!-- Tonal Palettes -->
+    <section id="tonal" class="section-reveal">
+      <div class="max-w-7xl mx-auto px-6 py-16 border-t" style="border-color: var(--border);">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-1 h-6 rounded-full" style="background: var(--accent);"></div>
+          <h2 class="text-2xl font-bold">Tonal Palettes</h2>
+        </div>
+        <p class="text-sm mb-10 ml-4" style="color: var(--text-secondary);">Full tonal ranges (tone 0–100) for each palette — click any tone to copy</p>
+
+        <div id="tonal-container"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t py-12 mt-8" style="border-color: var(--border);">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm" style="color: var(--text-tertiary);">
+          Generated with <span class="font-mono">@material/material-color-utilities</span> v0.2.7
+        </p>
+        <p class="text-sm font-mono" style="color: var(--text-tertiary);">
+          Seed: #00E676 &middot; Trainlytics Design System
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ─── Color Data (embedded from generated JSON) ───
+    const COLOR_DATA = {"seedColor":"#00E676","generatedAt":"2026-03-26T15:46:45.670Z","algorithm":"Material Design 3 (Material You) Tonal Palette System","source":"@material/material-color-utilities v0.2.7","light":{"primary":{"hex":"#006D35","argb":4278218037,"rgb":{"r":0,"g":109,"b":53},"hsl":{"h":149,"s":100,"l":21},"cssRGB":"rgb(0, 109, 53)","cssHSL":"hsl(149, 100%, 21%)","description":"Prominent UI elements, FABs, active states"},"onPrimary":{"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)","description":"Text/icons on primary-colored surfaces"},"primaryContainer":{"hex":"#62FF96","argb":4284678038,"rgb":{"r":98,"g":255,"b":150},"hsl":{"h":140,"s":100,"l":69},"cssRGB":"rgb(98, 255, 150)","cssHSL":"hsl(140, 100%, 69%)","description":"Containers with subtle primary tint"},"onPrimaryContainer":{"hex":"#00210B","argb":4278198539,"rgb":{"r":0,"g":33,"b":11},"hsl":{"h":140,"s":100,"l":6},"cssRGB":"rgb(0, 33, 11)","cssHSL":"hsl(140, 100%, 6%)","description":"Text/icons inside primary containers"},"secondary":{"hex":"#506352","argb":4283458386,"rgb":{"r":80,"g":99,"b":82},"hsl":{"h":126,"s":11,"l":35},"cssRGB":"rgb(80, 99, 82)","cssHSL":"hsl(126, 11%, 35%)","description":"Supporting UI elements, filters, chips"},"onSecondary":{"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)","description":"Text/icons on secondary surfaces"},"secondaryContainer":{"hex":"#D3E8D2","argb":4292077778,"rgb":{"r":211,"g":232,"b":210},"hsl":{"h":117,"s":32,"l":87},"cssRGB":"rgb(211, 232, 210)","cssHSL":"hsl(117, 32%, 87%)","description":"Containers with secondary tint"},"onSecondaryContainer":{"hex":"#0E1F12","argb":4279115538,"rgb":{"r":14,"g":31,"b":18},"hsl":{"h":134,"s":38,"l":9},"cssRGB":"rgb(14, 31, 18)","cssHSL":"hsl(134, 38%, 9%)","description":"Text/icons inside secondary containers"},"tertiary":{"hex":"#3A656E","argb":4282017134,"rgb":{"r":58,"g":101,"b":110},"hsl":{"h":190,"s":31,"l":33},"cssRGB":"rgb(58, 101, 110)","cssHSL":"hsl(190, 31%, 33%)","description":"Accent elements, decorative highlights"},"onTertiary":{"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)","description":"Text/icons on tertiary surfaces"},"tertiaryContainer":{"hex":"#BDEAF5","argb":4290636533,"rgb":{"r":189,"g":234,"b":245},"hsl":{"h":192,"s":74,"l":85},"cssRGB":"rgb(189, 234, 245)","cssHSL":"hsl(192, 74%, 85%)","description":"Containers with tertiary tint"},"onTertiaryContainer":{"hex":"#001F25","argb":4278198053,"rgb":{"r":0,"g":31,"b":37},"hsl":{"h":190,"s":100,"l":7},"cssRGB":"rgb(0, 31, 37)","cssHSL":"hsl(190, 100%, 7%)","description":"Text/icons inside tertiary containers"},"error":{"hex":"#BA1A1A","argb":4290386458,"rgb":{"r":186,"g":26,"b":26},"hsl":{"h":0,"s":75,"l":42},"cssRGB":"rgb(186, 26, 26)","cssHSL":"hsl(0, 75%, 42%)","description":"Error states, destructive actions"},"onError":{"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)","description":"Text/icons on error surfaces"},"errorContainer":{"hex":"#FFDAD6","argb":4294957782,"rgb":{"r":255,"g":218,"b":214},"hsl":{"h":6,"s":100,"l":92},"cssRGB":"rgb(255, 218, 214)","cssHSL":"hsl(6, 100%, 92%)","description":"Error message containers"},"onErrorContainer":{"hex":"#410002","argb":4282449922,"rgb":{"r":65,"g":0,"b":2},"hsl":{"h":358,"s":100,"l":13},"cssRGB":"rgb(65, 0, 2)","cssHSL":"hsl(358, 100%, 13%)","description":"Text/icons inside error containers"},"background":{"hex":"#FCFDF7","argb":4294770167,"rgb":{"r":252,"g":253,"b":247},"hsl":{"h":70,"s":60,"l":98},"cssRGB":"rgb(252, 253, 247)","cssHSL":"hsl(70, 60%, 98%)","description":"Page/screen background"},"onBackground":{"hex":"#191C19","argb":4279835673,"rgb":{"r":25,"g":28,"b":25},"hsl":{"h":120,"s":6,"l":10},"cssRGB":"rgb(25, 28, 25)","cssHSL":"hsl(120, 6%, 10%)","description":"Default text color on background"},"surface":{"hex":"#FCFDF7","argb":4294770167,"rgb":{"r":252,"g":253,"b":247},"hsl":{"h":70,"s":60,"l":98},"cssRGB":"rgb(252, 253, 247)","cssHSL":"hsl(70, 60%, 98%)","description":"Cards, sheets, dialogs, menus"},"onSurface":{"hex":"#191C19","argb":4279835673,"rgb":{"r":25,"g":28,"b":25},"hsl":{"h":120,"s":6,"l":10},"cssRGB":"rgb(25, 28, 25)","cssHSL":"hsl(120, 6%, 10%)","description":"Text/icons on surface elements"},"surfaceVariant":{"hex":"#DDE5DA","argb":4292732378,"rgb":{"r":221,"g":229,"b":218},"hsl":{"h":104,"s":17,"l":88},"cssRGB":"rgb(221, 229, 218)","cssHSL":"hsl(104, 17%, 88%)","description":"Subtly tinted surface for variety"},"onSurfaceVariant":{"hex":"#414941","argb":4282468673,"rgb":{"r":65,"g":73,"b":65},"hsl":{"h":120,"s":6,"l":27},"cssRGB":"rgb(65, 73, 65)","cssHSL":"hsl(120, 6%, 27%)","description":"Text on surface variant"},"outline":{"hex":"#717970","argb":4285626736,"rgb":{"r":113,"g":121,"b":112},"hsl":{"h":113,"s":4,"l":46},"cssRGB":"rgb(113, 121, 112)","cssHSL":"hsl(113, 4%, 46%)","description":"Borders, dividers, focus rings"},"outlineVariant":{"hex":"#C1C9BF","argb":4290890175,"rgb":{"r":193,"g":201,"b":191},"hsl":{"h":108,"s":8,"l":77},"cssRGB":"rgb(193, 201, 191)","cssHSL":"hsl(108, 8%, 77%)","description":"Subtle borders, disabled indicators"},"shadow":{"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)","description":"Drop shadow color"},"scrim":{"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)","description":"Scrim behind dialogs/bottom sheets"},"inverseSurface":{"hex":"#2E312E","argb":4281217326,"rgb":{"r":46,"g":49,"b":46},"hsl":{"h":120,"s":3,"l":19},"cssRGB":"rgb(46, 49, 46)","cssHSL":"hsl(120, 3%, 19%)","description":"Inverse background (splash, hero)"},"inverseOnSurface":{"hex":"#F0F1EC","argb":4293980652,"rgb":{"r":240,"g":241,"b":236},"hsl":{"h":72,"s":15,"l":94},"cssRGB":"rgb(240, 241, 236)","cssHSL":"hsl(72, 15%, 94%)","description":"Text on inverse surface"},"inversePrimary":{"hex":"#00E475","argb":4278248565,"rgb":{"r":0,"g":228,"b":117},"hsl":{"h":151,"s":100,"l":45},"cssRGB":"rgb(0, 228, 117)","cssHSL":"hsl(151, 100%, 45%)","description":"Primary in inverse surface context"},"surfaceDim":{"hex":"#D9DBD5","argb":4292467669,"rgb":{"r":217,"g":219,"b":213},"hsl":{"h":80,"s":8,"l":85},"cssRGB":"rgb(217, 219, 213)","cssHSL":"hsl(80, 8%, 85%)","description":"Dimmed surface (scrollbar shadows)"},"surfaceBright":{"hex":"#F9FAF4","argb":4294572788,"rgb":{"r":249,"g":250,"b":244},"hsl":{"h":70,"s":37,"l":97},"cssRGB":"rgb(249, 250, 244)","cssHSL":"hsl(70, 37%, 97%)","description":"Bright surface (light theme only)"},"surfaceContainerLowest":{"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)","description":"Lowest elevation container"},"surfaceContainerLow":{"hex":"#F3F4EF","argb":4294178031,"rgb":{"r":243,"g":244,"b":239},"hsl":{"h":72,"s":19,"l":95},"cssRGB":"rgb(243, 244, 239)","cssHSL":"hsl(72, 19%, 95%)","description":"Low elevation container"},"surfaceContainer":{"hex":"#EDEEE9","argb":4293783273,"rgb":{"r":237,"g":238,"b":233},"hsl":{"h":72,"s":13,"l":92},"cssRGB":"rgb(237, 238, 233)","cssHSL":"hsl(72, 13%, 92%)","description":"Default elevation container"},"surfaceContainerHigh":{"hex":"#E7E9E3","argb":4293388771,"rgb":{"r":231,"g":233,"b":227},"hsl":{"h":80,"s":12,"l":90},"cssRGB":"rgb(231, 233, 227)","cssHSL":"hsl(80, 12%, 90%)","description":"High elevation container"},"surfaceContainerHighest":{"hex":"#E2E3DE","argb":4293059550,"rgb":{"r":226,"g":227,"b":222},"hsl":{"h":72,"s":8,"l":88},"cssRGB":"rgb(226, 227, 222)","cssHSL":"hsl(72, 8%, 88%)","description":"Highest elevation container"},"surfaceTint":{"hex":"#006D35","argb":4278218037,"rgb":{"r":0,"g":109,"b":53},"hsl":{"h":149,"s":100,"l":21},"cssRGB":"rgb(0, 109, 53)","cssHSL":"hsl(149, 100%, 21%)","description":"Tint overlay for elevated surfaces"}},"dark":{"primary":{"hex":"#00E475","argb":4278248565,"rgb":{"r":0,"g":228,"b":117},"hsl":{"h":151,"s":100,"l":45},"cssRGB":"rgb(0, 228, 117)","cssHSL":"hsl(151, 100%, 45%)","description":"Prominent UI elements, FABs, active states"},"onPrimary":{"hex":"#003918","argb":4278204696,"rgb":{"r":0,"g":57,"b":24},"hsl":{"h":145,"s":100,"l":11},"cssRGB":"rgb(0, 57, 24)","cssHSL":"hsl(145, 100%, 11%)","description":"Text/icons on primary-colored surfaces"},"primaryContainer":{"hex":"#005226","argb":4278211110,"rgb":{"r":0,"g":82,"b":38},"hsl":{"h":148,"s":100,"l":16},"cssRGB":"rgb(0, 82, 38)","cssHSL":"hsl(148, 100%, 16%)","description":"Containers with subtle primary tint"},"onPrimaryContainer":{"hex":"#62FF96","argb":4284678038,"rgb":{"r":98,"g":255,"b":150},"hsl":{"h":140,"s":100,"l":69},"cssRGB":"rgb(98, 255, 150)","cssHSL":"hsl(140, 100%, 69%)","description":"Text/icons inside primary containers"},"secondary":{"hex":"#B7CCB7","argb":4290235575,"rgb":{"r":183,"g":204,"b":183},"hsl":{"h":120,"s":17,"l":76},"cssRGB":"rgb(183, 204, 183)","cssHSL":"hsl(120, 17%, 76%)","description":"Supporting UI elements, filters, chips"},"onSecondary":{"hex":"#233426","argb":4280497190,"rgb":{"r":35,"g":52,"b":38},"hsl":{"h":131,"s":20,"l":17},"cssRGB":"rgb(35, 52, 38)","cssHSL":"hsl(131, 20%, 17%)","description":"Text/icons on secondary surfaces"},"secondaryContainer":{"hex":"#394B3B","argb":4281944891,"rgb":{"r":57,"g":75,"b":59},"hsl":{"h":127,"s":14,"l":26},"cssRGB":"rgb(57, 75, 59)","cssHSL":"hsl(127, 14%, 26%)","description":"Containers with secondary tint"},"onSecondaryContainer":{"hex":"#D3E8D2","argb":4292077778,"rgb":{"r":211,"g":232,"b":210},"hsl":{"h":117,"s":32,"l":87},"cssRGB":"rgb(211, 232, 210)","cssHSL":"hsl(117, 32%, 87%)","description":"Text/icons inside secondary containers"},"tertiary":{"hex":"#A2CED8","argb":4288859864,"rgb":{"r":162,"g":206,"b":216},"hsl":{"h":191,"s":41,"l":74},"cssRGB":"rgb(162, 206, 216)","cssHSL":"hsl(191, 41%, 74%)","description":"Accent elements, decorative highlights"},"onTertiary":{"hex":"#01363E","argb":4278269502,"rgb":{"r":1,"g":54,"b":62},"hsl":{"h":188,"s":97,"l":12},"cssRGB":"rgb(1, 54, 62)","cssHSL":"hsl(188, 97%, 12%)","description":"Text/icons on tertiary surfaces"},"tertiaryContainer":{"hex":"#204D56","argb":4280307030,"rgb":{"r":32,"g":77,"b":86},"hsl":{"h":190,"s":46,"l":23},"cssRGB":"rgb(32, 77, 86)","cssHSL":"hsl(190, 46%, 23%)","description":"Containers with tertiary tint"},"onTertiaryContainer":{"hex":"#BDEAF5","argb":4290636533,"rgb":{"r":189,"g":234,"b":245},"hsl":{"h":192,"s":74,"l":85},"cssRGB":"rgb(189, 234, 245)","cssHSL":"hsl(192, 74%, 85%)","description":"Text/icons inside tertiary containers"},"error":{"hex":"#FFB4AB","argb":4294948011,"rgb":{"r":255,"g":180,"b":171},"hsl":{"h":6,"s":100,"l":84},"cssRGB":"rgb(255, 180, 171)","cssHSL":"hsl(6, 100%, 84%)","description":"Error states, destructive actions"},"onError":{"hex":"#690005","argb":4285071365,"rgb":{"r":105,"g":0,"b":5},"hsl":{"h":357,"s":100,"l":21},"cssRGB":"rgb(105, 0, 5)","cssHSL":"hsl(357, 100%, 21%)","description":"Text/icons on error surfaces"},"errorContainer":{"hex":"#93000A","argb":4287823882,"rgb":{"r":147,"g":0,"b":10},"hsl":{"h":356,"s":100,"l":29},"cssRGB":"rgb(147, 0, 10)","cssHSL":"hsl(356, 100%, 29%)","description":"Error message containers"},"onErrorContainer":{"hex":"#FFB4AB","argb":4294948011,"rgb":{"r":255,"g":180,"b":171},"hsl":{"h":6,"s":100,"l":84},"cssRGB":"rgb(255, 180, 171)","cssHSL":"hsl(6, 100%, 84%)","description":"Text/icons inside error containers"},"background":{"hex":"#191C19","argb":4279835673,"rgb":{"r":25,"g":28,"b":25},"hsl":{"h":120,"s":6,"l":10},"cssRGB":"rgb(25, 28, 25)","cssHSL":"hsl(120, 6%, 10%)","description":"Page/screen background"},"onBackground":{"hex":"#E2E3DE","argb":4293059550,"rgb":{"r":226,"g":227,"b":222},"hsl":{"h":72,"s":8,"l":88},"cssRGB":"rgb(226, 227, 222)","cssHSL":"hsl(72, 8%, 88%)","description":"Default text color on background"},"surface":{"hex":"#191C19","argb":4279835673,"rgb":{"r":25,"g":28,"b":25},"hsl":{"h":120,"s":6,"l":10},"cssRGB":"rgb(25, 28, 25)","cssHSL":"hsl(120, 6%, 10%)","description":"Cards, sheets, dialogs, menus"},"onSurface":{"hex":"#E2E3DE","argb":4293059550,"rgb":{"r":226,"g":227,"b":222},"hsl":{"h":72,"s":8,"l":88},"cssRGB":"rgb(226, 227, 222)","cssHSL":"hsl(72, 8%, 88%)","description":"Text/icons on surface elements"},"surfaceVariant":{"hex":"#414941","argb":4282468673,"rgb":{"r":65,"g":73,"b":65},"hsl":{"h":120,"s":6,"l":27},"cssRGB":"rgb(65, 73, 65)","cssHSL":"hsl(120, 6%, 27%)","description":"Subtly tinted surface for variety"},"onSurfaceVariant":{"hex":"#C1C9BF","argb":4290890175,"rgb":{"r":193,"g":201,"b":191},"hsl":{"h":108,"s":8,"l":77},"cssRGB":"rgb(193, 201, 191)","cssHSL":"hsl(108, 8%, 77%)","description":"Text on surface variant"},"outline":{"hex":"#8B938A","argb":4287337354,"rgb":{"r":139,"g":147,"b":138},"hsl":{"h":113,"s":4,"l":56},"cssRGB":"rgb(139, 147, 138)","cssHSL":"hsl(113, 4%, 56%)","description":"Borders, dividers, focus rings"},"outlineVariant":{"hex":"#414941","argb":4282468673,"rgb":{"r":65,"g":73,"b":65},"hsl":{"h":120,"s":6,"l":27},"cssRGB":"rgb(65, 73, 65)","cssHSL":"hsl(120, 6%, 27%)","description":"Subtle borders, disabled indicators"},"shadow":{"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)","description":"Drop shadow color"},"scrim":{"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)","description":"Scrim behind dialogs/bottom sheets"},"inverseSurface":{"hex":"#E2E3DE","argb":4293059550,"rgb":{"r":226,"g":227,"b":222},"hsl":{"h":72,"s":8,"l":88},"cssRGB":"rgb(226, 227, 222)","cssHSL":"hsl(72, 8%, 88%)","description":"Inverse background (splash, hero)"},"inverseOnSurface":{"hex":"#2E312E","argb":4281217326,"rgb":{"r":46,"g":49,"b":46},"hsl":{"h":120,"s":3,"l":19},"cssRGB":"rgb(46, 49, 46)","cssHSL":"hsl(120, 3%, 19%)","description":"Text on inverse surface"},"inversePrimary":{"hex":"#006D35","argb":4278218037,"rgb":{"r":0,"g":109,"b":53},"hsl":{"h":149,"s":100,"l":21},"cssRGB":"rgb(0, 109, 53)","cssHSL":"hsl(149, 100%, 21%)","description":"Primary in inverse surface context"},"surfaceDim":{"hex":"#111411","argb":4279309329,"rgb":{"r":17,"g":20,"b":17},"hsl":{"h":120,"s":8,"l":7},"cssRGB":"rgb(17, 20, 17)","cssHSL":"hsl(120, 8%, 7%)","description":"Dimmed surface (scrollbar shadows)"},"surfaceBright":{"hex":"#373A36","argb":4281809462,"rgb":{"r":55,"g":58,"b":54},"hsl":{"h":105,"s":4,"l":22},"cssRGB":"rgb(55, 58, 54)","cssHSL":"hsl(105, 4%, 22%)","description":"Bright surface (light theme only)"},"surfaceContainerLowest":{"hex":"#0C0F0C","argb":4278980364,"rgb":{"r":12,"g":15,"b":12},"hsl":{"h":120,"s":11,"l":5},"cssRGB":"rgb(12, 15, 12)","cssHSL":"hsl(120, 11%, 5%)","description":"Lowest elevation container"},"surfaceContainerLow":{"hex":"#191C19","argb":4279835673,"rgb":{"r":25,"g":28,"b":25},"hsl":{"h":120,"s":6,"l":10},"cssRGB":"rgb(25, 28, 25)","cssHSL":"hsl(120, 6%, 10%)","description":"Low elevation container"},"surfaceContainer":{"hex":"#1E201D","argb":4280164381,"rgb":{"r":30,"g":32,"b":29},"hsl":{"h":100,"s":5,"l":12},"cssRGB":"rgb(30, 32, 29)","cssHSL":"hsl(100, 5%, 12%)","description":"Default elevation container"},"surfaceContainerHigh":{"hex":"#282B27","argb":4280822567,"rgb":{"r":40,"g":43,"b":39},"hsl":{"h":105,"s":5,"l":16},"cssRGB":"rgb(40, 43, 39)","cssHSL":"hsl(105, 5%, 16%)","description":"High elevation container"},"surfaceContainerHighest":{"hex":"#333532","argb":4281546034,"rgb":{"r":51,"g":53,"b":50},"hsl":{"h":100,"s":3,"l":20},"cssRGB":"rgb(51, 53, 50)","cssHSL":"hsl(100, 3%, 20%)","description":"Highest elevation container"},"surfaceTint":{"hex":"#00E475","argb":4278248565,"rgb":{"r":0,"g":228,"b":117},"hsl":{"h":151,"s":100,"l":45},"cssRGB":"rgb(0, 228, 117)","cssHSL":"hsl(151, 100%, 45%)","description":"Tint overlay for elevated surfaces"}},"tonalPalettes":{"primary":[{"tone":0,"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)"},{"tone":5,"hex":"#001506","argb":4278195462,"rgb":{"r":0,"g":21,"b":6},"hsl":{"h":137,"s":100,"l":4},"cssRGB":"rgb(0, 21, 6)","cssHSL":"hsl(137, 100%, 4%)"},{"tone":10,"hex":"#00210B","argb":4278198539,"rgb":{"r":0,"g":33,"b":11},"hsl":{"h":140,"s":100,"l":6},"cssRGB":"rgb(0, 33, 11)","cssHSL":"hsl(140, 100%, 6%)"},{"tone":15,"hex":"#002D12","argb":4278201618,"rgb":{"r":0,"g":45,"b":18},"hsl":{"h":144,"s":100,"l":9},"cssRGB":"rgb(0, 45, 18)","cssHSL":"hsl(144, 100%, 9%)"},{"tone":20,"hex":"#003918","argb":4278204696,"rgb":{"r":0,"g":57,"b":24},"hsl":{"h":145,"s":100,"l":11},"cssRGB":"rgb(0, 57, 24)","cssHSL":"hsl(145, 100%, 11%)"},{"tone":25,"hex":"#00451F","argb":4278207775,"rgb":{"r":0,"g":69,"b":31},"hsl":{"h":147,"s":100,"l":14},"cssRGB":"rgb(0, 69, 31)","cssHSL":"hsl(147, 100%, 14%)"},{"tone":30,"hex":"#005226","argb":4278211110,"rgb":{"r":0,"g":82,"b":38},"hsl":{"h":148,"s":100,"l":16},"cssRGB":"rgb(0, 82, 38)","cssHSL":"hsl(148, 100%, 16%)"},{"tone":35,"hex":"#00602D","argb":4278214701,"rgb":{"r":0,"g":96,"b":45},"hsl":{"h":148,"s":100,"l":19},"cssRGB":"rgb(0, 96, 45)","cssHSL":"hsl(148, 100%, 19%)"},{"tone":40,"hex":"#006D35","argb":4278218037,"rgb":{"r":0,"g":109,"b":53},"hsl":{"h":149,"s":100,"l":21},"cssRGB":"rgb(0, 109, 53)","cssHSL":"hsl(149, 100%, 21%)"},{"tone":45,"hex":"#007B3C","argb":4278221628,"rgb":{"r":0,"g":123,"b":60},"hsl":{"h":149,"s":100,"l":24},"cssRGB":"rgb(0, 123, 60)","cssHSL":"hsl(149, 100%, 24%)"},{"tone":50,"hex":"#008944","argb":4278225220,"rgb":{"r":0,"g":137,"b":68},"hsl":{"h":150,"s":100,"l":27},"cssRGB":"rgb(0, 137, 68)","cssHSL":"hsl(150, 100%, 27%)"},{"tone":55,"hex":"#00984C","argb":4278229068,"rgb":{"r":0,"g":152,"b":76},"hsl":{"h":150,"s":100,"l":30},"cssRGB":"rgb(0, 152, 76)","cssHSL":"hsl(150, 100%, 30%)"},{"tone":60,"hex":"#00A754","argb":4278232916,"rgb":{"r":0,"g":167,"b":84},"hsl":{"h":150,"s":100,"l":33},"cssRGB":"rgb(0, 167, 84)","cssHSL":"hsl(150, 100%, 33%)"},{"tone":65,"hex":"#00B65C","argb":4278236764,"rgb":{"r":0,"g":182,"b":92},"hsl":{"h":150,"s":100,"l":36},"cssRGB":"rgb(0, 182, 92)","cssHSL":"hsl(150, 100%, 36%)"},{"tone":70,"hex":"#00C564","argb":4278240612,"rgb":{"r":0,"g":197,"b":100},"hsl":{"h":150,"s":100,"l":39},"cssRGB":"rgb(0, 197, 100)","cssHSL":"hsl(150, 100%, 39%)"},{"tone":75,"hex":"#00D46C","argb":4278244460,"rgb":{"r":0,"g":212,"b":108},"hsl":{"h":151,"s":100,"l":42},"cssRGB":"rgb(0, 212, 108)","cssHSL":"hsl(151, 100%, 42%)"},{"tone":80,"hex":"#00E475","argb":4278248565,"rgb":{"r":0,"g":228,"b":117},"hsl":{"h":151,"s":100,"l":45},"cssRGB":"rgb(0, 228, 117)","cssHSL":"hsl(151, 100%, 45%)"},{"tone":85,"hex":"#2AF381","argb":4281004929,"rgb":{"r":42,"g":243,"b":129},"hsl":{"h":146,"s":89,"l":56},"cssRGB":"rgb(42, 243, 129)","cssHSL":"hsl(146, 89%, 56%)"},{"tone":90,"hex":"#62FF96","argb":4284678038,"rgb":{"r":98,"g":255,"b":150},"hsl":{"h":140,"s":100,"l":69},"cssRGB":"rgb(98, 255, 150)","cssHSL":"hsl(140, 100%, 69%)"},{"tone":95,"hex":"#C4FFCC","argb":4291100620,"rgb":{"r":196,"g":255,"b":204},"hsl":{"h":128,"s":100,"l":88},"cssRGB":"rgb(196, 255, 204)","cssHSL":"hsl(128, 100%, 88%)"},{"tone":100,"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)"}],"secondary":[{"tone":0,"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)"},{"tone":5,"hex":"#041408","argb":4278457352,"rgb":{"r":4,"g":20,"b":8},"hsl":{"h":135,"s":67,"l":5},"cssRGB":"rgb(4, 20, 8)","cssHSL":"hsl(135, 67%, 5%)"},{"tone":10,"hex":"#0E1F12","argb":4279115538,"rgb":{"r":14,"g":31,"b":18},"hsl":{"h":134,"s":38,"l":9},"cssRGB":"rgb(14, 31, 18)","cssHSL":"hsl(134, 38%, 9%)"},{"tone":15,"hex":"#182A1C","argb":4279773724,"rgb":{"r":24,"g":42,"b":28},"hsl":{"h":133,"s":27,"l":13},"cssRGB":"rgb(24, 42, 28)","cssHSL":"hsl(133, 27%, 13%)"},{"tone":20,"hex":"#233426","argb":4280497190,"rgb":{"r":35,"g":52,"b":38},"hsl":{"h":131,"s":20,"l":17},"cssRGB":"rgb(35, 52, 38)","cssHSL":"hsl(131, 20%, 17%)"},{"tone":25,"hex":"#2E4030","argb":4281221168,"rgb":{"r":46,"g":64,"b":48},"hsl":{"h":127,"s":16,"l":22},"cssRGB":"rgb(46, 64, 48)","cssHSL":"hsl(127, 16%, 22%)"},{"tone":30,"hex":"#394B3B","argb":4281944891,"rgb":{"r":57,"g":75,"b":59},"hsl":{"h":127,"s":14,"l":26},"cssRGB":"rgb(57, 75, 59)","cssHSL":"hsl(127, 14%, 26%)"},{"tone":35,"hex":"#445746","argb":4282668870,"rgb":{"r":68,"g":87,"b":70},"hsl":{"h":126,"s":12,"l":30},"cssRGB":"rgb(68, 87, 70)","cssHSL":"hsl(126, 12%, 30%)"},{"tone":40,"hex":"#506352","argb":4283458386,"rgb":{"r":80,"g":99,"b":82},"hsl":{"h":126,"s":11,"l":35},"cssRGB":"rgb(80, 99, 82)","cssHSL":"hsl(126, 11%, 35%)"},{"tone":45,"hex":"#5C6F5E","argb":4284247902,"rgb":{"r":92,"g":111,"b":94},"hsl":{"h":126,"s":9,"l":40},"cssRGB":"rgb(92, 111, 94)","cssHSL":"hsl(126, 9%, 40%)"},{"tone":50,"hex":"#687C6A","argb":4285037674,"rgb":{"r":104,"g":124,"b":106},"hsl":{"h":126,"s":9,"l":45},"cssRGB":"rgb(104, 124, 106)","cssHSL":"hsl(126, 9%, 45%)"},{"tone":55,"hex":"#758976","argb":4285892982,"rgb":{"r":117,"g":137,"b":118},"hsl":{"h":123,"s":8,"l":50},"cssRGB":"rgb(117, 137, 118)","cssHSL":"hsl(123, 8%, 50%)"},{"tone":60,"hex":"#829683","argb":4286748291,"rgb":{"r":130,"g":150,"b":131},"hsl":{"h":123,"s":9,"l":55},"cssRGB":"rgb(130, 150, 131)","cssHSL":"hsl(123, 9%, 55%)"},{"tone":65,"hex":"#8FA38F","argb":4287603599,"rgb":{"r":143,"g":163,"b":143},"hsl":{"h":120,"s":10,"l":60},"cssRGB":"rgb(143, 163, 143)","cssHSL":"hsl(120, 10%, 60%)"},{"tone":70,"hex":"#9CB19C","argb":4288459164,"rgb":{"r":156,"g":177,"b":156},"hsl":{"h":120,"s":12,"l":65},"cssRGB":"rgb(156, 177, 156)","cssHSL":"hsl(120, 12%, 65%)"},{"tone":75,"hex":"#A9BEAA","argb":4289314474,"rgb":{"r":169,"g":190,"b":170},"hsl":{"h":123,"s":14,"l":70},"cssRGB":"rgb(169, 190, 170)","cssHSL":"hsl(123, 14%, 70%)"},{"tone":80,"hex":"#B7CCB7","argb":4290235575,"rgb":{"r":183,"g":204,"b":183},"hsl":{"h":120,"s":17,"l":76},"cssRGB":"rgb(183, 204, 183)","cssHSL":"hsl(120, 17%, 76%)"},{"tone":85,"hex":"#C5DAC5","argb":4291156677,"rgb":{"r":197,"g":218,"b":197},"hsl":{"h":120,"s":22,"l":81},"cssRGB":"rgb(197, 218, 197)","cssHSL":"hsl(120, 22%, 81%)"},{"tone":90,"hex":"#D3E8D2","argb":4292077778,"rgb":{"r":211,"g":232,"b":210},"hsl":{"h":117,"s":32,"l":87},"cssRGB":"rgb(211, 232, 210)","cssHSL":"hsl(117, 32%, 87%)"},{"tone":95,"hex":"#E1F7E0","argb":4292999136,"rgb":{"r":225,"g":247,"b":224},"hsl":{"h":117,"s":59,"l":92},"cssRGB":"rgb(225, 247, 224)","cssHSL":"hsl(117, 59%, 92%)"},{"tone":100,"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)"}],"tertiary":[{"tone":0,"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)"},{"tone":5,"hex":"#001418","argb":4278195224,"rgb":{"r":0,"g":20,"b":24},"hsl":{"h":190,"s":100,"l":5},"cssRGB":"rgb(0, 20, 24)","cssHSL":"hsl(190, 100%, 5%)"},{"tone":10,"hex":"#001F25","argb":4278198053,"rgb":{"r":0,"g":31,"b":37},"hsl":{"h":190,"s":100,"l":7},"cssRGB":"rgb(0, 31, 37)","cssHSL":"hsl(190, 100%, 7%)"},{"tone":15,"hex":"#002A31","argb":4278200881,"rgb":{"r":0,"g":42,"b":49},"hsl":{"h":189,"s":100,"l":10},"cssRGB":"rgb(0, 42, 49)","cssHSL":"hsl(189, 100%, 10%)"},{"tone":20,"hex":"#01363E","argb":4278269502,"rgb":{"r":1,"g":54,"b":62},"hsl":{"h":188,"s":97,"l":12},"cssRGB":"rgb(1, 54, 62)","cssHSL":"hsl(188, 97%, 12%)"},{"tone":25,"hex":"#12414A","argb":4279386442,"rgb":{"r":18,"g":65,"b":74},"hsl":{"h":190,"s":61,"l":18},"cssRGB":"rgb(18, 65, 74)","cssHSL":"hsl(190, 61%, 18%)"},{"tone":30,"hex":"#204D56","argb":4280307030,"rgb":{"r":32,"g":77,"b":86},"hsl":{"h":190,"s":46,"l":23},"cssRGB":"rgb(32, 77, 86)","cssHSL":"hsl(190, 46%, 23%)"},{"tone":35,"hex":"#2D5962","argb":4281162082,"rgb":{"r":45,"g":89,"b":98},"hsl":{"h":190,"s":37,"l":28},"cssRGB":"rgb(45, 89, 98)","cssHSL":"hsl(190, 37%, 28%)"},{"tone":40,"hex":"#3A656E","argb":4282017134,"rgb":{"r":58,"g":101,"b":110},"hsl":{"h":190,"s":31,"l":33},"cssRGB":"rgb(58, 101, 110)","cssHSL":"hsl(190, 31%, 33%)"},{"tone":45,"hex":"#46717A","argb":4282806650,"rgb":{"r":70,"g":113,"b":122},"hsl":{"h":190,"s":27,"l":38},"cssRGB":"rgb(70, 113, 122)","cssHSL":"hsl(190, 27%, 38%)"},{"tone":50,"hex":"#537E87","argb":4283661959,"rgb":{"r":83,"g":126,"b":135},"hsl":{"h":190,"s":24,"l":43},"cssRGB":"rgb(83, 126, 135)","cssHSL":"hsl(190, 24%, 43%)"},{"tone":55,"hex":"#608B94","argb":4284517268,"rgb":{"r":96,"g":139,"b":148},"hsl":{"h":190,"s":21,"l":48},"cssRGB":"rgb(96, 139, 148)","cssHSL":"hsl(190, 21%, 48%)"},{"tone":60,"hex":"#6C98A1","argb":4285307041,"rgb":{"r":108,"g":152,"b":161},"hsl":{"h":190,"s":22,"l":53},"cssRGB":"rgb(108, 152, 161)","cssHSL":"hsl(190, 22%, 53%)"},{"tone":65,"hex":"#7AA5AF","argb":4286227887,"rgb":{"r":122,"g":165,"b":175},"hsl":{"h":191,"s":25,"l":58},"cssRGB":"rgb(122, 165, 175)","cssHSL":"hsl(191, 25%, 58%)"},{"tone":70,"hex":"#87B2BC","argb":4287083196,"rgb":{"r":135,"g":178,"b":188},"hsl":{"h":191,"s":28,"l":63},"cssRGB":"rgb(135, 178, 188)","cssHSL":"hsl(191, 28%, 63%)"},{"tone":75,"hex":"#94C0CA","argb":4287938762,"rgb":{"r":148,"g":192,"b":202},"hsl":{"h":191,"s":34,"l":69},"cssRGB":"rgb(148, 192, 202)","cssHSL":"hsl(191, 34%, 69%)"},{"tone":80,"hex":"#A2CED8","argb":4288859864,"rgb":{"r":162,"g":206,"b":216},"hsl":{"h":191,"s":41,"l":74},"cssRGB":"rgb(162, 206, 216)","cssHSL":"hsl(191, 41%, 74%)"},{"tone":85,"hex":"#AFDCE6","argb":4289715430,"rgb":{"r":175,"g":220,"b":230},"hsl":{"h":191,"s":52,"l":79},"cssRGB":"rgb(175, 220, 230)","cssHSL":"hsl(191, 52%, 79%)"},{"tone":90,"hex":"#BDEAF5","argb":4290636533,"rgb":{"r":189,"g":234,"b":245},"hsl":{"h":192,"s":74,"l":85},"cssRGB":"rgb(189, 234, 245)","cssHSL":"hsl(192, 74%, 85%)"},{"tone":95,"hex":"#D5F7FF","argb":4292212735,"rgb":{"r":213,"g":247,"b":255},"hsl":{"h":191,"s":100,"l":92},"cssRGB":"rgb(213, 247, 255)","cssHSL":"hsl(191, 100%, 92%)"},{"tone":100,"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)"}],"neutral":[{"tone":0,"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)"},{"tone":5,"hex":"#0F120F","argb":4279177743,"rgb":{"r":15,"g":18,"b":15},"hsl":{"h":120,"s":9,"l":6},"cssRGB":"rgb(15, 18, 15)","cssHSL":"hsl(120, 9%, 6%)"},{"tone":10,"hex":"#191C19","argb":4279835673,"rgb":{"r":25,"g":28,"b":25},"hsl":{"h":120,"s":6,"l":10},"cssRGB":"rgb(25, 28, 25)","cssHSL":"hsl(120, 6%, 10%)"},{"tone":15,"hex":"#242623","argb":4280559139,"rgb":{"r":36,"g":38,"b":35},"hsl":{"h":100,"s":4,"l":14},"cssRGB":"rgb(36, 38, 35)","cssHSL":"hsl(100, 4%, 14%)"},{"tone":20,"hex":"#2E312E","argb":4281217326,"rgb":{"r":46,"g":49,"b":46},"hsl":{"h":120,"s":3,"l":19},"cssRGB":"rgb(46, 49, 46)","cssHSL":"hsl(120, 3%, 19%)"},{"tone":25,"hex":"#393C39","argb":4281941049,"rgb":{"r":57,"g":60,"b":57},"hsl":{"h":120,"s":3,"l":23},"cssRGB":"rgb(57, 60, 57)","cssHSL":"hsl(120, 3%, 23%)"},{"tone":30,"hex":"#454744","argb":4282730308,"rgb":{"r":69,"g":71,"b":68},"hsl":{"h":100,"s":2,"l":27},"cssRGB":"rgb(69, 71, 68)","cssHSL":"hsl(100, 2%, 27%)"},{"tone":35,"hex":"#50534F","argb":4283454287,"rgb":{"r":80,"g":83,"b":79},"hsl":{"h":105,"s":2,"l":32},"cssRGB":"rgb(80, 83, 79)","cssHSL":"hsl(105, 2%, 32%)"},{"tone":40,"hex":"#5C5F5B","argb":4284243803,"rgb":{"r":92,"g":95,"b":91},"hsl":{"h":105,"s":2,"l":36},"cssRGB":"rgb(92, 95, 91)","cssHSL":"hsl(105, 2%, 36%)"},{"tone":45,"hex":"#696B67","argb":4285098855,"rgb":{"r":105,"g":107,"b":103},"hsl":{"h":90,"s":2,"l":41},"cssRGB":"rgb(105, 107, 103)","cssHSL":"hsl(90, 2%, 41%)"},{"tone":50,"hex":"#757873","argb":4285888627,"rgb":{"r":117,"g":120,"b":115},"hsl":{"h":96,"s":2,"l":46},"cssRGB":"rgb(117, 120, 115)","cssHSL":"hsl(96, 2%, 46%)"},{"tone":55,"hex":"#828480","argb":4286743680,"rgb":{"r":130,"g":132,"b":128},"hsl":{"h":90,"s":2,"l":51},"cssRGB":"rgb(130, 132, 128)","cssHSL":"hsl(90, 2%, 51%)"},{"tone":60,"hex":"#8F918D","argb":4287598989,"rgb":{"r":143,"g":145,"b":141},"hsl":{"h":90,"s":2,"l":56},"cssRGB":"rgb(143, 145, 141)","cssHSL":"hsl(90, 2%, 56%)"},{"tone":65,"hex":"#9C9E9A","argb":4288454298,"rgb":{"r":156,"g":158,"b":154},"hsl":{"h":90,"s":2,"l":61},"cssRGB":"rgb(156, 158, 154)","cssHSL":"hsl(90, 2%, 61%)"},{"tone":70,"hex":"#AAACA7","argb":4289375399,"rgb":{"r":170,"g":172,"b":167},"hsl":{"h":84,"s":3,"l":66},"cssRGB":"rgb(170, 172, 167)","cssHSL":"hsl(84, 3%, 66%)"},{"tone":75,"hex":"#B7B9B4","argb":4290230708,"rgb":{"r":183,"g":185,"b":180},"hsl":{"h":84,"s":3,"l":72},"cssRGB":"rgb(183, 185, 180)","cssHSL":"hsl(84, 3%, 72%)"},{"tone":80,"hex":"#C5C7C2","argb":4291151810,"rgb":{"r":197,"g":199,"b":194},"hsl":{"h":84,"s":4,"l":77},"cssRGB":"rgb(197, 199, 194)","cssHSL":"hsl(84, 4%, 77%)"},{"tone":85,"hex":"#D3D5D0","argb":4292072912,"rgb":{"r":211,"g":213,"b":208},"hsl":{"h":84,"s":6,"l":83},"cssRGB":"rgb(211, 213, 208)","cssHSL":"hsl(84, 6%, 83%)"},{"tone":90,"hex":"#E2E3DE","argb":4293059550,"rgb":{"r":226,"g":227,"b":222},"hsl":{"h":72,"s":8,"l":88},"cssRGB":"rgb(226, 227, 222)","cssHSL":"hsl(72, 8%, 88%)"},{"tone":95,"hex":"#F0F1EC","argb":4293980652,"rgb":{"r":240,"g":241,"b":236},"hsl":{"h":72,"s":15,"l":94},"cssRGB":"rgb(240, 241, 236)","cssHSL":"hsl(72, 15%, 94%)"},{"tone":100,"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)"}],"neutralVariant":[{"tone":0,"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)"},{"tone":5,"hex":"#0C130D","argb":4278981389,"rgb":{"r":12,"g":19,"b":13},"hsl":{"h":129,"s":23,"l":6},"cssRGB":"rgb(12, 19, 13)","cssHSL":"hsl(129, 23%, 6%)"},{"tone":10,"hex":"#161D17","argb":4279639319,"rgb":{"r":22,"g":29,"b":23},"hsl":{"h":129,"s":14,"l":10},"cssRGB":"rgb(22, 29, 23)","cssHSL":"hsl(129, 14%, 10%)"},{"tone":15,"hex":"#202821","argb":4280297505,"rgb":{"r":32,"g":40,"b":33},"hsl":{"h":128,"s":11,"l":14},"cssRGB":"rgb(32, 40, 33)","cssHSL":"hsl(128, 11%, 14%)"},{"tone":20,"hex":"#2B322B","argb":4281020971,"rgb":{"r":43,"g":50,"b":43},"hsl":{"h":120,"s":8,"l":18},"cssRGB":"rgb(43, 50, 43)","cssHSL":"hsl(120, 8%, 18%)"},{"tone":25,"hex":"#363D36","argb":4281744694,"rgb":{"r":54,"g":61,"b":54},"hsl":{"h":120,"s":6,"l":23},"cssRGB":"rgb(54, 61, 54)","cssHSL":"hsl(120, 6%, 23%)"},{"tone":30,"hex":"#414941","argb":4282468673,"rgb":{"r":65,"g":73,"b":65},"hsl":{"h":120,"s":6,"l":27},"cssRGB":"rgb(65, 73, 65)","cssHSL":"hsl(120, 6%, 27%)"},{"tone":35,"hex":"#4D544C","argb":4283257932,"rgb":{"r":77,"g":84,"b":76},"hsl":{"h":113,"s":5,"l":31},"cssRGB":"rgb(77, 84, 76)","cssHSL":"hsl(113, 5%, 31%)"},{"tone":40,"hex":"#596058","argb":4284047448,"rgb":{"r":89,"g":96,"b":88},"hsl":{"h":113,"s":4,"l":36},"cssRGB":"rgb(89, 96, 88)","cssHSL":"hsl(113, 4%, 36%)"},{"tone":45,"hex":"#656D64","argb":4284837220,"rgb":{"r":101,"g":109,"b":100},"hsl":{"h":113,"s":4,"l":41},"cssRGB":"rgb(101, 109, 100)","cssHSL":"hsl(113, 4%, 41%)"},{"tone":50,"hex":"#717970","argb":4285626736,"rgb":{"r":113,"g":121,"b":112},"hsl":{"h":113,"s":4,"l":46},"cssRGB":"rgb(113, 121, 112)","cssHSL":"hsl(113, 4%, 46%)"},{"tone":55,"hex":"#7E867D","argb":4286482045,"rgb":{"r":126,"g":134,"b":125},"hsl":{"h":113,"s":4,"l":51},"cssRGB":"rgb(126, 134, 125)","cssHSL":"hsl(113, 4%, 51%)"},{"tone":60,"hex":"#8B938A","argb":4287337354,"rgb":{"r":139,"g":147,"b":138},"hsl":{"h":113,"s":4,"l":56},"cssRGB":"rgb(139, 147, 138)","cssHSL":"hsl(113, 4%, 56%)"},{"tone":65,"hex":"#98A097","argb":4288192663,"rgb":{"r":152,"g":160,"b":151},"hsl":{"h":113,"s":5,"l":61},"cssRGB":"rgb(152, 160, 151)","cssHSL":"hsl(113, 5%, 61%)"},{"tone":70,"hex":"#A6ADA4","argb":4289113508,"rgb":{"r":166,"g":173,"b":164},"hsl":{"h":107,"s":5,"l":66},"cssRGB":"rgb(166, 173, 164)","cssHSL":"hsl(107, 5%, 66%)"},{"tone":75,"hex":"#B3BBB1","argb":4289969073,"rgb":{"r":179,"g":187,"b":177},"hsl":{"h":108,"s":7,"l":71},"cssRGB":"rgb(179, 187, 177)","cssHSL":"hsl(108, 7%, 71%)"},{"tone":80,"hex":"#C1C9BF","argb":4290890175,"rgb":{"r":193,"g":201,"b":191},"hsl":{"h":108,"s":8,"l":77},"cssRGB":"rgb(193, 201, 191)","cssHSL":"hsl(108, 8%, 77%)"},{"tone":85,"hex":"#CFD7CC","argb":4291811276,"rgb":{"r":207,"g":215,"b":204},"hsl":{"h":104,"s":12,"l":82},"cssRGB":"rgb(207, 215, 204)","cssHSL":"hsl(104, 12%, 82%)"},{"tone":90,"hex":"#DDE5DA","argb":4292732378,"rgb":{"r":221,"g":229,"b":218},"hsl":{"h":104,"s":17,"l":88},"cssRGB":"rgb(221, 229, 218)","cssHSL":"hsl(104, 17%, 88%)"},{"tone":95,"hex":"#EBF3E8","argb":4293653480,"rgb":{"r":235,"g":243,"b":232},"hsl":{"h":104,"s":31,"l":93},"cssRGB":"rgb(235, 243, 232)","cssHSL":"hsl(104, 31%, 93%)"},{"tone":100,"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)"}],"error":[{"tone":0,"hex":"#000000","argb":4278190080,"rgb":{"r":0,"g":0,"b":0},"hsl":{"h":0,"s":0,"l":0},"cssRGB":"rgb(0, 0, 0)","cssHSL":"hsl(0, 0%, 0%)"},{"tone":5,"hex":"#2D0001","argb":4281139201,"rgb":{"r":45,"g":0,"b":1},"hsl":{"h":359,"s":100,"l":9},"cssRGB":"rgb(45, 0, 1)","cssHSL":"hsl(359, 100%, 9%)"},{"tone":10,"hex":"#410002","argb":4282449922,"rgb":{"r":65,"g":0,"b":2},"hsl":{"h":358,"s":100,"l":13},"cssRGB":"rgb(65, 0, 2)","cssHSL":"hsl(358, 100%, 13%)"},{"tone":15,"hex":"#540003","argb":4283695107,"rgb":{"r":84,"g":0,"b":3},"hsl":{"h":358,"s":100,"l":16},"cssRGB":"rgb(84, 0, 3)","cssHSL":"hsl(358, 100%, 16%)"},{"tone":20,"hex":"#690005","argb":4285071365,"rgb":{"r":105,"g":0,"b":5},"hsl":{"h":357,"s":100,"l":21},"cssRGB":"rgb(105, 0, 5)","cssHSL":"hsl(357, 100%, 21%)"},{"tone":25,"hex":"#7E0007","argb":4286447623,"rgb":{"r":126,"g":0,"b":7},"hsl":{"h":357,"s":100,"l":25},"cssRGB":"rgb(126, 0, 7)","cssHSL":"hsl(357, 100%, 25%)"},{"tone":30,"hex":"#93000A","argb":4287823882,"rgb":{"r":147,"g":0,"b":10},"hsl":{"h":356,"s":100,"l":29},"cssRGB":"rgb(147, 0, 10)","cssHSL":"hsl(356, 100%, 29%)"},{"tone":35,"hex":"#A80710","argb":4289201936,"rgb":{"r":168,"g":7,"b":16},"hsl":{"h":357,"s":92,"l":34},"cssRGB":"rgb(168, 7, 16)","cssHSL":"hsl(357, 92%, 34%)"},{"tone":40,"hex":"#BA1A1A","argb":4290386458,"rgb":{"r":186,"g":26,"b":26},"hsl":{"h":0,"s":75,"l":42},"cssRGB":"rgb(186, 26, 26)","cssHSL":"hsl(0, 75%, 42%)"},{"tone":45,"hex":"#CC2925","argb":4291569957,"rgb":{"r":204,"g":41,"b":37},"hsl":{"h":1,"s":69,"l":47},"cssRGB":"rgb(204, 41, 37)","cssHSL":"hsl(1, 69%, 47%)"},{"tone":50,"hex":"#DE3730","argb":4292753200,"rgb":{"r":222,"g":55,"b":48},"hsl":{"h":2,"s":73,"l":53},"cssRGB":"rgb(222, 55, 48)","cssHSL":"hsl(2, 73%, 53%)"},{"tone":55,"hex":"#F0443B","argb":4293936187,"rgb":{"r":240,"g":68,"b":59},"hsl":{"h":3,"s":86,"l":59},"cssRGB":"rgb(240, 68, 59)","cssHSL":"hsl(3, 86%, 59%)"},{"tone":60,"hex":"#FF5449","argb":4294923337,"rgb":{"r":255,"g":84,"b":73},"hsl":{"h":4,"s":100,"l":64},"cssRGB":"rgb(255, 84, 73)","cssHSL":"hsl(4, 100%, 64%)"},{"tone":65,"hex":"#FF7164","argb":4294930788,"rgb":{"r":255,"g":113,"b":100},"hsl":{"h":5,"s":100,"l":70},"cssRGB":"rgb(255, 113, 100)","cssHSL":"hsl(5, 100%, 70%)"},{"tone":70,"hex":"#FF897D","argb":4294936957,"rgb":{"r":255,"g":137,"b":125},"hsl":{"h":6,"s":100,"l":75},"cssRGB":"rgb(255, 137, 125)","cssHSL":"hsl(6, 100%, 75%)"},{"tone":75,"hex":"#FF9F94","argb":4294942612,"rgb":{"r":255,"g":159,"b":148},"hsl":{"h":6,"s":100,"l":79},"cssRGB":"rgb(255, 159, 148)","cssHSL":"hsl(6, 100%, 79%)"},{"tone":80,"hex":"#FFB4AB","argb":4294948011,"rgb":{"r":255,"g":180,"b":171},"hsl":{"h":6,"s":100,"l":84},"cssRGB":"rgb(255, 180, 171)","cssHSL":"hsl(6, 100%, 84%)"},{"tone":85,"hex":"#FFC7C0","argb":4294952896,"rgb":{"r":255,"g":199,"b":192},"hsl":{"h":7,"s":100,"l":88},"cssRGB":"rgb(255, 199, 192)","cssHSL":"hsl(7, 100%, 88%)"},{"tone":90,"hex":"#FFDAD6","argb":4294957782,"rgb":{"r":255,"g":218,"b":214},"hsl":{"h":6,"s":100,"l":92},"cssRGB":"rgb(255, 218, 214)","cssHSL":"hsl(6, 100%, 92%)"},{"tone":95,"hex":"#FFEDEA","argb":4294962666,"rgb":{"r":255,"g":237,"b":234},"hsl":{"h":9,"s":100,"l":96},"cssRGB":"rgb(255, 237, 234)","cssHSL":"hsl(9, 100%, 96%)"},{"tone":100,"hex":"#FFFFFF","argb":4294967295,"rgb":{"r":255,"g":255,"b":255},"hsl":{"h":0,"s":0,"l":100},"cssRGB":"rgb(255, 255, 255)","cssHSL":"hsl(0, 0%, 100%)"}]},"colorHarmonies":{"seed":{"h":149,"s":100,"l":21,"css":"hsl(149, 100%, 21%)","hex":"#00E676"},"complementary":{"h":329,"s":100,"l":21,"css":"hsl(329, 100%, 21%)","offset":180,"description":"Directly opposite — maximum contrast"},"analogous1":{"h":119,"s":100,"l":21,"css":"hsl(119, 100%, 21%)","offset":-30,"description":"Adjacent left — harmonious warmth"},"analogous2":{"h":179,"s":100,"l":21,"css":"hsl(179, 100%, 21%)","offset":30,"description":"Adjacent right — harmonious cool"},"triadic1":{"h":269,"s":100,"l":21,"css":"hsl(269, 100%, 21%)","offset":120,"description":"120° rotation — balanced triad"},"triadic2":{"h":29,"s":100,"l":21,"css":"hsl(29, 100%, 21%)","offset":-120,"description":"−120° rotation — balanced triad"},"splitComplementary1":{"h":299,"s":100,"l":21,"css":"hsl(299, 100%, 21%)","offset":150,"description":"150° — softer than complement"},"splitComplementary2":{"h":359,"s":100,"l":21,"css":"hsl(359, 100%, 21%)","offset":-150,"description":"−150° — softer than complement"}},"harmonyRelationship":{"secondary":{"seedHue":149,"secondaryHue":126,"hueDiff":-23,"type":"analogous","explanation":"M3 Secondary uses a 23° hue rotation from primary (149° → 126°), creating an analogous relationship. M3's CorePalette algorithm uses a temperature system to determine the exact secondary hue, then applies chroma reduction for the tonal palette."},"tertiary":{"seedHue":149,"tertiaryHue":190,"hueDiff":41,"type":"analogous/triadic","explanation":"M3 Tertiary uses a 41° hue rotation from primary (149° → 190°), creating a split-complementary relationship. This provides a lively accent that contrasts with both primary and secondary."}}};
+
+    let currentTheme = 'light';
+
+    // ─── Utility ───
+    function luminance(r, g, b) {
+      const [rs, gs, bs] = [r, g, b].map(c => {
+        c /= 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+    }
+
+    function textColor(hex) {
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return luminance(r, g, b) > 0.4 ? '#000000' : '#FFFFFF';
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.textContent = `Copied: ${text}`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1800);
+      });
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ─── Theme Toggle ───
+    function setTheme(theme) {
+      currentTheme = theme;
+      document.getElementById('btn-light').classList.toggle('active', theme === 'light');
+      document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
+      document.getElementById('btn-light').style.color = theme === 'light' ? '' : 'var(--text-secondary)';
+      document.getElementById('btn-dark').style.color = theme === 'dark' ? '' : 'var(--text-secondary)';
+      renderAll();
+    }
+
+    // ─── Render Color Role Groups ───
+    function renderColorRoles() {
+      const container = document.getElementById('color-roles-container');
+      const data = COLOR_DATA[currentTheme];
+      
+      const groups = [
+        {
+          title: 'Primary',
+          subtitle: 'Main brand color — buttons, FABs, active states, navigation',
+          roles: ['primary', 'onPrimary', 'primaryContainer', 'onPrimaryContainer'],
+          accent: '#00E676'
+        },
+        {
+          title: 'Secondary',
+          subtitle: 'Supporting elements — chips, filters, secondary buttons',
+          roles: ['secondary', 'onSecondary', 'secondaryContainer', 'onSecondaryContainer'],
+          accent: data.secondary.hex
+        },
+        {
+          title: 'Tertiary',
+          subtitle: 'Accent highlights — decorative elements, badges, alerts',
+          roles: ['tertiary', 'onTertiary', 'tertiaryContainer', 'onTertiaryContainer'],
+          accent: data.tertiary.hex
+        },
+        {
+          title: 'Error',
+          subtitle: 'Error states — validation, destructive actions, warnings',
+          roles: ['error', 'onError', 'errorContainer', 'onErrorContainer'],
+          accent: data.error.hex
+        }
+      ];
+
+      container.innerHTML = groups.map(group => `
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-1">
+            <div class="w-3 h-3 rounded-full" style="background: ${group.accent};"></div>
+            <h3 class="text-lg font-semibold">${group.title}</h3>
+            <span class="text-xs font-mono px-2 py-0.5 rounded" style="background: var(--surface-raised); color: var(--text-tertiary);">${currentTheme}</span>
+          </div>
+          <p class="text-xs mb-5 ml-6" style="color: var(--text-tertiary);">${group.subtitle}</p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            ${group.roles.map(role => {
+              const c = data[role];
+              return `
+                <div class="swatch rounded-2xl overflow-hidden cursor-pointer border" style="border-color: var(--border);"
+                     onclick="copyText('${c.hex}')">
+                  <div class="h-28 md:h-32 flex items-end p-3" style="background: ${c.hex};">
+                    <span class="font-mono text-xs font-medium" style="color: ${textColor(c.hex)}; opacity: 0.7;">${c.hsl.h}° ${c.hsl.s}% ${c.hsl.l}%</span>
+                  </div>
+                  <div class="p-3" style="background: var(--surface-raised);">
+                    <p class="font-mono text-sm font-semibold" style="color: var(--text-primary);">${c.hex}</p>
+                    <p class="text-xs mt-0.5 capitalize" style="color: var(--text-tertiary);">${role.replace(/([A-Z])/g, ' $1').trim()}</p>
+                    <p class="text-xs mt-1" style="color: var(--text-secondary);">${c.description}</p>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ─── Render Surface Roles ───
+    function renderSurfaceRoles() {
+      const container = document.getElementById('surface-roles-container');
+      const data = COLOR_DATA[currentTheme];
+
+      const roles = [
+        ['background', 'onBackground'],
+        ['surface', 'onSurface'],
+        ['surfaceVariant', 'onSurfaceVariant'],
+        ['outline', 'outlineVariant'],
+        ['inverseSurface', 'inverseOnSurface'],
+      ];
+
+      container.innerHTML = `
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          ${roles.flatMap(pair => pair.map(role => {
+            const c = data[role];
+            const isOutline = role.includes('outline');
+            const height = isOutline ? 'h-20' : 'h-28';
+            return `
+              <div class="swatch rounded-2xl overflow-hidden cursor-pointer border" style="border-color: var(--border);"
+                   onclick="copyText('${c.hex}')">
+                <div class="${height} flex items-end p-3" style="background: ${c.hex};">
+                  <span class="font-mono text-xs font-medium" style="color: ${textColor(c.hex)}; opacity: 0.7;">${c.hsl.h}° ${c.hsl.l}%</span>
+                </div>
+                <div class="p-3" style="background: var(--surface-raised);">
+                  <p class="font-mono text-sm font-semibold" style="color: var(--text-primary);">${c.hex}</p>
+                  <p class="text-xs mt-0.5 capitalize" style="color: var(--text-tertiary);">${role.replace(/([A-Z])/g, ' $1').trim()}</p>
+                </div>
+              </div>
+            `;
+          })).join('')}
+          ${[['inversePrimary', 'surfaceTint', 'scrim', 'shadow']].flatMap(pair => pair.map(role => {
+            const c = data[role];
+            return `
+              <div class="swatch rounded-2xl overflow-hidden cursor-pointer border" style="border-color: var(--border);"
+                   onclick="copyText('${c.hex}')">
+                <div class="h-20 flex items-end p-3" style="background: ${c.hex};">
+                  <span class="font-mono text-xs font-medium" style="color: ${textColor(c.hex)}; opacity: 0.7;">${c.hsl.h}° ${c.hsl.l}%</span>
+                </div>
+                <div class="p-3" style="background: var(--surface-raised);">
+                  <p class="font-mono text-sm font-semibold" style="color: var(--text-primary);">${c.hex}</p>
+                  <p class="text-xs mt-0.5 capitalize" style="color: var(--text-tertiary);">${role.replace(/([A-Z])/g, ' $1').trim()}</p>
+                </div>
+              </div>
+            `;
+          })).join('')}
+        </div>
+      `;
+    }
+
+    // ─── Render Elevation Hierarchy ───
+    function renderElevation() {
+      const container = document.getElementById('elevation-container');
+      const light = COLOR_DATA.light;
+      const dark = COLOR_DATA.dark;
+
+      const steps = [
+        { label: 'Lowest (level 0)', light: light.surfaceContainerLowest.hex, dark: dark.surfaceContainerLowest.hex },
+        { label: 'Low (level 1)', light: light.surfaceContainerLow.hex, dark: dark.surfaceContainerLow.hex },
+        { label: 'Default (level 2)', light: light.surfaceContainer.hex, dark: dark.surfaceContainer.hex },
+        { label: 'High (level 3)', light: light.surfaceContainerHigh.hex, dark: dark.surfaceContainerHigh.hex },
+        { label: 'Highest (level 4)', light: light.surfaceContainerHighest.hex, dark: dark.surfaceContainerHighest.hex },
+        { label: 'Dim', light: light.surfaceDim.hex, dark: dark.surfaceDim.hex },
+        { label: 'Bright', light: light.surfaceBright.hex, dark: dark.surfaceBright.hex },
+      ];
+
+      const theme = currentTheme;
+      const bg = theme === 'light' ? '#FFFFFF' : '#111411';
+      const textOnBg = theme === 'light' ? '#000000' : '#E2E3DE';
+
+      container.innerHTML = `
+        <div class="rounded-2xl p-6 border" style="background: ${bg}; border-color: ${theme === 'light' ? '#E0E0E0' : '#2A2E2A'};">
+          <div class="space-y-3">
+            ${steps.map((step, i) => `
+              <div class="flex items-center gap-4 cursor-pointer" onclick="copyText('${step[theme]}')">
+                <span class="text-xs font-mono w-6 text-right" style="color: ${textOnBg}; opacity: 0.5;">${i}</span>
+                <div class="flex-1 h-12 rounded-xl flex items-center px-4" style="background: ${step[theme]}; box-shadow: 0 ${i}px ${i * 4}px rgba(0,0,0,${theme === 'dark' ? 0.3 : 0.08});">
+                  <span class="font-mono text-sm font-medium" style="color: ${textColor(step[theme])};">${step[theme]}</span>
+                  <span class="ml-auto text-xs font-mono" style="color: ${textColor(step[theme])}; opacity: 0.6;">Tone</span>
+                </div>
+                <span class="text-xs w-32 hidden md:block" style="color: ${textOnBg}; opacity: 0.6;">${step.label}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <p class="text-xs mt-4 text-center font-mono" style="color: var(--text-tertiary);">
+          ↑ Shadow depth increases with elevation level
+        </p>
+      `;
+    }
+
+    // ─── Render Harmonies ───
+    function renderHarmonies() {
+      const container = document.getElementById('harmonies-container');
+      const h = COLOR_DATA.harmonies;
+      const rel = COLOR_DATA.harmonyRelationship;
+
+      const harmonies = [
+        { name: 'Seed', key: 'seed', offset: 0 },
+        { name: 'Complementary', key: 'complementary', offset: 180 },
+        { name: 'Analogous (−30°)', key: 'analogous1', offset: -30 },
+        { name: 'Analogous (+30°)', key: 'analogous2', offset: 30 },
+        { name: 'Triadic (+120°)', key: 'triadic1', offset: 120 },
+        { name: 'Triadic (−120°)', key: 'triadic2', offset: -120 },
+        { name: 'Split Comp. (+150°)', key: 'splitComplementary1', offset: 150 },
+        { name: 'Split Comp. (−150°)', key: 'splitComplementary2', offset: -150 },
+      ];
+
+      // Color wheel (simplified 8-point)
+      const wheelSize = 240;
+      const center = wheelSize / 2;
+      const radius = 95;
+
+      function hueToPos(hueOffset) {
+        const angle = ((hueOffset - 90) * Math.PI) / 180;
+        return {
+          x: center + radius * Math.cos(angle),
+          y: center + radius * Math.sin(angle),
+        };
+      }
+
+      const wheelPoints = harmonies.map(harm => {
+        const pos = hueToPos(harm.offset);
+        return { ...harm, ...pos };
+      });
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- Color Wheel -->
+          <div class="flex flex-col items-center gap-6">
+            <div class="relative" style="width: ${wheelSize}px; height: ${wheelSize}px;">
+              <!-- Wheel circle -->
+              <svg width="${wheelSize}" height="${wheelSize}" viewBox="0 0 ${wheelSize} ${wheelSize}">
+                <circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+                ${harmonies.map(harm => {
+                  const p = hueToPos(harm.offset);
+                  return `
+                    <circle cx="${p.x}" cy="${p.y}" r="8" fill="${harm.key === 'seed' ? 'var(--seed)' : `hsl(${h.h}, ${h.s}%, ${h.l}%)`}"
+                      ${harm.key === 'seed' ? 'filter="url(#glow)"' : ''} class="cursor-pointer" />
+                    ${harm.offset !== 0 ? `
+                      <line x1="${center}" y1="${center}" x2="${p.x}" y2="${p.y}" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+                    ` : ''}
+                  `;
+                }).join('')}
+                <defs>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                </defs>
+              </svg>
+              <!-- Labels -->
+              ${wheelPoints.map(wp => `
+                <div class="absolute text-xs font-mono text-center pointer-events-none" 
+                     style="left: ${wp.x}px; top: ${wp.y}px; transform: translate(-50%, -50%); color: ${wp.key === 'seed' ? 'var(--seed)' : 'var(--text-secondary)'}; ${wp.key === 'seed' ? 'font-weight: 600;' : ''}">
+                  ${wp.h}°
+                </div>
+              `).join('')}
+            </div>
+            <p class="text-xs text-center" style="color: var(--text-tertiary);">
+              Circular hue distribution from seed #00E676 (153°)
+            </p>
+          </div>
+
+          <!-- Harmony Swatches -->
+          <div class="space-y-3">
+            ${harmonies.map(harm => {
+              const c = h[harm.key];
+              const isSeed = harm.key === 'seed';
+              return `
+                <div class="harmony-dot flex items-center gap-4 p-3 rounded-xl cursor-pointer transition-colors hover:bg-[var(--surface-raised)]"
+                     onclick="copyText('${c.css}')">
+                  <div class="w-12 h-12 rounded-xl flex-shrink-0 ${isSeed ? 'ring-2 ring-offset-2' : ''}" 
+                       style="background: ${c.css}; ${isSeed ? 'ring-color: var(--seed); ring-offset-color: var(--bg);' : ''}"></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <p class="text-sm font-semibold ${isSeed ? '' : ''}" style="color: ${isSeed ? 'var(--seed)' : 'var(--text-primary)'};">
+                        ${harm.name}
+                      </p>
+                      <span class="text-xs font-mono px-1.5 py-0.5 rounded" style="background: var(--surface-elevated); color: var(--text-tertiary);">
+                        ${harm.offset > 0 ? '+' : ''}${harm.offset}°
+                      </span>
+                    </div>
+                    <p class="text-xs font-mono mt-0.5" style="color: var(--text-tertiary);">${c.css}</p>
+                  </div>
+                  <div class="w-24 text-right hidden md:block">
+                    <p class="text-xs" style="color: var(--text-tertiary);">${harm.key === 'seed' ? 'Primary source' : h.description || ''}</p>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+
+            <!-- M3 Relationship -->
+            <div class="mt-6 p-4 rounded-xl border" style="background: var(--surface-raised); border-color: var(--border);">
+              <p class="text-sm font-semibold mb-2" style="color: var(--text-primary);">M3 Hue Relationship</p>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-4 h-4 rounded-full" style="background: ${COLOR_DATA.light.primary.hex};"></div>
+                  <span class="text-xs font-mono" style="color: var(--text-secondary);">Primary</span>
+                  <span class="text-xs" style="color: var(--text-tertiary);">→</span>
+                  <div class="w-4 h-4 rounded-full" style="background: ${COLOR_DATA.light.secondary.hex};"></div>
+                  <span class="text-xs font-mono" style="color: var(--text-secondary);">Secondary</span>
+                  <span class="text-xs font-mono px-1.5 py-0.5 rounded" style="background: var(--surface-elevated); color: var(--accent);">${rel.secondary.type} ${rel.secondary.hueDiff}°</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-4 h-4 rounded-full" style="background: ${COLOR_DATA.light.primary.hex};"></div>
+                  <span class="text-xs font-mono" style="color: var(--text-secondary);">Primary</span>
+                  <span class="text-xs" style="color: var(--text-tertiary);">→</span>
+                  <div class="w-4 h-4 rounded-full" style="background: ${COLOR_DATA.light.tertiary.hex};"></div>
+                  <span class="text-xs font-mono" style="color: var(--text-secondary);">Tertiary</span>
+                  <span class="text-xs font-mono px-1.5 py-0.5 rounded" style="background: var(--surface-elevated); color: var(--accent);">${rel.tertiary.type} ${rel.tertiary.hueDiff}°</span>
+                </div>
+              </div>
+              <p class="text-xs mt-3 leading-relaxed" style="color: var(--text-tertiary);">${rel.secondary.explanation}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ─── Render Tonal Palettes ───
+    function renderTonalPalettes() {
+      const container = document.getElementById('tonal-container');
+      const palettes = COLOR_DATA.tonalPalettes;
+      const paletteNames = {
+        primary: 'Primary',
+        secondary: 'Secondary',
+        tertiary: 'Tertiary',
+        neutral: 'Neutral',
+        neutralVariant: 'Neutral Variant',
+        error: 'Error',
+      };
+
+      container.innerHTML = Object.entries(palettes).map(([key, tones]) => `
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-2 h-2 rounded-full" style="background: ${tones[10]?.hex || '#888'};"></div>
+            <h3 class="text-sm font-semibold">${paletteNames[key]}</h3>
+            <span class="text-xs font-mono" style="color: var(--text-tertiary);">${key}</span>
+          </div>
+          <div class="flex gap-1 h-14 rounded-xl overflow-hidden">
+            ${tones.map(t => `
+              <div class="tone-bar flex-1 relative group" 
+                   style="background: ${t.hex};"
+                   onclick="copyText('${t.hex}')">
+                <div class="absolute -top-7 left-1/2 -translate-x-1/2 text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap px-1.5 py-0.5 rounded"
+                     style="background: var(--surface-elevated); color: var(--text-primary);">
+                  ${t.hex}
+                </div>
+                <div class="absolute bottom-0.5 left-1/2 -translate-x-1/2 text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity"
+                     style="color: ${textColor(t.hex)};">
+                  ${t.tone}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="flex justify-between mt-1 px-0.5">
+            <span class="text-xs font-mono" style="color: var(--text-tertiary);">0</span>
+            <span class="text-xs font-mono" style="color: var(--text-tertiary);">25</span>
+            <span class="text-xs font-mono" style="color: var(--text-tertiary);">50</span>
+            <span class="text-xs font-mono" style="color: var(--text-tertiary);">75</span>
+            <span class="text-xs font-mono" style="color: var(--text-tertiary);">100</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ─── Render All ───
+    function renderAll() {
+      renderColorRoles();
+      renderSurfaceRoles();
+      renderElevation();
+      renderHarmonies();
+      renderTonalPalettes();
+    }
+
+    // ─── Section Reveal ───
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section-reveal').forEach(el => observer.observe(el));
+
+    // ─── Initialize ───
+    renderAll();
+  </script>
+</body>
+</html>

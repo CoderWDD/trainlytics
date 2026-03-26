@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trainlytics | 开始训练</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface-variant": "#adaaaa",
+              "surface-container-low": "#131313",
+              "tertiary-fixed": "#8eafff",
+              "background": "#0e0e0e",
+              "on-tertiary-fixed-variant": "#003580",
+              "secondary-fixed": "#d7e4ec",
+              "surface-bright": "#2c2c2c",
+              "surface-variant": "#262626",
+              "primary-fixed": "#3fff8b",
+              "primary-dim": "#24f07e",
+              "error-container": "#9f0519",
+              "tertiary-container": "#2778fe",
+              "secondary-dim": "#c9d6de",
+              "tertiary-fixed-dim": "#77a1ff",
+              "on-secondary": "#47545a",
+              "on-primary": "#005d2c",
+              "primary": "#3fff8b",
+              "on-tertiary-fixed": "#00163d",
+              "surface-container": "#1a1a1a",
+              "outline": "#767575",
+              "on-secondary-fixed": "#354147",
+              "primary-fixed-dim": "#24f07e",
+              "tertiary": "#6e9bff",
+              "on-primary-container": "#004f24",
+              "on-tertiary": "#001d4e",
+              "surface": "#0e0e0e",
+              "error-dim": "#d7383b",
+              "on-tertiary-container": "#000000",
+              "primary-container": "#13ea79",
+              "surface-tint": "#3fff8b",
+              "on-primary-fixed-variant": "#006832",
+              "surface-dim": "#0e0e0e",
+              "on-secondary-container": "#c5d2da",
+              "on-secondary-fixed-variant": "#515d64",
+              "error": "#ff716c",
+              "inverse-primary": "#006e35",
+              "on-primary-fixed": "#004820",
+              "on-error": "#490006",
+              "secondary-container": "#3c494f",
+              "inverse-on-surface": "#565555",
+              "on-surface": "#ffffff",
+              "secondary-fixed-dim": "#c9d6de",
+              "tertiary-dim": "#0f6df3",
+              "surface-container-lowest": "#000000",
+              "outline-variant": "#484847",
+              "secondary": "#d7e4ec",
+              "on-error-container": "#ffa8a3",
+              "on-background": "#ffffff",
+              "surface-container-high": "#20201f",
+              "inverse-surface": "#fcf9f8",
+              "surface-container-highest": "#262626"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-kinetic-gradient {
+            background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar Mockup for context -->
+<header class="bg-[#0e0e0e] flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto fixed top-0 left-0 right-0 z-10 opacity-40 grayscale">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of a muscular athlete face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB44cH6Tpf6qUAPbSHHlCkuqrwtJBikx8HIF9fBVA6UgWUKXzGr8dFZcfQRphEtb0hmp5cSJAErCYq_ClxWjhcHMgH2Ov-5Vs-U9RCN0rMs9Rlam9285fu_fcsebyS3TTouerSSq8Rjn7mCTFmLb4GIdUMuUFDKQGc_UxhZXiVopqOuzakiVImppXIydSnk9sGkv8n5bunFGO1OSJQ91K1NK-qEgMwZAfAcxV_q3EVtpRQeIAw87aOu6g8k9oZu6p7B3yV13VTClbA"/>
+</div>
+<h1 class="text-2xl font-bold text-[#00E676] tracking-tighter font-headline">Trainlytics</h1>
+</div>
+<div class="text-slate-400">
+<span class="material-symbols-outlined">more_vert</span>
+</div>
+</header>
+<!-- Background Content (Simulating Dashboard) -->
+<main class="pt-24 px-6 max-w-7xl mx-auto opacity-30 pointer-events-none">
+<section class="mb-10">
+<h2 class="text-4xl font-extrabold font-headline mb-2">训练仪表板</h2>
+<p class="text-on-surface-variant font-medium">本周指标概览</p>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<div class="bg-surface-container-low p-6 rounded-xl">
+<p class="text-on-surface-variant text-sm font-semibold mb-4">平均心率</p>
+<div class="text-5xl font-extrabold font-headline text-primary">142<span class="text-lg ml-1 font-medium text-on-surface-variant">BPM</span></div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<p class="text-on-surface-variant text-sm font-semibold mb-4">每周容量</p>
+<div class="text-5xl font-extrabold font-headline">24,500<span class="text-lg ml-1 font-medium text-on-surface-variant">KG</span></div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<p class="text-on-surface-variant text-sm font-semibold mb-4">恢复评分</p>
+<div class="text-5xl font-extrabold font-headline text-tertiary">88<span class="text-lg ml-1 font-medium text-on-surface-variant">%</span></div>
+</div>
+</div>
+</main>
+<!-- Bottom Sheet Overlay (Dimmer) -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"></div>
+<!-- Start Workout Sheet (The Kinetic Obsidian Sheet) -->
+<div class="fixed bottom-0 left-0 right-0 z-50 flex justify-center">
+<div class="w-full max-w-2xl bg-surface border-t border-white/5 shadow-[0px_-12px_48px_rgba(0,0,0,0.6)] rounded-t-[2.5rem] p-6 pb-12 transition-transform duration-300">
+<!-- Handle -->
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full mx-auto mb-8"></div>
+<div class="flex flex-col gap-8">
+<!-- Header -->
+<header class="flex justify-between items-end">
+<div>
+<h2 class="text-3xl font-extrabold font-headline tracking-tight text-on-surface">开始训练</h2>
+<p class="text-on-surface-variant mt-1 font-medium">选择一个方案开始记录。</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</header>
+<!-- Template Section -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">已保存模板</h3>
+</div>
+<div class="grid grid-cols-1 gap-3">
+<!-- Template Card: Push Day -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-300 p-5 rounded-xl cursor-pointer flex items-center gap-5 border border-transparent hover:border-primary/20">
+<div class="w-14 h-14 rounded-lg bg-surface-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+<div class="flex-1">
+<h4 class="text-lg font-bold font-headline text-on-surface">推力日</h4>
+<p class="text-sm text-on-surface-variant">胸、肩、三头肌 • 6 个动作</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</div>
+<!-- Template Card: Pull Day -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-300 p-5 rounded-xl cursor-pointer flex items-center gap-5 border border-transparent hover:border-primary/20">
+<div class="w-14 h-14 rounded-lg bg-surface-variant flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">layers</span>
+</div>
+<div class="flex-1">
+<h4 class="text-lg font-bold font-headline text-on-surface">拉力日</h4>
+<p class="text-sm text-on-surface-variant">背、二头肌、后束 • 5 个动作</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</div>
+<!-- Template Card: Leg Day -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-300 p-5 rounded-xl cursor-pointer flex items-center gap-5 border border-transparent hover:border-primary/20">
+<div class="w-14 h-14 rounded-lg bg-surface-variant flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_run</span>
+</div>
+<div class="flex-1">
+<h4 class="text-lg font-bold font-headline text-on-surface">腿部日</h4>
+<p class="text-sm text-on-surface-variant">股四、腘绳、小腿 • 7 个动作</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Actions -->
+<div class="flex flex-col gap-4 pt-4">
+<button class="bg-kinetic-gradient text-on-primary-container h-14 rounded-xl font-bold text-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        开始空白训练
+                    </button>
+<button class="h-14 rounded-xl border border-outline-variant/30 text-on-surface font-semibold flex items-center justify-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+                        创建新模板
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#0e0e0e]/70 backdrop-blur-xl pointer-events-none opacity-0">
+<div class="flex flex-col items-center justify-center text-[#3fff8b] bg-[#1a1a1a] rounded-xl px-3 py-1">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">今日</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 opacity-60">
+<span class="material-symbols-outlined">history</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">历史</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 opacity-60">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">洞察</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 opacity-60">
+<span class="material-symbols-outlined">description</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">模板</span>
+</div>
+</nav>
+</body></html>

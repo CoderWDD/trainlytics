@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>记录身体数据 - Trainlytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#adaaaa",
+                        "surface-container-low": "#131313",
+                        "tertiary-fixed": "#8eafff",
+                        "background": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#003580",
+                        "secondary-fixed": "#d7e4ec",
+                        "surface-bright": "#2c2c2c",
+                        "surface-variant": "#262626",
+                        "primary-fixed": "#3fff8b",
+                        "primary-dim": "#24f07e",
+                        "error-container": "#9f0519",
+                        "tertiary-container": "#2778fe",
+                        "secondary-dim": "#c9d6de",
+                        "tertiary-fixed-dim": "#77a1ff",
+                        "on-secondary": "#47545a",
+                        "on-primary": "#005d2c",
+                        "primary": "#00E676",
+                        "on-tertiary-fixed": "#00163d",
+                        "surface-container": "#1a1a1a",
+                        "outline": "#767575",
+                        "on-secondary-fixed": "#354147",
+                        "primary-fixed-dim": "#24f07e",
+                        "tertiary": "#6e9bff",
+                        "on-primary-container": "#004f24",
+                        "on-tertiary": "#001d4e",
+                        "surface": "#0e0e0e",
+                        "error-dim": "#d7383b",
+                        "on-tertiary-container": "#000000",
+                        "primary-container": "#00E676",
+                        "surface-tint": "#00E676",
+                        "on-primary-fixed-variant": "#006832",
+                        "surface-dim": "#0e0e0e",
+                        "on-secondary-container": "#c5d2da",
+                        "on-secondary-fixed-variant": "#515d64",
+                        "error": "#ff716c",
+                        "inverse-primary": "#006e35",
+                        "on-primary-fixed": "#004820",
+                        "on-error": "#490006",
+                        "secondary-container": "#3c494f",
+                        "inverse-on-surface": "#565555",
+                        "on-surface": "#ffffff",
+                        "secondary-fixed-dim": "#c9d6de",
+                        "tertiary-dim": "#0f6df3",
+                        "surface-container-lowest": "#000000",
+                        "outline-variant": "#484847",
+                        "secondary": "#d7e4ec",
+                        "on-error-container": "#ffa8a3",
+                        "on-background": "#ffffff",
+                        "surface-container-high": "#20201f",
+                        "inverse-surface": "#fcf9f8",
+                        "surface-container-highest": "#262626"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e0e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #00E676 0%, #00c853 100%);
+        }
+        .ruler-container::-webkit-scrollbar {
+            display: none;
+        }
+        .ruler-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-primary selection:text-on-primary overflow-x-hidden flex flex-col">
+<!-- Top App Bar -->
+<header class="bg-[#0e0e0e] flex justify-between items-center w-full px-6 py-6 fixed top-0 left-0 right-0 z-40 border-b border-white/5">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-variant transition-colors text-white">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h1 class="font-headline text-xl font-bold tracking-tight">记录身体数据</h1>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs font-semibold">08:30 今天</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 pt-24 pb-32 px-6 max-w-2xl mx-auto w-full">
+<form class="space-y-6">
+<!-- Weight Section -->
+<section class="bg-surface-container-low p-6 rounded-3xl border border-white/5">
+<div class="flex justify-between items-end mb-6">
+<label class="block text-xs font-bold uppercase tracking-widest text-primary">体重 (KG)</label>
+<div class="flex items-baseline gap-1">
+<span class="text-5xl font-headline font-extrabold text-white">82.4</span>
+<span class="text-on-surface-variant font-bold text-lg">KG</span>
+</div>
+</div>
+<!-- Horizontal Ruler Picker (Mockup UI) -->
+<div class="relative mt-8">
+<div class="absolute left-1/2 -top-2 w-1 h-12 bg-primary z-10 rounded-full -translate-x-1/2"></div>
+<div class="ruler-container overflow-x-auto flex items-end gap-3 pb-2 pt-4 px-[50%] opacity-40">
+<!-- Repeating pattern of ruler marks -->
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-[2px] h-8 bg-on-surface-variant"></div>
+<span class="text-[10px] text-on-surface-variant">80</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-[2px] h-8 bg-on-surface-variant"></div>
+<span class="text-[10px] text-on-surface-variant">81</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-[2px] h-10 bg-white"></div>
+<span class="text-[10px] text-white font-bold">82</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-[2px] h-8 bg-on-surface-variant"></div>
+<span class="text-[10px] text-on-surface-variant">83</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 w-[1px] h-4 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2">
+<div class="w-[2px] h-8 bg-on-surface-variant"></div>
+<span class="text-[10px] text-on-surface-variant">84</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Body Fat Section -->
+<section class="bg-surface-container-low p-6 rounded-3xl border border-white/5">
+<div class="flex justify-between items-end mb-6">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">体脂率 (%)</label>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-headline font-extrabold text-white">14.2</span>
+<span class="text-on-surface-variant font-bold text-base">%</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute left-1/2 -top-2 w-0.5 h-10 bg-primary/80 z-10 rounded-full -translate-x-1/2"></div>
+<div class="ruler-container overflow-x-auto flex items-end gap-4 pb-2 pt-4 px-[50%] opacity-40">
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">12</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">13</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-8 bg-white"></div>
+<span class="text-[9px] text-white font-bold">14</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">15</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">16</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Waist Section -->
+<section class="bg-surface-container-low p-6 rounded-3xl border border-white/5">
+<div class="flex justify-between items-end mb-6">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">腰围 (CM)</label>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-headline font-extrabold text-white">84.5</span>
+<span class="text-on-surface-variant font-bold text-base">CM</span>
+</div>
+</div>
+<div class="relative">
+<div class="absolute left-1/2 -top-2 w-0.5 h-10 bg-primary/80 z-10 rounded-full -translate-x-1/2"></div>
+<div class="ruler-container overflow-x-auto flex items-end gap-4 pb-2 pt-4 px-[50%] opacity-40">
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">82</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">83</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-8 bg-white"></div>
+<span class="text-[9px] text-white font-bold">84</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">85</span>
+</div>
+<div class="flex-shrink-0 w-[1px] h-3 bg-on-surface-variant/40"></div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-[1.5px] h-6 bg-on-surface-variant"></div>
+<span class="text-[9px] text-on-surface-variant">86</span>
+</div>
+</div>
+</div>
+</section>
+</form>
+</main>
+<!-- Bottom Action Button -->
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/90 to-transparent pt-12">
+<div class="max-w-2xl mx-auto">
+<button class="kinetic-gradient w-full py-5 rounded-2xl text-on-primary font-headline font-extrabold text-lg flex items-center justify-center gap-3 active:scale-[0.98] transition-all shadow-[0_12px_40px_-12px_rgba(0,230,118,0.4)]" type="submit">
+<span>保存记录</span>
+<span class="material-symbols-outlined">check_circle</span>
+</button>
+</div>
+</div>
+</body></html>

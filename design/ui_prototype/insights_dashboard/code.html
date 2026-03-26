@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trainlytics - 洞察</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#000000",
+              "on-error": "#490006",
+              "surface-container-low": "#131313",
+              "outline-variant": "#484847",
+              "outline": "#767575",
+              "primary-fixed": "#3fff8b",
+              "surface": "#0e0e0e",
+              "on-secondary-fixed-variant": "#515d64",
+              "surface-container-highest": "#262626",
+              "primary-container": "#13ea79",
+              "surface-container-lowest": "#000000",
+              "on-surface": "#ffffff",
+              "secondary": "#d7e4ec",
+              "primary": "#3fff8b",
+              "on-primary-container": "#004f24",
+              "tertiary-fixed-dim": "#77a1ff",
+              "on-primary-fixed": "#004820",
+              "on-primary": "#005d2c",
+              "error": "#ff716c",
+              "secondary-dim": "#c9d6de",
+              "on-secondary": "#47545a",
+              "on-primary-fixed-variant": "#006832",
+              "error-dim": "#d7383b",
+              "tertiary-dim": "#0f6df3",
+              "surface-container-high": "#20201f",
+              "surface-dim": "#0e0e0e",
+              "surface-bright": "#2c2c2c",
+              "secondary-fixed": "#d7e4ec",
+              "tertiary-fixed": "#8eafff",
+              "on-tertiary-fixed-variant": "#003580",
+              "secondary-container": "#3c494f",
+              "primary-fixed-dim": "#24f07e",
+              "on-background": "#ffffff",
+              "inverse-on-surface": "#565555",
+              "inverse-primary": "#006e35",
+              "surface-variant": "#262626",
+              "on-tertiary-fixed": "#00163d",
+              "surface-container": "#1a1a1a",
+              "tertiary-container": "#2778fe",
+              "on-secondary-fixed": "#354147",
+              "on-tertiary": "#001d4e",
+              "on-surface-variant": "#adaaaa",
+              "background": "#0e0e0e",
+              "tertiary": "#6e9bff",
+              "primary-dim": "#24f07e",
+              "inverse-surface": "#fcf9f8",
+              "error-container": "#9f0519",
+              "surface-tint": "#3fff8b",
+              "secondary-fixed-dim": "#c9d6de",
+              "on-secondary-container": "#c5d2da",
+              "on-error-container": "#ffa8a3"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#0e0e0e] flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="用户个人资料" class="w-full h-full object-cover" data-alt="Close up profile photo of a person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-FOk8J1E5ruo_ZzRNirFHMFEkv7lO1xdm8FPYCHB1BKwmH0k23UaAjyf3U4JG-Cq3F3u2RJRZSZoX7M_eQe8uzSiYU4F-czCReo-6H8QgVTMSjLf0hHEyqAlEOkD5nOno4pmfjf8C974V6d8nanKhhoXeRdIwQ4ZQ85UzOf888fS9vO3h9EFZQRs3ZJ0JYJJpxO28Ajhsuk11Nh3q3-c7wcY3FH3exA9ZJSRL4oUrQ_djJ3PQOc-0DSUfWHKWycws6jQ-1wKUBw"/>
+</div>
+<span class="text-2xl font-bold text-[#00E676] tracking-tighter font-headline">Trainlytics</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#1a1a1a] transition-colors text-slate-400">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-4 pb-32">
+<!-- Header & Overview Strip -->
+<section class="mb-10">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight mb-6">数据分析</h1>
+<div class="flex flex-wrap gap-4 items-center">
+<div class="bg-surface-container-low px-5 py-3 rounded-xl flex items-center gap-4">
+<span class="text-on-surface-variant text-sm font-medium uppercase tracking-wider">7天体重</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="south">south</span>
+<span class="font-headline font-bold text-lg">-0.6 公斤</span>
+</div>
+</div>
+<div class="bg-surface-container-low px-5 py-3 rounded-xl flex items-center gap-4">
+<span class="text-on-surface-variant text-sm font-medium uppercase tracking-wider">较上周</span>
+<span class="text-primary font-bold">进展良好</span>
+</div>
+</div>
+</section>
+<!-- Weight Trend Card (Bento Large) -->
+<section class="mb-10">
+<div class="bg-surface-container rounded-2xl p-6 relative overflow-hidden">
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div>
+<h2 class="text-on-surface-variant text-sm font-bold uppercase tracking-widest mb-1">体重趋势</h2>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-headline font-extrabold">75.2</span>
+<span class="text-on-surface-variant font-medium">公斤</span>
+</div>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-lg text-xs font-bold text-on-surface-variant">
+                        30天
+                    </div>
+</div>
+<!-- Abstract Chart Visualization -->
+<div class="h-64 w-full relative flex items-end gap-1">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+</div>
+<!-- SVG Chart Path -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<!-- 7-day Moving Average (Dashed Line) -->
+<path d="M0,40 Q50,35 100,45 T200,38 T300,42 T400,35" fill="none" opacity="0.4" stroke="#3fff8b" stroke-dasharray="4" stroke-width="1"></path>
+<!-- Daily Weight (Solid Line) -->
+<path d="M0,50 L40,45 L80,55 L120,40 L160,42 L200,35 L240,48 L280,30 L320,38 L360,25 L400,28" fill="none" stroke="#3fff8b" stroke-linecap="round" stroke-width="3"></path>
+<!-- Gradient Fill -->
+<path d="M0,50 L40,45 L80,55 L120,40 L160,42 L200,35 L240,48 L280,30 L320,38 L360,25 L400,28 V100 H0 Z" fill="url(#chartGradient)" opacity="0.1"></path>
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#3fff8b"></stop>
+<stop offset="100%" stop-color="#3fff8b" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">
+<span>2月21日</span>
+<span>3月01日</span>
+<span>3月10日</span>
+<span>今天</span>
+</div>
+</div>
+</section>
+<!-- Nutrition Trends (Asymmetric Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10">
+<!-- Calorie Intake -->
+<div class="md:col-span-3 bg-surface-container rounded-2xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline font-bold text-lg">热量摄入</h3>
+<div class="text-right">
+<span class="block text-2xl font-bold font-headline">2,150</span>
+<span class="text-xs text-on-surface-variant font-medium">平均千卡</span>
+</div>
+</div>
+<div class="flex items-end justify-between h-32 gap-2">
+<!-- Target Line Overlay (CSS) -->
+<div class="absolute h-[1px] w-[calc(100%-3rem)] bg-primary/20 border-t border-dashed border-primary/40 translate-y-[-40px] pointer-events-none"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[60%] hover:bg-primary/50 transition-colors"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[75%] hover:bg-primary/50 transition-colors"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[85%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[65%] hover:bg-primary/50 transition-colors"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[90%] hover:bg-primary/50 transition-colors"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[55%] hover:bg-primary/50 transition-colors"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[80%] hover:bg-primary/50 transition-colors"></div>
+</div>
+</div>
+<!-- Protein Intake -->
+<div class="md:col-span-2 bg-surface-container rounded-2xl p-6 flex flex-col justify-between">
+<div>
+<h3 class="font-headline font-bold text-lg mb-1">蛋白质摄入</h3>
+<p class="text-sm text-on-surface-variant">达成率: <span class="text-primary font-bold">85%</span></p>
+</div>
+<div class="mt-4 flex items-center justify-center relative">
+<!-- Simple Radial Visual -->
+<svg class="w-32 h-32 transform -rotate-90">
+<circle class="text-surface-container-highest" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="54.6" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-extrabold font-headline">152克</span>
+<span class="text-[10px] text-on-surface-variant font-bold">平均 / 150克</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Training Progress -->
+<section class="mb-10">
+<h3 class="font-headline font-bold text-xl mb-4 px-1">训练进展</h3>
+<div class="space-y-3">
+<div class="bg-surface-container-low p-5 rounded-xl flex justify-between items-center group hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="fitness_center">fitness_center</span>
+</div>
+<div>
+<span class="block text-on-surface font-semibold text-lg">深蹲</span>
+<span class="text-on-surface-variant text-sm font-medium">120公斤 x 5次</span>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center justify-end gap-1 text-primary">
+<span class="font-bold text-lg font-headline">135公斤</span>
+<span class="material-symbols-outlined text-sm" data-icon="north">north</span>
+</div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">预估 1RM</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex justify-between items-center group hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="fitness_center">fitness_center</span>
+</div>
+<div>
+<span class="block text-on-surface font-semibold text-lg">硬拉</span>
+<span class="text-on-surface-variant text-sm font-medium">160公斤 x 3次</span>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center justify-end gap-1 text-primary">
+<span class="font-bold text-lg font-headline">178公斤</span>
+<span class="material-symbols-outlined text-sm" data-icon="north">north</span>
+</div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">预估 1RM</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Weekly Review Entry -->
+<section>
+<button class="w-full bg-surface-container-highest group hover:bg-surface-container-high transition-all p-6 rounded-2xl flex items-center justify-between overflow-hidden relative">
+<div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-start text-left">
+<span class="text-xs text-primary font-bold uppercase tracking-widest mb-1">每周回顾</span>
+<span class="text-xl font-headline font-extrabold">3月17日 - 23日 周期</span>
+<span class="text-sm text-on-surface-variant mt-1">分析就绪 • 已追踪12项指标</span>
+</div>
+<div class="relative z-10 bg-primary text-on-primary-container px-4 py-2 rounded-xl font-bold flex items-center gap-2 group-active:scale-95 transition-transform">
+                    查看
+                    <span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#0e0e0e]/70 backdrop-blur-xl shadow-[0px_-12px_32px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">今日</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="history">history</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">历史</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#3fff8b] bg-[#1a1a1a] rounded-xl px-3 py-1 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">洞察</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="description">description</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">模板</span>
+</a>
+</nav>
+</body></html>

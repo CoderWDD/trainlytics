@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#0e0e0e",
+              "on-error": "#490006",
+              "on-tertiary-container": "#000000",
+              "on-error-container": "#ffa8a3",
+              "tertiary-fixed-dim": "#77a1ff",
+              "surface-container-low": "#131313",
+              "on-primary": "#005d2c",
+              "on-secondary": "#47545a",
+              "error-dim": "#d7383b",
+              "on-primary-container": "#004f24",
+              "inverse-surface": "#fcf9f8",
+              "on-tertiary": "#001d4e",
+              "secondary-fixed": "#d7e4ec",
+              "surface-container-high": "#20201f",
+              "surface-bright": "#2c2c2c",
+              "outline-variant": "#484847",
+              "secondary-dim": "#c9d6de",
+              "error-container": "#9f0519",
+              "surface-container": "#1a1a1a",
+              "primary": "#3fff8b",
+              "surface-container-lowest": "#000000",
+              "on-surface": "#ffffff",
+              "inverse-primary": "#006e35",
+              "surface-dim": "#0e0e0e",
+              "secondary": "#d7e4ec",
+              "on-tertiary-fixed-variant": "#003580",
+              "primary-dim": "#24f07e",
+              "primary-fixed-dim": "#24f07e",
+              "error": "#ff716c",
+              "primary-fixed": "#3fff8b",
+              "secondary-container": "#3c494f",
+              "tertiary": "#6e9bff",
+              "on-secondary-fixed": "#354147",
+              "tertiary-fixed": "#8eafff",
+              "on-background": "#ffffff",
+              "surface-variant": "#262626",
+              "primary-container": "#13ea79",
+              "outline": "#767575",
+              "on-secondary-container": "#c5d2da",
+              "surface-container-highest": "#262626",
+              "on-tertiary-fixed": "#00163d",
+              "tertiary-dim": "#0f6df3",
+              "tertiary-container": "#2778fe",
+              "background": "#0e0e0e",
+              "secondary-fixed-dim": "#c9d6de",
+              "on-surface-variant": "#adaaaa",
+              "on-primary-fixed-variant": "#006832",
+              "inverse-on-surface": "#565555",
+              "surface-tint": "#3fff8b",
+              "on-primary-fixed": "#004820",
+              "on-secondary-fixed-variant": "#515d64"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="bg-[#0e0e0e] sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="用户头像" class="w-full h-full object-cover" data-alt="Professional athletic user profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjL0PgcDTPfNfNzZzIn0wKe8VeLeE_V9cpyJKHtc7fgB_78M4n6EnTbtzcUaVqKzR420V_sIxNXoO5uUUDXE0okuoBX_NFXv2W4Le7BaRwigI9mGwkTc-FWNnnfj9VC_5mtcfJqNz2BMB-XHIIMyfN_SpohHNmWJFY2O2yjrimFZMHIW4Z4WvVVlyVZZTtfxQmQp2o93SbL_HlpiXKDYOMTF2UFFbA7wzqVcP78mbLP8FWYCkZqzRl_GBw1w6_8Kxaq8HG1M6Ntx8"/>
+</div>
+<span class="text-2xl font-bold text-[#00E676] tracking-tighter font-headline">Trainlytics</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:bg-[#1a1a1a] transition-colors rounded-lg">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-8 pb-32">
+<!-- Header Section -->
+<section class="mb-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline font-extrabold text-4xl tracking-tight mb-1">每周回顾</h1>
+<p class="text-on-surface-variant font-medium tracking-wide">2024年3月17日 - 23日</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded-xl">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-sm font-semibold text-primary">状态：进展良好</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Overall Status Card -->
+<div class="md:col-span-12 lg:col-span-4 bg-surface-container-low rounded-xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[240px]">
+<div class="relative z-10">
+<h2 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-4">表现评分</h2>
+<div class="flex items-baseline gap-2">
+<span class="text-6xl font-headline font-extrabold text-primary">92</span>
+<span class="text-on-surface-variant font-medium">/100</span>
+</div>
+<p class="mt-4 text-on-surface text-sm leading-relaxed max-w-[200px]">
+                        你在蛋白质摄入和深蹲容量方面的稳定性带动了本周的表现高峰。
+                    </p>
+</div>
+<div class="absolute -right-12 -bottom-12 w-48 h-48 kinetic-gradient opacity-10 blur-3xl rounded-full"></div>
+<div class="mt-6 flex gap-2">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full border border-primary/20">精英配速</span>
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold rounded-full">高效恢复</span>
+</div>
+</div>
+<!-- Body Changes (Asymmetric Data) -->
+<div class="md:col-span-6 lg:col-span-4 bg-surface-container rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-start mb-8">
+<h2 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">身体变化</h2>
+<span class="material-symbols-outlined text-on-surface-variant">scale</span>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-on-surface-variant text-xs font-medium mb-1">平均体重</p>
+<p class="text-3xl font-headline font-bold">184.2 <span class="text-sm font-normal text-on-surface-variant">磅</span></p>
+</div>
+<div class="text-right">
+<p class="text-primary text-sm font-bold flex items-center justify-end">
+<span class="material-symbols-outlined text-sm mr-1">arrow_downward</span>-0.8
+                            </p>
+<p class="text-[10px] text-on-surface-variant uppercase">较上周</p>
+</div>
+</div>
+<div class="h-24 w-full bg-surface-container-highest rounded-lg flex items-end justify-between p-3 gap-1">
+<!-- Simple bar viz -->
+<div class="w-full bg-primary/20 rounded-t-sm h-[80%]"></div>
+<div class="w-full bg-primary/20 rounded-t-sm h-[85%]"></div>
+<div class="w-full bg-primary/20 rounded-t-sm h-[70%]"></div>
+<div class="w-full bg-primary/20 rounded-t-sm h-[75%]"></div>
+<div class="w-full bg-primary/20 rounded-t-sm h-[60%]"></div>
+<div class="w-full bg-primary/40 rounded-t-sm h-[55%]"></div>
+<div class="w-full bg-primary rounded-t-sm h-[50%]"></div>
+</div>
+</div>
+</div>
+<!-- Nutrition Highlights -->
+<div class="md:col-span-6 lg:col-span-4 bg-surface-container rounded-xl p-6">
+<div class="flex justify-between items-start mb-8">
+<h2 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">营养</h2>
+<span class="material-symbols-outlined text-on-surface-variant">restaurant</span>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<span class="text-on-surface font-medium">平均热量</span>
+<span class="text-xl font-headline font-bold">2,450 <span class="text-xs text-on-surface-variant">千卡</span></span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface font-medium">平均蛋白质</span>
+<span class="text-xl font-headline font-bold">192 <span class="text-xs text-on-surface-variant">克</span></span>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mb-3">目标达成一致性</p>
+<div class="flex gap-1.5">
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container-highest"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+</div>
+<p class="text-[11px] text-primary mt-2 font-semibold">每周 6/7 天达成目标</p>
+</div>
+</div>
+</div>
+<!-- Training Performance (Wide) -->
+<div class="md:col-span-12 bg-surface-container-low rounded-xl p-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+<div>
+<h2 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">训练表现</h2>
+<p class="text-2xl font-headline font-bold">容量扩张阶段</p>
+</div>
+<div class="flex gap-8">
+<div class="text-center">
+<p class="text-on-surface-variant text-[10px] uppercase font-bold">频率</p>
+<p class="text-2xl font-headline font-bold">5 <span class="text-sm">/ 7</span></p>
+</div>
+<div class="text-center">
+<p class="text-on-surface-variant text-[10px] uppercase font-bold">总容量</p>
+<p class="text-2xl font-headline font-bold">42.8k <span class="text-sm">公斤</span></p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Core Lift Highligh: Squat -->
+<div class="bg-surface-container-highest/40 p-5 rounded-xl flex items-center justify-between group hover:bg-surface-container-highest transition-colors">
+<div>
+<p class="text-on-surface-variant text-xs font-medium mb-1">估算深蹲 1RM</p>
+<p class="text-2xl font-headline font-bold group-hover:text-primary transition-colors">315 <span class="text-sm">磅</span></p>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-primary text-xs font-bold">+12 磅</span>
+<span class="material-symbols-outlined text-primary/40">fitness_center</span>
+</div>
+</div>
+<!-- Core Lift Highligh: Bench -->
+<div class="bg-surface-container-highest/40 p-5 rounded-xl flex items-center justify-between group hover:bg-surface-container-highest transition-colors">
+<div>
+<p class="text-on-surface-variant text-xs font-medium mb-1">估算卧推 1RM</p>
+<p class="text-2xl font-headline font-bold group-hover:text-primary transition-colors">225 <span class="text-sm">磅</span></p>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-on-surface-variant text-xs font-bold">持平</span>
+<span class="material-symbols-outlined text-on-surface-variant/40">fitness_center</span>
+</div>
+</div>
+<!-- Core Lift Highligh: Deadlift -->
+<div class="bg-surface-container-highest/40 p-5 rounded-xl flex items-center justify-between group hover:bg-surface-container-highest transition-colors">
+<div>
+<p class="text-on-surface-variant text-xs font-medium mb-1">估算硬拉 1RM</p>
+<p class="text-2xl font-headline font-bold group-hover:text-primary transition-colors">405 <span class="text-sm">磅</span></p>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-primary text-xs font-bold">+5 磅</span>
+<span class="material-symbols-outlined text-primary/40">fitness_center</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Weekly Notes Summary -->
+<div class="md:col-span-12 bg-surface-container rounded-xl p-8 border-l-4 border-primary">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">edit_note</span>
+<h2 class="text-on-surface font-bold">每周洞察与备注</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="space-y-4">
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                            “在周二进行调整后，睡眠质量显著提高。周三的深蹲训练尽管增加了重量，但体感 RPE 仅为 7。周五报告的酸痛感极轻。准备下周增加辅助动作的训练容量。”
+                        </p>
+</div>
+<div class="bg-surface-container-highest/30 p-4 rounded-lg">
+<h3 class="text-xs font-bold uppercase text-primary tracking-widest mb-3">下周重点</h3>
+<ul class="space-y-2 text-sm">
+<li class="flex items-center gap-3">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>增加卧推容量 10%</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>专注于每日 8 小时睡眠窗口</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>在周日晚 6 点前准备好周末餐饮</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-[#0e0e0e]/70 backdrop-blur-xl flex justify-around items-center px-4 pb-6 pt-3 shadow-[0px_-12px_32px_rgba(0,0,0,0.4)] border-t border-white/5">
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">今日</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">历史</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#3fff8b] bg-[#1a1a1a] rounded-xl px-3 py-1 scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">洞察</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#3fff8b] transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide">模板</span>
+</a>
+</nav>
+</body></html>
