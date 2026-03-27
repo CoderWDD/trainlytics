@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-low": "#131313",
+          "outline-variant": "#484847",
+          "outline": "#767575",
+          "surface": "#0e0e0e",
+          "surface-container-highest": "#262626",
+          "on-surface": "#ffffff",
+          "primary": "#3fff8b",
+          "on-primary": "#005d2c",
+          "error": "#ff716c",
+          "surface-container-high": "#20201f",
+          "surface-container": "#1a1a1a",
+          "on-surface-variant": "#adaaaa",
+          "background": "#0e0e0e",
+          "tertiary": "#6e9bff",
+        },
+        fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .primary-gradient { background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%); }
+  body { min-height: max(884px, 100dvh); }
+  .toggle-track { transition: background 0.2s; }
+  .toggle-thumb { transition: transform 0.2s; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-container">
+
+<!-- Top App Bar -->
+<header class="bg-[#0e0e0e] fixed top-0 w-full z-50">
+  <div class="flex items-center gap-4 px-4 py-4 max-w-lg mx-auto">
+    <button class="text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-lg">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+    <h1 class="font-headline font-bold text-lg text-on-surface flex-1">通知设置</h1>
+  </div>
+</header>
+
+<main class="pt-20 pb-8 px-4 max-w-lg mx-auto space-y-5">
+
+  <!-- Permission Banner -->
+  <div class="bg-surface-container-low rounded-2xl p-4 flex items-center gap-3 mt-2">
+    <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+      <span class="material-symbols-outlined text-primary filled text-xl">notifications_active</span>
+    </div>
+    <div class="flex flex-col flex-1 gap-0.5">
+      <span class="text-sm font-semibold text-on-surface">通知权限已开启</span>
+      <span class="text-xs text-on-surface-variant">可以在系统设置中管理通知权限</span>
+    </div>
+    <button class="text-primary text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-surface-container transition-colors">系统设置</button>
+  </div>
+
+  <!-- Master Toggle -->
+  <div class="bg-surface-container rounded-2xl p-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-on-surface filled">notifications</span>
+      <div class="flex flex-col">
+        <span class="font-semibold text-base text-on-surface">全部通知</span>
+        <span class="text-xs text-on-surface-variant">关闭后所有提醒均停用</span>
+      </div>
+    </div>
+    <button onclick="toggleSwitch(this,'master')" class="toggle-track w-12 h-6 rounded-full bg-primary flex items-center px-0.5 relative" data-on="true">
+      <div class="toggle-thumb w-5 h-5 rounded-full bg-[#004820] shadow-sm" style="transform:translateX(24px)"></div>
+    </button>
+  </div>
+
+  <!-- Meal reminders -->
+  <section class="flex flex-col gap-3" id="meal-section">
+    <div class="flex items-center justify-between px-1">
+      <h2 class="text-xs font-semibold text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">restaurant</span>餐食提醒
+      </h2>
+      <button onclick="toggleSwitch(this,'meal')" class="toggle-track w-10 h-5 rounded-full bg-primary flex items-center px-0.5" data-on="true">
+        <div class="toggle-thumb w-4 h-4 rounded-full bg-[#004820]" style="transform:translateX(20px)"></div>
+      </button>
+    </div>
+    <div class="bg-surface-container rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between p-4" style="border-bottom:1px solid #262626;">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center">
+            <span class="text-base">🌅</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold text-on-surface">早餐提醒</span>
+            <span class="text-xs text-on-surface-variant">记录早餐宏量</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="text-primary text-sm font-semibold hover:bg-surface-container px-2 py-1 rounded-lg">08:00</button>
+          <button onclick="toggleSwitch(this,'breakfast')" class="toggle-track w-10 h-5 rounded-full bg-primary flex items-center px-0.5" data-on="true">
+            <div class="toggle-thumb w-4 h-4 rounded-full bg-[#004820]" style="transform:translateX(20px)"></div>
+          </button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-4" style="border-bottom:1px solid #262626;">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center">
+            <span class="text-base">☀️</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold text-on-surface">午餐提醒</span>
+            <span class="text-xs text-on-surface-variant">记录午餐宏量</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="text-primary text-sm font-semibold hover:bg-surface-container px-2 py-1 rounded-lg">12:30</button>
+          <button onclick="toggleSwitch(this,'lunch')" class="toggle-track w-10 h-5 rounded-full bg-primary flex items-center px-0.5" data-on="true">
+            <div class="toggle-thumb w-4 h-4 rounded-full bg-[#004820]" style="transform:translateX(20px)"></div>
+          </button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center">
+            <span class="text-base">🌙</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold text-on-surface">晚餐提醒</span>
+            <span class="text-xs text-on-surface-variant">记录晚餐宏量</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="text-primary text-sm font-semibold hover:bg-surface-container px-2 py-1 rounded-lg">18:30</button>
+          <button onclick="toggleSwitch(this,'dinner')" class="toggle-track w-10 h-5 rounded-full bg-primary flex items-center px-0.5" data-on="true">
+            <div class="toggle-thumb w-4 h-4 rounded-full bg-[#004820]" style="transform:translateX(20px)"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workout reminder -->
+  <section class="flex flex-col gap-3">
+    <div class="flex items-center justify-between px-1">
+      <h2 class="text-xs font-semibold text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">fitness_center</span>训练提醒
+      </h2>
+      <button onclick="toggleSwitch(this,'workout')" class="toggle-track w-10 h-5 rounded-full bg-primary flex items-center px-0.5" data-on="true">
+        <div class="toggle-thumb w-4 h-4 rounded-full bg-[#004820]" style="transform:translateX(20px)"></div>
+      </button>
+    </div>
+    <div class="bg-surface-container rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between p-4" style="border-bottom:1px solid #262626;">
+        <div class="flex flex-col gap-0.5">
+          <span class="text-sm font-semibold text-on-surface">提醒时间</span>
+          <span class="text-xs text-on-surface-variant">训练日自动启用</span>
+        </div>
+        <button class="text-primary text-sm font-semibold hover:bg-surface-container px-3 py-1.5 rounded-lg">07:00</button>
+      </div>
+      <div class="p-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs text-on-surface-variant">训练日</span>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="toggleDay(this)" class="day-btn flex-1 py-2 rounded-lg text-xs font-bold primary-gradient text-[#004820]" data-on="true">一</button>
+          <button onclick="toggleDay(this)" class="day-btn flex-1 py-2 rounded-lg text-xs font-bold bg-surface-container-highest text-on-surface-variant" data-on="false">二</button>
+          <button onclick="toggleDay(this)" class="day-btn flex-1 py-2 rounded-lg text-xs font-bold primary-gradient text-[#004820]" data-on="true">三</button>
+          <button onclick="toggleDay(this)" class="day-btn flex-1 py-2 rounded-lg text-xs font-bold bg-surface-container-highest text-on-surface-variant" data-on="false">四</button>
+          <button onclick="toggleDay(this)" class="day-btn flex-1 py-2 rounded-lg text-xs font-bold primary-gradient text-[#004820]" data-on="true">五</button>
+          <button onclick="toggleDay(this)" class="day-btn flex-1 py-2 rounded-lg text-xs font-bold bg-surface-container-highest text-on-surface-variant" data-on="false">六</button>
+          <button onclick="toggleDay(this)" class="day-btn flex-1 py-2 rounded-lg text-xs font-bold bg-surface-container-highest text-on-surface-variant" data-on="false">日</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Water reminder -->
+  <section class="flex flex-col gap-3">
+    <div class="flex items-center justify-between px-1">
+      <h2 class="text-xs font-semibold text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">water_drop</span>水分提醒
+      </h2>
+      <button onclick="toggleSwitch(this,'water')" class="toggle-track w-10 h-5 rounded-full bg-surface-container-highest flex items-center px-0.5" data-on="false">
+        <div class="toggle-thumb w-4 h-4 rounded-full bg-on-surface-variant" style="transform:translateX(0px)"></div>
+      </button>
+    </div>
+    <div class="bg-surface-container rounded-2xl overflow-hidden opacity-50">
+      <div class="flex items-center justify-between p-4" style="border-bottom:1px solid #262626;">
+        <span class="text-sm font-semibold text-on-surface">提醒间隔</span>
+        <span class="text-sm text-on-surface-variant">每 2 小时</span>
+      </div>
+      <div class="flex items-center justify-between p-4" style="border-bottom:1px solid #262626;">
+        <span class="text-sm font-semibold text-on-surface">活跃时间段</span>
+        <span class="text-sm text-on-surface-variant">08:00 – 22:00</span>
+      </div>
+      <div class="flex items-center justify-between p-4">
+        <span class="text-sm font-semibold text-on-surface">每日目标</span>
+        <span class="text-sm text-on-surface-variant">2,500 mL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Weekly review reminder -->
+  <section class="flex flex-col gap-3">
+    <div class="flex items-center justify-between px-1">
+      <h2 class="text-xs font-semibold text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">event_note</span>每周回顾
+      </h2>
+      <button onclick="toggleSwitch(this,'weekly')" class="toggle-track w-10 h-5 rounded-full bg-primary flex items-center px-0.5" data-on="true">
+        <div class="toggle-thumb w-4 h-4 rounded-full bg-[#004820]" style="transform:translateX(20px)"></div>
+      </button>
+    </div>
+    <div class="bg-surface-container rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between p-4" style="border-bottom:1px solid #262626;">
+        <span class="text-sm font-semibold text-on-surface">提醒日期</span>
+        <div class="flex items-center gap-2">
+          <span class="text-primary text-sm font-semibold">周日</span>
+          <span class="material-symbols-outlined text-on-surface-variant text-base">chevron_right</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-4">
+        <span class="text-sm font-semibold text-on-surface">提醒时间</span>
+        <button class="text-primary text-sm font-semibold hover:bg-surface-container px-3 py-1.5 rounded-lg">20:00</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="h-4"></div>
+</main>
+
+<script>
+  function toggleSwitch(btn, id) {
+    const isOn = btn.getAttribute('data-on') === 'true';
+    const newState = !isOn;
+    btn.setAttribute('data-on', newState);
+    const thumb = btn.querySelector('.toggle-thumb');
+    if(newState) {
+      btn.style.background = 'linear-gradient(135deg,#3fff8b,#13ea79)';
+      thumb.style.transform = btn.classList.contains('w-12') ? 'translateX(24px)' : 'translateX(20px)';
+      thumb.style.background = '#004820';
+    } else {
+      btn.style.background = '#262626';
+      thumb.style.transform = 'translateX(0px)';
+      thumb.style.background = '#adaaaa';
+    }
+  }
+
+  function toggleDay(btn) {
+    const isOn = btn.getAttribute('data-on') === 'true';
+    const newState = !isOn;
+    btn.setAttribute('data-on', newState);
+    if(newState) {
+      btn.style.background = 'linear-gradient(135deg,#3fff8b,#13ea79)';
+      btn.style.color = '#004820';
+    } else {
+      btn.style.background = '#262626';
+      btn.style.color = '#adaaaa';
+    }
+  }
+</script>
+</body>
+</html>

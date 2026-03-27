@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-tertiary-container": "#000000",
+          "on-error": "#490006",
+          "surface-container-low": "#131313",
+          "outline-variant": "#484847",
+          "outline": "#767575",
+          "primary-fixed": "#3fff8b",
+          "surface": "#0e0e0e",
+          "surface-container-highest": "#262626",
+          "primary-container": "#13ea79",
+          "surface-container-lowest": "#000000",
+          "on-surface": "#ffffff",
+          "secondary": "#d7e4ec",
+          "primary": "#3fff8b",
+          "on-primary-container": "#004f24",
+          "on-primary": "#005d2c",
+          "error": "#ff716c",
+          "on-secondary": "#47545a",
+          "tertiary-dim": "#0f6df3",
+          "surface-container-high": "#20201f",
+          "surface-dim": "#0e0e0e",
+          "surface-bright": "#2c2c2c",
+          "secondary-container": "#3c494f",
+          "on-background": "#ffffff",
+          "surface-container": "#1a1a1a",
+          "tertiary-container": "#2778fe",
+          "on-surface-variant": "#adaaaa",
+          "background": "#0e0e0e",
+          "tertiary": "#6e9bff",
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .material-symbols-outlined.filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .primary-gradient {
+    background: linear-gradient(135deg, #3fff8b 0%, #13ea79 100%);
+  }
+  .step-content { display: none; }
+  .step-content.active { display: flex; }
+  .ruler-tick { width: 1px; background: #484847; flex-shrink: 0; }
+  .ruler-tick.major { background: #adaaaa; }
+  body { min-height: max(884px, 100dvh); }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary-container overflow-x-hidden">
+
+<!-- Fixed top bar -->
+<header class="fixed top-0 w-full z-50 bg-[#0e0e0e]">
+  <div class="flex justify-between items-center px-6 py-4 max-w-lg mx-auto">
+    <h1 class="text-xl font-bold text-primary font-headline tracking-tighter">Trainlytics</h1>
+    <button onclick="skipOnboarding()" class="text-on-surface-variant text-sm font-medium hover:text-on-surface transition-colors px-3 py-1.5 rounded-lg hover:bg-surface-container">
+      跳过
+    </button>
+  </div>
+</header>
+
+<!-- Step indicator -->
+<div class="fixed top-16 left-0 right-0 z-40 bg-[#0e0e0e] px-6 pt-3 pb-4">
+  <div class="flex items-center gap-2 max-w-lg mx-auto">
+    <div id="dot-1" class="h-2 rounded-full bg-primary transition-all duration-300" style="width:40px"></div>
+    <div id="dot-2" class="h-2 rounded-full bg-surface-container-high transition-all duration-300" style="width:8px"></div>
+    <div id="dot-3" class="h-2 rounded-full bg-surface-container-high transition-all duration-300" style="width:8px"></div>
+    <div id="dot-4" class="h-2 rounded-full bg-surface-container-high transition-all duration-300" style="width:8px"></div>
+    <span id="step-label" class="ml-auto text-xs text-on-surface-variant font-medium">1 / 4</span>
+  </div>
+</div>
+
+<main class="pt-32 pb-28 px-6 max-w-lg mx-auto">
+
+  <!-- Step 1: Welcome -->
+  <div id="step-1" class="step-content active flex-col gap-8 min-h-[600px] justify-between">
+    <div class="flex flex-col gap-8">
+      <!-- Hero -->
+      <div class="flex flex-col items-center text-center gap-4 pt-6">
+        <div class="w-24 h-24 rounded-3xl primary-gradient flex items-center justify-center shadow-2xl">
+          <span class="material-symbols-outlined text-5xl text-[#005d2c]">fitness_center</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-headline font-extrabold text-4xl text-on-surface tracking-tight">欢迎使用</h2>
+          <h2 class="font-headline font-extrabold text-4xl tracking-tight" style="background: linear-gradient(135deg,#3fff8b,#13ea79); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Trainlytics</h2>
+          <p class="text-on-surface-variant text-base mt-1 leading-relaxed">本地优先的减脂期健身追踪<br>科学记录，专注进步</p>
+        </div>
+      </div>
+
+      <!-- Feature highlights -->
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-4 bg-surface-container rounded-xl p-4">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-xl">restaurant</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-semibold text-sm text-on-surface">AI 智能饮食识别</span>
+            <span class="text-xs text-on-surface-variant mt-0.5">拍照或描述即可记录宏量</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-surface-container rounded-xl p-4">
+          <div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-tertiary text-xl">monitoring</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-semibold text-sm text-on-surface">力量进展追踪</span>
+            <span class="text-xs text-on-surface-variant mt-0.5">记录每组数据，估算1RM</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-surface-container rounded-xl p-4">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-on-surface-variant text-xl">lock</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-semibold text-sm text-on-surface">数据完全本地</span>
+            <span class="text-xs text-on-surface-variant mt-0.5">AES-256 加密，数据属于你</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="nextStep()" class="primary-gradient w-full py-4 rounded-xl font-headline font-bold text-[#004820] text-base tracking-wide active:opacity-90 transition-opacity">
+      开始设置
+    </button>
+  </div>
+
+  <!-- Step 2: Body Data -->
+  <div id="step-2" class="step-content flex-col gap-6 min-h-[600px] justify-between">
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-1 pt-2">
+        <h2 class="font-headline font-bold text-2xl text-on-surface">基础身体数据</h2>
+        <p class="text-on-surface-variant text-sm">用于计算 BMR 和个性化建议</p>
+      </div>
+
+      <!-- Gender -->
+      <div class="flex flex-col gap-3">
+        <label class="text-sm font-semibold text-on-surface-variant uppercase tracking-wider">性别</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="selectGender(this,'male')" class="gender-btn flex flex-col items-center gap-2 p-4 rounded-xl bg-surface-container border-2 border-primary transition-all">
+            <span class="material-symbols-outlined text-primary text-2xl filled">male</span>
+            <span class="text-sm font-semibold text-on-surface">男性</span>
+          </button>
+          <button onclick="selectGender(this,'female')" class="gender-btn flex flex-col items-center gap-2 p-4 rounded-xl bg-surface-container border-2 border-transparent transition-all">
+            <span class="material-symbols-outlined text-on-surface-variant text-2xl">female</span>
+            <span class="text-sm font-semibold text-on-surface-variant">女性</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Age & Height row -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-semibold text-on-surface-variant uppercase tracking-wider">年龄</label>
+          <div class="bg-surface-container rounded-xl p-4 flex flex-col gap-1">
+            <span class="font-headline font-bold text-3xl text-primary">26</span>
+            <span class="text-xs text-on-surface-variant">岁</span>
+            <input type="range" min="15" max="80" value="26" class="w-full accent-primary mt-2 h-1 rounded-full" oninput="document.querySelector('#age-val').textContent=this.value" id="age-slider"/>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-semibold text-on-surface-variant uppercase tracking-wider">身高</label>
+          <div class="bg-surface-container rounded-xl p-4 flex flex-col gap-1">
+            <span class="font-headline font-bold text-3xl text-on-surface">175</span>
+            <span class="text-xs text-on-surface-variant">cm</span>
+            <input type="range" min="140" max="220" value="175" class="w-full accent-primary mt-2 h-1 rounded-full"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weight ruler -->
+      <div class="flex flex-col gap-3">
+        <div class="flex justify-between items-center">
+          <label class="text-sm font-semibold text-on-surface-variant uppercase tracking-wider">当前体重</label>
+          <span class="font-headline font-bold text-2xl text-primary">75.0 <span class="text-base font-semibold text-on-surface-variant">kg</span></span>
+        </div>
+        <div class="bg-surface-container rounded-xl p-4">
+          <!-- Ruler visual -->
+          <div class="relative overflow-hidden">
+            <div class="flex gap-[3px] items-end h-12 overflow-x-auto no-scrollbar" style="scrollbar-width:none">
+              <!-- Center indicator -->
+              <div class="absolute inset-0 flex justify-center pointer-events-none z-10">
+                <div class="w-0.5 h-full bg-primary"></div>
+              </div>
+              <!-- Ticks 50–120 -->
+              <div class="flex gap-[3px] items-end mx-auto">
+                <script>
+                  // Rendered statically for 50..100 kg
+                  const ticks = [];
+                  for(let i=50;i<=100;i++){
+                    const major = i%5===0;
+                    const center = i===75;
+                    ticks.push(`<div class="ruler-tick ${major?'major':''}" style="height:${major?'28px':'16px'};${center?'background:#3fff8b':''}"></div>`);
+                    if(major) ticks.push(`<span style="position:absolute;font-size:9px;color:#adaaaa;margin-top:2px">${i}</span>`);
+                  }
+                </script>
+                <!-- Static ruler ticks -->
+                <div class="flex gap-[3px] items-end">
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <!-- Center = 75, primary color -->
+                  <div style="height:36px;width:2px;background:#3fff8b"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                  <div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div><div style="height:12px;width:1px;background:#484847"></div>
+                  <div style="height:28px;width:1px;background:#adaaaa"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between mt-1 px-1">
+              <span class="text-xs text-on-surface-variant">60</span>
+              <span class="text-xs text-primary font-semibold">75.0</span>
+              <span class="text-xs text-on-surface-variant">90</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <button onclick="prevStep()" class="flex-1 py-4 rounded-xl border border-outline-variant font-semibold text-on-surface-variant text-base hover:bg-surface-container transition-colors">
+        返回
+      </button>
+      <button onclick="nextStep()" class="flex-[2] primary-gradient py-4 rounded-xl font-headline font-bold text-[#004820] text-base tracking-wide">
+        继续
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 3: Goal Selection -->
+  <div id="step-3" class="step-content flex-col gap-6 min-h-[600px] justify-between">
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-1 pt-2">
+        <h2 class="font-headline font-bold text-2xl text-on-surface">你的目标是什么？</h2>
+        <p class="text-on-surface-variant text-sm">这将影响营养目标和训练建议</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <!-- Fat loss -->
+        <button onclick="selectGoal(this,'cut')" class="goal-btn text-left flex items-center gap-4 p-5 rounded-2xl bg-surface-container border-2 border-primary transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-3xl">local_fire_department</span>
+          </div>
+          <div class="flex flex-col flex-1">
+            <div class="flex items-center gap-2">
+              <span class="font-headline font-bold text-base text-on-surface">减脂期</span>
+              <span class="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full font-semibold">推荐</span>
+            </div>
+            <span class="text-xs text-on-surface-variant mt-1">热量缺口 + 高蛋白，保留肌肉同时减脂</span>
+          </div>
+          <span class="material-symbols-outlined text-primary filled">radio_button_checked</span>
+        </button>
+
+        <!-- Maintain -->
+        <button onclick="selectGoal(this,'maintain')" class="goal-btn text-left flex items-center gap-4 p-5 rounded-2xl bg-surface-container border-2 border-transparent transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-surface-container-highest flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-on-surface-variant text-3xl">balance</span>
+          </div>
+          <div class="flex flex-col flex-1">
+            <span class="font-headline font-bold text-base text-on-surface">维持期</span>
+            <span class="text-xs text-on-surface-variant mt-1">热量平衡，维持当前体重和体型</span>
+          </div>
+          <span class="material-symbols-outlined text-on-surface-variant">radio_button_unchecked</span>
+        </button>
+
+        <!-- Muscle gain -->
+        <button onclick="selectGoal(this,'bulk')" class="goal-btn text-left flex items-center gap-4 p-5 rounded-2xl bg-surface-container border-2 border-transparent transition-all">
+          <div class="w-14 h-14 rounded-2xl bg-surface-container-highest flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-on-surface-variant text-3xl">fitness_center</span>
+          </div>
+          <div class="flex flex-col flex-1">
+            <span class="font-headline font-bold text-base text-on-surface">增肌期</span>
+            <span class="text-xs text-on-surface-variant mt-1">热量盈余 + 渐进超负荷，增肌增力</span>
+          </div>
+          <span class="material-symbols-outlined text-on-surface-variant">radio_button_unchecked</span>
+        </button>
+      </div>
+
+      <!-- Calorie recommendation preview -->
+      <div class="bg-surface-container-low rounded-xl p-4 flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+        <div class="flex flex-col gap-0.5">
+          <span class="text-xs text-on-surface-variant">基于你的数据，推荐每日热量目标</span>
+          <span class="font-headline font-bold text-lg text-primary">1,850 <span class="text-sm text-on-surface-variant font-semibold">kcal</span></span>
+        </div>
+        <span class="ml-auto text-xs text-on-surface-variant">可在目标设置中调整</span>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <button onclick="prevStep()" class="flex-1 py-4 rounded-xl border border-outline-variant font-semibold text-on-surface-variant text-base hover:bg-surface-container transition-colors">
+        返回
+      </button>
+      <button onclick="nextStep()" class="flex-[2] primary-gradient py-4 rounded-xl font-headline font-bold text-[#004820] text-base tracking-wide">
+        继续
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 4: Experience Level -->
+  <div id="step-4" class="step-content flex-col gap-6 min-h-[600px] justify-between">
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-1 pt-2">
+        <h2 class="font-headline font-bold text-2xl text-on-surface">训练经验水平</h2>
+        <p class="text-on-surface-variant text-sm">影响默认训练模板和建议负重</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <button onclick="selectLevel(this,'beginner')" class="level-btn text-left flex items-start gap-4 p-5 rounded-2xl bg-surface-container border-2 border-transparent transition-all">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center flex-shrink-0 mt-0.5">
+            <span class="text-lg">🌱</span>
+          </div>
+          <div class="flex flex-col flex-1">
+            <span class="font-headline font-bold text-base text-on-surface">初学者</span>
+            <span class="text-xs text-on-surface-variant mt-1">训练时间 &lt; 1年 / 动作技术仍在建立</span>
+            <div class="flex gap-1 mt-2">
+              <span class="text-xs bg-surface-container-highest px-2 py-0.5 rounded-full text-on-surface-variant">每周 2-3 次</span>
+              <span class="text-xs bg-surface-container-highest px-2 py-0.5 rounded-full text-on-surface-variant">基础复合动作</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-on-surface-variant flex-shrink-0">radio_button_unchecked</span>
+        </button>
+
+        <button onclick="selectLevel(this,'intermediate')" class="level-btn text-left flex items-start gap-4 p-5 rounded-2xl bg-surface-container border-2 border-primary transition-all">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <span class="text-lg">⚡</span>
+          </div>
+          <div class="flex flex-col flex-1">
+            <div class="flex items-center gap-2">
+              <span class="font-headline font-bold text-base text-on-surface">中级</span>
+              <span class="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full font-semibold">推荐</span>
+            </div>
+            <span class="text-xs text-on-surface-variant mt-1">训练时间 1-3 年 / 动作技术稳定</span>
+            <div class="flex gap-1 mt-2">
+              <span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">每周 3-5 次</span>
+              <span class="text-xs bg-surface-container-highest px-2 py-0.5 rounded-full text-on-surface-variant">分化训练</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-primary filled flex-shrink-0">radio_button_checked</span>
+        </button>
+
+        <button onclick="selectLevel(this,'advanced')" class="level-btn text-left flex items-start gap-4 p-5 rounded-2xl bg-surface-container border-2 border-transparent transition-all">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center flex-shrink-0 mt-0.5">
+            <span class="text-lg">🏆</span>
+          </div>
+          <div class="flex flex-col flex-1">
+            <span class="font-headline font-bold text-base text-on-surface">进阶</span>
+            <span class="text-xs text-on-surface-variant mt-1">训练时间 3 年以上 / 系统化周期训练</span>
+            <div class="flex gap-1 mt-2">
+              <span class="text-xs bg-surface-container-highest px-2 py-0.5 rounded-full text-on-surface-variant">每周 5-6 次</span>
+              <span class="text-xs bg-surface-container-highest px-2 py-0.5 rounded-full text-on-surface-variant">周期化计划</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-on-surface-variant flex-shrink-0">radio_button_unchecked</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <button onclick="prevStep()" class="flex-1 py-4 rounded-xl border border-outline-variant font-semibold text-on-surface-variant text-base hover:bg-surface-container transition-colors">
+        返回
+      </button>
+      <button onclick="finishOnboarding()" class="flex-[2] primary-gradient py-4 rounded-xl font-headline font-bold text-[#004820] text-base tracking-wide flex items-center justify-center gap-2">
+        <span>开始使用</span>
+        <span class="material-symbols-outlined text-xl">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  function updateIndicator(step) {
+    for(let i = 1; i <= totalSteps; i++) {
+      const dot = document.getElementById(`dot-${i}`);
+      if(i === step) {
+        dot.style.width = '40px';
+        dot.classList.remove('bg-surface-container-high');
+        dot.classList.add('bg-primary');
+      } else if(i < step) {
+        dot.style.width = '8px';
+        dot.classList.remove('bg-surface-container-high');
+        dot.classList.add('bg-primary');
+        dot.style.opacity = '0.5';
+      } else {
+        dot.style.width = '8px';
+        dot.classList.add('bg-surface-container-high');
+        dot.classList.remove('bg-primary');
+        dot.style.opacity = '1';
+      }
+    }
+    document.getElementById('step-label').textContent = `${step} / ${totalSteps}`;
+  }
+
+  function showStep(step) {
+    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(`step-${step}`).classList.add('active');
+    updateIndicator(step);
+    currentStep = step;
+    window.scrollTo(0, 0);
+  }
+
+  function nextStep() {
+    if(currentStep < totalSteps) showStep(currentStep + 1);
+  }
+
+  function prevStep() {
+    if(currentStep > 1) showStep(currentStep - 1);
+  }
+
+  function skipOnboarding() {
+    alert('跳过引导，跳转至今日总览（原型演示）');
+  }
+
+  function finishOnboarding() {
+    alert('引导完成！跳转至今日总览（原型演示）');
+  }
+
+  function selectGender(btn, value) {
+    document.querySelectorAll('.gender-btn').forEach(b => {
+      b.classList.remove('border-primary');
+      b.classList.add('border-transparent');
+      b.querySelector('.material-symbols-outlined').classList.remove('text-primary');
+      b.querySelector('.material-symbols-outlined').classList.add('text-on-surface-variant');
+      b.querySelector('span:last-child') && (b.querySelector('span:last-child').className = 'text-sm font-semibold text-on-surface-variant');
+    });
+    btn.classList.add('border-primary');
+    btn.classList.remove('border-transparent');
+    btn.querySelector('.material-symbols-outlined').classList.add('text-primary');
+    btn.querySelector('.material-symbols-outlined').classList.remove('text-on-surface-variant');
+  }
+
+  function selectGoal(btn, value) {
+    document.querySelectorAll('.goal-btn').forEach(b => {
+      b.classList.remove('border-primary');
+      b.classList.add('border-transparent');
+      const radio = b.querySelector('.material-symbols-outlined:last-child');
+      radio.classList.remove('text-primary','filled');
+      radio.classList.add('text-on-surface-variant');
+      radio.textContent = 'radio_button_unchecked';
+    });
+    btn.classList.add('border-primary');
+    btn.classList.remove('border-transparent');
+    const radio = btn.querySelector('.material-symbols-outlined:last-child');
+    radio.classList.add('text-primary','filled');
+    radio.classList.remove('text-on-surface-variant');
+    radio.textContent = 'radio_button_checked';
+  }
+
+  function selectLevel(btn, value) {
+    document.querySelectorAll('.level-btn').forEach(b => {
+      b.classList.remove('border-primary');
+      b.classList.add('border-transparent');
+      const radio = b.querySelector('.material-symbols-outlined:last-child');
+      radio.classList.remove('text-primary','filled');
+      radio.classList.add('text-on-surface-variant');
+      radio.textContent = 'radio_button_unchecked';
+    });
+    btn.classList.add('border-primary');
+    btn.classList.remove('border-transparent');
+    const radio = btn.querySelector('.material-symbols-outlined:last-child');
+    radio.classList.add('text-primary','filled');
+    radio.classList.remove('text-on-surface-variant');
+    radio.textContent = 'radio_button_checked';
+  }
+</script>
+</body>
+</html>
