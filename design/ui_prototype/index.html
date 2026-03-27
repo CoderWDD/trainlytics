@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trainlytics · 原型导览</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#0e0e0e',
+            surface: '#1a1a1a',
+            'surface-2': '#242424',
+            'surface-3': '#2e2e2e',
+            border: '#333333',
+            'green-action': '#3fff8b',
+            'green-mid': '#13ea79',
+            'text-primary': '#f0f0f0',
+            'text-secondary': '#a0a0a0',
+            'text-muted': '#606060',
+          },
+          fontFamily: {
+            headline: ['Manrope', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { background-color: #0e0e0e; color: #f0f0f0; font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+    .card-link { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .card-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(63, 255, 139, 0.08); }
+    .badge-tab { background: rgba(63,255,139,0.12); color: #3fff8b; }
+    .badge-sheet { background: rgba(99,180,255,0.12); color: #63b4ff; }
+    .badge-sub { background: rgba(160,160,160,0.1); color: #a0a0a0; }
+    .badge-full { background: rgba(255,200,80,0.1); color: #ffc850; }
+    .flow-arrow { color: #3fff8b; font-size: 14px; }
+    .module-header-icon { background: rgba(63,255,139,0.1); }
+    /* Sticky nav */
+    #top-nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); background: rgba(14,14,14,0.88); border-bottom: 1px solid #222; }
+    /* Phone frame */
+    .phone-frame { position: fixed; right: 24px; bottom: 24px; width: 320px; height: 568px; background: #1a1a1a; border-radius: 32px; border: 2px solid #333; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.6); z-index: 100; display: flex; flex-direction: column; transition: opacity 0.2s ease; }
+    .phone-frame.hidden { opacity: 0; pointer-events: none; }
+    .phone-bar { background: #0e0e0e; height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid #282828; flex-shrink: 0; }
+    .phone-iframe { flex: 1; border: none; width: 100%; }
+    .phone-controls { background: #0e0e0e; height: 40px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; border-top: 1px solid #282828; flex-shrink: 0; }
+    /* Scroll to top btn */
+    #scroll-top { position: fixed; left: 24px; bottom: 24px; z-index: 50; }
+    /* Section anchor offset */
+    .section-anchor { scroll-margin-top: 72px; }
+    /* Flow path pills */
+    .flow-path { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+    .flow-path .step { background: #242424; border: 1px solid #333; padding: 2px 8px; border-radius: 100px; font-size: 11px; color: #a0a0a0; white-space: nowrap; }
+    .flow-path .step.active { background: rgba(63,255,139,0.1); border-color: rgba(63,255,139,0.3); color: #3fff8b; }
+    .flow-path .arr { color: #444; font-size: 10px; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Top Nav -->
+  <nav id="top-nav">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#3fff8b,#13ea79);">
+          <span class="material-symbols-outlined text-obsidian" style="font-size:16px;font-variation-settings:'FILL' 1">bolt</span>
+        </div>
+        <span class="font-headline font-bold text-base tracking-tight text-text-primary">Trainlytics</span>
+        <span class="text-text-muted text-xs ml-1 hidden sm:inline">原型导览</span>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-text-muted">
+        <span class="material-symbols-outlined" style="font-size:15px">grid_view</span>
+        <span>28 个页面</span>
+        <span class="mx-2 text-border">|</span>
+        <button id="toggle-preview" onclick="togglePreview()" class="flex items-center gap-1 text-text-secondary hover:text-green-action transition-colors">
+          <span class="material-symbols-outlined" style="font-size:15px">smartphone</span>
+          <span id="preview-label">预览面板</span>
+        </button>
+      </div>
+    </div>
+    <!-- Module Jump Bar -->
+    <div class="max-w-6xl mx-auto px-6 pb-2 flex gap-1 overflow-x-auto scrollbar-none">
+      <a href="#module-launch" class="nav-chip">引导</a>
+      <a href="#module-today" class="nav-chip">今日</a>
+      <a href="#module-workout" class="nav-chip">训练完成</a>
+      <a href="#module-history" class="nav-chip">历史</a>
+      <a href="#module-insights" class="nav-chip">洞察</a>
+      <a href="#module-templates" class="nav-chip">模板</a>
+      <a href="#module-shared" class="nav-chip">通用组件</a>
+      <a href="#module-settings" class="nav-chip">设置</a>
+      <a href="#flow-guide" class="nav-chip" style="color:#3fff8b">流程导览</a>
+    </div>
+  </nav>
+  <style>
+    .nav-chip { padding: 3px 12px; border-radius: 100px; font-size: 12px; color: #a0a0a0; border: 1px solid transparent; white-space: nowrap; transition: all 0.15s; }
+    .nav-chip:hover { color: #f0f0f0; border-color: #333; }
+    .scrollbar-none::-webkit-scrollbar { display: none; }
+  </style>
+
+  <div class="max-w-6xl mx-auto px-6 pb-32">
+
+    <!-- Hero -->
+    <div class="pt-10 pb-8">
+      <div class="flex items-start gap-4">
+        <div class="flex-1">
+          <p class="text-green-action text-xs font-body font-medium tracking-widest uppercase mb-2">The Kinetic Lab</p>
+          <h1 class="font-headline font-extrabold text-3xl sm:text-4xl text-text-primary leading-tight mb-3">本地优先的减脂<br/>追踪应用原型</h1>
+          <p class="text-text-secondary text-sm leading-relaxed max-w-xl">
+            Trainlytics 帮助用户记录体重、餐食、训练和恢复数据，提供轻量级趋势分析和周回顾。
+            本页汇集全部 <strong class="text-text-primary">28 个页面原型</strong>，点击卡片即可在预览面板或新标签页中查看交互效果。
+          </p>
+        </div>
+        <div class="hidden sm:flex flex-col gap-2 text-right text-xs text-text-muted shrink-0 pt-1">
+          <div><span class="text-text-secondary font-medium">4</span> Tab 主页</div>
+          <div><span class="text-text-secondary font-medium">20</span> 全屏/子页面</div>
+          <div><span class="text-text-secondary font-medium">4</span> 底部弹窗</div>
+        </div>
+      </div>
+
+      <!-- Quick start flow -->
+      <div class="mt-6 p-4 rounded-xl border border-border bg-surface-2">
+        <p class="text-xs text-text-muted mb-3 font-medium">典型使用路径</p>
+        <div class="flow-path">
+          <div class="step active">onboarding</div><span class="arr">→</span>
+          <div class="step active">goal_setup</div><span class="arr">→</span>
+          <div class="step active">today_dashboard</div><span class="arr">→</span>
+          <div class="step">quick_add_sheet</div><span class="arr">→</span>
+          <div class="step">start_workout_sheet</div><span class="arr">→</span>
+          <div class="step">active_workout</div><span class="arr">→</span>
+          <div class="step">workout_summary</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── MODULE 0: LAUNCH ─── -->
+    <section id="module-launch" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">rocket_launch</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">引导 / 启动</h2>
+          <p class="text-text-muted text-xs">首次启动流程 · 2 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('onboarding/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">引导欢迎页</p>
+              <p class="text-text-muted text-xs mt-0.5">onboarding</p>
+            </div>
+            <span class="badge-full text-xs px-2 py-0.5 rounded-full">全屏向导</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">3步引导介绍应用核心功能，首次启动自动显示。</p>
+          <div class="mt-3 flex items-center gap-1 text-xs text-text-muted">
+            <span class="material-symbols-outlined" style="font-size:13px">arrow_forward</span>
+            <span>goal_setup</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('goal_setup/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">目标设置</p>
+              <p class="text-text-muted text-xs mt-0.5">goal_setup</p>
+            </div>
+            <span class="badge-full text-xs px-2 py-0.5 rounded-full">全屏向导</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">设置减脂目标体重、每日热量缺口、活动水平等参数。</p>
+          <div class="mt-3 flex items-center gap-1 text-xs text-text-muted">
+            <span class="material-symbols-outlined" style="font-size:13px">arrow_forward</span>
+            <span>today_dashboard</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MODULE 1: TODAY ─── -->
+    <section id="module-today" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">today</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">今日模块</h2>
+          <p class="text-text-muted text-xs">每日记录核心 · 6 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('today_dashboard/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">今日主页</p>
+              <p class="text-text-muted text-xs mt-0.5">today_dashboard</p>
+            </div>
+            <span class="badge-tab text-xs px-2 py-0.5 rounded-full">Tab 主页</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">体重卡、热量环、训练卡等今日数据汇总，FAB "+" 进入快速添加。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ quick_add_sheet</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ settings</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('quick_add_sheet/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">快速添加</p>
+              <p class="text-text-muted text-xs mt-0.5">quick_add_sheet</p>
+            </div>
+            <span class="badge-sheet text-xs px-2 py-0.5 rounded-full">底部弹窗</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">集中入口，可快速跳转记录体重、餐食、或开始训练。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ record_body_stats</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ record_meal_sheet</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ start_workout_sheet</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('record_body_stats/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">身体数据记录</p>
+              <p class="text-text-muted text-xs mt-0.5">record_body_stats</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">录入体重、体脂、围度数据，内置近期趋势迷你图。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('record_meal_sheet/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">餐食记录</p>
+              <p class="text-text-muted text-xs mt-0.5">record_meal_sheet</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">搜索/AI拍照添加食物，实时显示热量和三大营养素。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ ai_food_recognition</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ food_search_sheet</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('start_workout_sheet/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">开始训练</p>
+              <p class="text-text-muted text-xs mt-0.5">start_workout_sheet</p>
+            </div>
+            <span class="badge-sheet text-xs px-2 py-0.5 rounded-full">底部弹窗</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">选择训练模板、空白开始、或创建新模板，进入训练会话。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ active_workout</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('active_workout/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">训练进行中</p>
+              <p class="text-text-muted text-xs mt-0.5">active_workout</p>
+            </div>
+            <span class="badge-full text-xs px-2 py-0.5 rounded-full">全屏</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">实时记录动作、组数、重量，计时器，可添加动作。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ exercise_picker</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ workout_summary</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MODULE 2: WORKOUT COMPLETION ─── -->
+    <section id="module-workout" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">emoji_events</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">训练完成</h2>
+          <p class="text-text-muted text-xs">训练结束后 · 1 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('workout_summary/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">训练完成总结</p>
+              <p class="text-text-muted text-xs mt-0.5">workout_summary</p>
+            </div>
+            <span class="badge-full text-xs px-2 py-0.5 rounded-full">全屏</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">训练时长、总重量、动作数量汇总；高亮本次新PR；可跳转个人记录详情。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ personal_records</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MODULE 3: HISTORY ─── -->
+    <section id="module-history" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">history</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">历史模块</h2>
+          <p class="text-text-muted text-xs">历史查阅与补记 · 3 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('history_list/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">历史记录</p>
+              <p class="text-text-muted text-xs mt-0.5">history_list</p>
+            </div>
+            <span class="badge-tab text-xs px-2 py-0.5 rounded-full">Tab 主页</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">日历视图 + 列表，颜色标注有训练/有记录的日期，可筛选。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ history_day_detail</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ backfill_journal</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('history_day_detail/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">单日详情</p>
+              <p class="text-text-muted text-xs mt-0.5">history_day_detail</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">某天的完整数据：体重、热量、训练动作列表和笔记。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('backfill_journal/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">补记日志</p>
+              <p class="text-text-muted text-xs mt-0.5">backfill_journal</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">为过去日期补充录入体重、餐食或训练记录。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MODULE 4: INSIGHTS ─── -->
+    <section id="module-insights" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">insights</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">洞察模块</h2>
+          <p class="text-text-muted text-xs">数据分析与回顾 · 3 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('insights_dashboard/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">数据分析</p>
+              <p class="text-text-muted text-xs mt-0.5">insights_dashboard</p>
+            </div>
+            <span class="badge-tab text-xs px-2 py-0.5 rounded-full">Tab 主页</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">体重趋势折线图、热量摄入柱状图、训练量统计，时间维度可切换。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ weekly_review</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ weekly_comparison</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('weekly_review/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">每周回顾</p>
+              <p class="text-text-muted text-xs mt-0.5">weekly_review</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">7天体重变化、热量达标率、训练频次、恢复评分汇总。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('weekly_comparison/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">多周对比</p>
+              <p class="text-text-muted text-xs mt-0.5">weekly_comparison</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">横向对比多个周次的关键指标，识别进步趋势与波动。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MODULE 5: TEMPLATES ─── -->
+    <section id="module-templates" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">library_books</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">模板模块</h2>
+          <p class="text-text-muted text-xs">训练与餐食模板 · 3 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('template_gallery/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">模板管理</p>
+              <p class="text-text-muted text-xs mt-0.5">template_gallery</p>
+            </div>
+            <span class="badge-tab text-xs px-2 py-0.5 rounded-full">Tab 主页</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">查看、管理训练模板和餐食模板，新建或编辑。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ workout_template_editor</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ meal_template_editor</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('workout_template_editor/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">训练模板编辑</p>
+              <p class="text-text-muted text-xs mt-0.5">workout_template_editor</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">编辑训练模板名称、动作列表、默认组数和重量。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ exercise_picker</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('meal_template_editor/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">餐食模板编辑</p>
+              <p class="text-text-muted text-xs mt-0.5">meal_template_editor</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">设置常用餐食组合模板，方便快速套用。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ food_search_sheet</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MODULE 6: SHARED ─── -->
+    <section id="module-shared" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">extension</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">通用组件</h2>
+          <p class="text-text-muted text-xs">多模块复用的选择器和工具页 · 5 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('exercise_picker/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">选择动作</p>
+              <p class="text-text-muted text-xs mt-0.5">exercise_picker</p>
+            </div>
+            <span class="badge-sheet text-xs px-2 py-0.5 rounded-full">底部弹窗</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">搜索/分类浏览动作库，支持多选，被训练和模板页面调用。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('food_search_sheet/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">食物搜索</p>
+              <p class="text-text-muted text-xs mt-0.5">food_search_sheet</p>
+            </div>
+            <span class="badge-sheet text-xs px-2 py-0.5 rounded-full">底部弹窗</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">搜索食物名称，展示热量和宏量，可跳转AI识别或手动录入。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ ai_food_recognition</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ manual_food_entry</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('ai_food_recognition/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">AI 食物识别</p>
+              <p class="text-text-muted text-xs mt-0.5">ai_food_recognition</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">拍照或输入描述，AI 自动识别食物成分和营养数据。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('manual_food_entry/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">手动食物录入</p>
+              <p class="text-text-muted text-xs mt-0.5">manual_food_entry</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">手动填写食物名称、份量、热量、蛋白质等宏量数据。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('personal_records/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">个人记录 PR</p>
+              <p class="text-text-muted text-xs mt-0.5">personal_records</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">各动作历史最佳记录时间轴，按肌群分类浏览。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MODULE 7: SETTINGS ─── -->
+    <section id="module-settings" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">settings</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">设置 / 账户</h2>
+          <p class="text-text-muted text-xs">应用设置与数据管理 · 5 个页面</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('settings/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">设置</p>
+              <p class="text-text-muted text-xs mt-0.5">settings</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">独立页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">设置主入口：个人资料、通知、数据导入导出、目标重新设置。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ profile</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ notification_settings</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ export_data</span>
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ data_import</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('profile/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">个人资料</p>
+              <p class="text-text-muted text-xs mt-0.5">profile</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">编辑身高、年龄、活动水平，查看目标进度，可重新设置目标。</p>
+          <div class="mt-3 flex flex-wrap gap-1">
+            <span class="text-xs bg-surface-3 px-2 py-0.5 rounded text-text-muted">→ goal_setup</span>
+          </div>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('notification_settings/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">通知设置</p>
+              <p class="text-text-muted text-xs mt-0.5">notification_settings</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">配置打卡提醒、周回顾通知、训练间歇定时器等推送。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('export_data/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">导出数据</p>
+              <p class="text-text-muted text-xs mt-0.5">export_data</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">选择数据范围和格式（CSV / JSON），导出全部记录。</p>
+        </div>
+        <div class="card-link cursor-pointer rounded-xl border border-border bg-surface p-4 hover:border-green-action/30" onclick="openPage('data_import/code.html', this)">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="font-headline font-semibold text-sm text-text-primary">数据导入</p>
+              <p class="text-text-muted text-xs mt-0.5">data_import</p>
+            </div>
+            <span class="badge-sub text-xs px-2 py-0.5 rounded-full">子页面</span>
+          </div>
+          <p class="text-text-secondary text-xs leading-relaxed">上传 CSV/JSON 文件批量导入历史数据，支持预览和冲突处理。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FLOW GUIDE ─── -->
+    <section id="flow-guide" class="section-anchor mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="module-header-icon w-8 h-8 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-green-action" style="font-size:18px">account_tree</span>
+        </div>
+        <div>
+          <h2 class="font-headline font-bold text-lg text-text-primary">流程导览</h2>
+          <p class="text-text-muted text-xs">按核心使用流程快速访问</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        <!-- Flow 1: Onboarding -->
+        <div class="rounded-xl border border-border bg-surface p-4">
+          <p class="text-text-secondary text-xs font-medium mb-3 flex items-center gap-1.5">
+            <span class="material-symbols-outlined" style="font-size:14px;color:#3fff8b">play_arrow</span>
+            首次启动流程
+          </p>
+          <div class="space-y-2">
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('onboarding/code.html', this)">
+              <span class="text-green-action font-medium">1</span> <span class="text-text-primary">引导欢迎页</span> <span class="text-text-muted ml-1">onboarding</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('goal_setup/code.html', this)">
+              <span class="text-green-action font-medium">2</span> <span class="text-text-primary">目标设置</span> <span class="text-text-muted ml-1">goal_setup</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('today_dashboard/code.html', this)">
+              <span class="text-green-action font-medium">3</span> <span class="text-text-primary">进入今日主页</span> <span class="text-text-muted ml-1">today_dashboard</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Flow 2: Workout -->
+        <div class="rounded-xl border border-border bg-surface p-4">
+          <p class="text-text-secondary text-xs font-medium mb-3 flex items-center gap-1.5">
+            <span class="material-symbols-outlined" style="font-size:14px;color:#3fff8b">fitness_center</span>
+            完整训练流程
+          </p>
+          <div class="space-y-2">
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('quick_add_sheet/code.html', this)">
+              <span class="text-green-action font-medium">1</span> <span class="text-text-primary">快速添加</span> <span class="text-text-muted ml-1">quick_add_sheet</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('start_workout_sheet/code.html', this)">
+              <span class="text-green-action font-medium">2</span> <span class="text-text-primary">开始训练</span> <span class="text-text-muted ml-1">start_workout_sheet</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('active_workout/code.html', this)">
+              <span class="text-green-action font-medium">3</span> <span class="text-text-primary">训练进行中</span> <span class="text-text-muted ml-1">active_workout</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('workout_summary/code.html', this)">
+              <span class="text-green-action font-medium">4</span> <span class="text-text-primary">训练完成总结</span> <span class="text-text-muted ml-1">workout_summary</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('personal_records/code.html', this)">
+              <span class="text-green-action font-medium">5</span> <span class="text-text-primary">个人记录 PR</span> <span class="text-text-muted ml-1">personal_records</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Flow 3: Meal -->
+        <div class="rounded-xl border border-border bg-surface p-4">
+          <p class="text-text-secondary text-xs font-medium mb-3 flex items-center gap-1.5">
+            <span class="material-symbols-outlined" style="font-size:14px;color:#3fff8b">restaurant</span>
+            餐食记录流程
+          </p>
+          <div class="space-y-2">
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('record_meal_sheet/code.html', this)">
+              <span class="text-green-action font-medium">1</span> <span class="text-text-primary">餐食记录</span> <span class="text-text-muted ml-1">record_meal_sheet</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('food_search_sheet/code.html', this)">
+              <span class="text-green-action font-medium">2a</span> <span class="text-text-primary">食物搜索</span> <span class="text-text-muted ml-1">food_search_sheet</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('ai_food_recognition/code.html', this)">
+              <span class="text-green-action font-medium">2b</span> <span class="text-text-primary">AI 食物识别</span> <span class="text-text-muted ml-1">ai_food_recognition</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('manual_food_entry/code.html', this)">
+              <span class="text-green-action font-medium">2c</span> <span class="text-text-primary">手动食物录入</span> <span class="text-text-muted ml-1">manual_food_entry</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Flow 4: Insights -->
+        <div class="rounded-xl border border-border bg-surface p-4">
+          <p class="text-text-secondary text-xs font-medium mb-3 flex items-center gap-1.5">
+            <span class="material-symbols-outlined" style="font-size:14px;color:#3fff8b">trending_up</span>
+            数据分析流程
+          </p>
+          <div class="space-y-2">
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('insights_dashboard/code.html', this)">
+              <span class="text-green-action font-medium">1</span> <span class="text-text-primary">数据分析</span> <span class="text-text-muted ml-1">insights_dashboard</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('weekly_review/code.html', this)">
+              <span class="text-green-action font-medium">2a</span> <span class="text-text-primary">每周回顾</span> <span class="text-text-muted ml-1">weekly_review</span>
+            </button>
+            <button class="w-full text-left px-3 py-2 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors text-xs" onclick="openPage('weekly_comparison/code.html', this)">
+              <span class="text-green-action font-medium">2b</span> <span class="text-text-primary">多周对比</span> <span class="text-text-muted ml-1">weekly_comparison</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Legend -->
+    <div class="flex flex-wrap gap-3 text-xs text-text-muted pb-8">
+      <div class="flex items-center gap-1.5"><span class="badge-tab px-2 py-0.5 rounded-full text-xs">Tab 主页</span> 底部导航直接访问</div>
+      <div class="flex items-center gap-1.5"><span class="badge-sheet px-2 py-0.5 rounded-full text-xs">底部弹窗</span> 底部滑出覆盖层</div>
+      <div class="flex items-center gap-1.5"><span class="badge-full px-2 py-0.5 rounded-full text-xs">全屏向导</span> 全屏接管流程</div>
+      <div class="flex items-center gap-1.5"><span class="badge-sub px-2 py-0.5 rounded-full text-xs">子页面</span> 常规导航推入</div>
+    </div>
+
+  </div>
+
+  <!-- Phone Preview Frame -->
+  <div class="phone-frame hidden" id="phone-frame">
+    <div class="phone-bar">
+      <span class="text-text-muted text-xs font-body" id="frame-title">—</span>
+      <button onclick="closePreview()" class="text-text-muted hover:text-text-primary transition-colors">
+        <span class="material-symbols-outlined" style="font-size:16px">close</span>
+      </button>
+    </div>
+    <iframe class="phone-iframe" id="phone-iframe" src="" title="页面预览"></iframe>
+    <div class="phone-controls">
+      <button onclick="openInNewTab()" class="flex items-center gap-1 text-xs text-text-secondary hover:text-green-action transition-colors">
+        <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span>
+        新标签打开
+      </button>
+      <button onclick="closePreview()" class="text-xs text-text-muted hover:text-text-secondary transition-colors">关闭</button>
+    </div>
+  </div>
+
+  <!-- Scroll to top -->
+  <button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="w-9 h-9 rounded-full bg-surface-2 border border-border flex items-center justify-center text-text-muted hover:text-text-primary hover:border-green-action/40 transition-all opacity-0" style="transition:opacity 0.2s ease;">
+    <span class="material-symbols-outlined" style="font-size:18px">arrow_upward</span>
+  </button>
+
+  <script>
+    let previewVisible = false;
+    let currentPagePath = '';
+
+    function openPage(path, el) {
+      currentPagePath = path;
+      if (previewVisible) {
+        document.getElementById('phone-iframe').src = path;
+        const title = el.querySelector('.text-text-primary')?.textContent || path;
+        document.getElementById('frame-title').textContent = title;
+      } else {
+        window.open(path, '_blank');
+      }
+    }
+
+    function togglePreview() {
+      previewVisible = !previewVisible;
+      const frame = document.getElementById('phone-frame');
+      const label = document.getElementById('preview-label');
+      if (previewVisible) {
+        frame.classList.remove('hidden');
+        label.textContent = '关闭面板';
+      } else {
+        frame.classList.add('hidden');
+        label.textContent = '预览面板';
+      }
+    }
+
+    function closePreview() {
+      previewVisible = false;
+      document.getElementById('phone-frame').classList.add('hidden');
+      document.getElementById('preview-label').textContent = '预览面板';
+    }
+
+    function openInNewTab() {
+      if (currentPagePath) window.open(currentPagePath, '_blank');
+    }
+
+    // Scroll to top visibility
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scroll-top');
+      btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+    });
+  </script>
+</body>
+</html>
