@@ -15,9 +15,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.csd.trainlytics.domain.model.MealType
 import com.csd.trainlytics.ui.body.RecordBodyStatsScreen
+import com.csd.trainlytics.ui.history.HistoryScreen
 import com.csd.trainlytics.ui.meal.RecordMealScreen
 import com.csd.trainlytics.ui.onboarding.OnboardingScreen
 import com.csd.trainlytics.ui.workout.ActiveWorkoutScreen
+import com.csd.trainlytics.ui.workout.WorkoutSummaryScreen
 import com.csd.trainlytics.ui.shell.MainShell
 import com.csd.trainlytics.ui.today.TodayScreen
 
@@ -89,7 +91,11 @@ private fun NavHostContent(
             )
         }
         composable(NavRoutes.History.route) {
-            PlaceholderScreen("History")
+            HistoryScreen(
+                onNavigateToDayDetail = { dateMillis ->
+                    navController.navigate(NavRoutes.HistoryDayDetail.createRoute(dateMillis))
+                }
+            )
         }
         composable(NavRoutes.Insights.route) {
             PlaceholderScreen("Insights")
@@ -121,7 +127,13 @@ private fun NavHostContent(
             route = NavRoutes.WorkoutSummary.route,
             arguments = listOf(navArgument("sessionId") { type = NavType.LongType })
         ) {
-            PlaceholderScreen("Workout Summary")
+            WorkoutSummaryScreen(
+                onBack = {
+                    navController.navigate(NavRoutes.Today.route) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
+            )
         }
 
         // ── History sub-screens ────────────────────────────────────────────
