@@ -23,6 +23,8 @@ import com.csd.trainlytics.ui.onboarding.OnboardingScreen
 import com.csd.trainlytics.ui.records.PersonalRecordsScreen
 import com.csd.trainlytics.ui.settings.ProfileScreen
 import com.csd.trainlytics.ui.settings.SettingsScreen
+import com.csd.trainlytics.ui.templates.MealTemplateEditorScreen
+import com.csd.trainlytics.ui.templates.WorkoutTemplateEditorScreen
 import com.csd.trainlytics.ui.templates.TemplateGalleryScreen
 import com.csd.trainlytics.ui.workout.ActiveWorkoutScreen
 import com.csd.trainlytics.ui.workout.WorkoutSummaryScreen
@@ -173,13 +175,13 @@ private fun NavHostContent(
             route = NavRoutes.WorkoutTemplateEditor.route,
             arguments = listOf(navArgument("templateId") { type = NavType.LongType })
         ) {
-            PlaceholderScreen("Workout Template Editor")
+            WorkoutTemplateEditorScreen(onBack = { navController.popBackStack() })
         }
         composable(
             route = NavRoutes.MealTemplateEditor.route,
             arguments = listOf(navArgument("templateId") { type = NavType.LongType })
         ) {
-            PlaceholderScreen("Meal Template Editor")
+            MealTemplateEditorScreen(onBack = { navController.popBackStack() })
         }
 
         // ── Shared screens ─────────────────────────────────────────────────
