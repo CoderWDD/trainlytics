@@ -14,7 +14,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.csd.trainlytics.domain.model.MealType
+import com.csd.trainlytics.ui.body.RecordBodyStatsScreen
+import com.csd.trainlytics.ui.meal.RecordMealScreen
 import com.csd.trainlytics.ui.onboarding.OnboardingScreen
+import com.csd.trainlytics.ui.workout.ActiveWorkoutScreen
 import com.csd.trainlytics.ui.shell.MainShell
 import com.csd.trainlytics.ui.today.TodayScreen
 
@@ -97,13 +100,20 @@ private fun NavHostContent(
 
         // ── Today sub-screens ──────────────────────────────────────────────
         composable(NavRoutes.RecordBodyStats.route) {
-            PlaceholderScreen("Record Body Stats")
+            RecordBodyStatsScreen(onBack = { navController.popBackStack() })
         }
         composable(NavRoutes.RecordMeal.route) {
-            PlaceholderScreen("Record Meal")
+            RecordMealScreen(onBack = { navController.popBackStack() })
         }
         composable(NavRoutes.ActiveWorkout.route) {
-            PlaceholderScreen("Active Workout")
+            ActiveWorkoutScreen(
+                onBack = { navController.popBackStack() },
+                onWorkoutFinished = { sessionId ->
+                    navController.navigate(NavRoutes.WorkoutSummary.createRoute(sessionId)) {
+                        popUpTo(NavRoutes.ActiveWorkout.route) { inclusive = true }
+                    }
+                }
+            )
         }
 
         // ── Workout completion ─────────────────────────────────────────────
