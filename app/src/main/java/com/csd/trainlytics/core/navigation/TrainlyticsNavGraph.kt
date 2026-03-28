@@ -20,6 +20,8 @@ import com.csd.trainlytics.ui.history.HistoryScreen
 import com.csd.trainlytics.ui.insights.InsightsDashboardScreen
 import com.csd.trainlytics.ui.meal.RecordMealScreen
 import com.csd.trainlytics.ui.onboarding.OnboardingScreen
+import com.csd.trainlytics.ui.records.PersonalRecordsScreen
+import com.csd.trainlytics.ui.settings.SettingsScreen
 import com.csd.trainlytics.ui.templates.TemplateGalleryScreen
 import com.csd.trainlytics.ui.workout.ActiveWorkoutScreen
 import com.csd.trainlytics.ui.workout.WorkoutSummaryScreen
@@ -187,12 +189,17 @@ private fun NavHostContent(
             PlaceholderScreen("Manual Food Entry")
         }
         composable(NavRoutes.PersonalRecords.route) {
-            PlaceholderScreen("Personal Records")
+            PersonalRecordsScreen(onBack = { navController.popBackStack() })
         }
 
         // ── Settings ───────────────────────────────────────────────────────
         composable(NavRoutes.Settings.route) {
-            PlaceholderScreen("Settings")
+            SettingsScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToProfile = { navController.navigate(NavRoutes.Profile.route) },
+                onNavigateToNotifications = { navController.navigate(NavRoutes.NotificationSettings.route) },
+                onNavigateToExportData = { navController.navigate(NavRoutes.ExportData.route) }
+            )
         }
         composable(NavRoutes.Profile.route) {
             PlaceholderScreen("Profile")
