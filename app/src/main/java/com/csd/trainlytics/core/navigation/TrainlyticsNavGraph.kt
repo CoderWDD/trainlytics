@@ -38,7 +38,9 @@ fun TrainlyticsNavGraph(
     if (showShell) {
         MainShell(
             navController = navController,
-            onFabClick = { /* TODO: open QuickAddSheet */ }
+            onNavigateToRecordBodyStats = { navController.navigate(NavRoutes.RecordBodyStats.route) },
+            onNavigateToRecordMeal = { navController.navigate(NavRoutes.RecordMeal.route) },
+            onNavigateToActiveWorkout = { navController.navigate(NavRoutes.ActiveWorkout.route) }
         ) {
             NavHostContent(navController = navController, startDestination = startDestination)
         }
