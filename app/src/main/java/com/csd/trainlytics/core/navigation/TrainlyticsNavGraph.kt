@@ -21,6 +21,7 @@ import com.csd.trainlytics.ui.insights.InsightsDashboardScreen
 import com.csd.trainlytics.ui.meal.RecordMealScreen
 import com.csd.trainlytics.ui.onboarding.OnboardingScreen
 import com.csd.trainlytics.ui.records.PersonalRecordsScreen
+import com.csd.trainlytics.ui.settings.ProfileScreen
 import com.csd.trainlytics.ui.settings.SettingsScreen
 import com.csd.trainlytics.ui.templates.TemplateGalleryScreen
 import com.csd.trainlytics.ui.workout.ActiveWorkoutScreen
@@ -202,7 +203,7 @@ private fun NavHostContent(
             )
         }
         composable(NavRoutes.Profile.route) {
-            PlaceholderScreen("Profile")
+            ProfileScreen(onBack = { navController.popBackStack() })
         }
         composable(NavRoutes.NotificationSettings.route) {
             PlaceholderScreen("Notification Settings")

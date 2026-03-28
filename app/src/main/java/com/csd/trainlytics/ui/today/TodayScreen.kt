@@ -137,6 +137,7 @@ fun TodayScreen(
                 WeightCard(
                     modifier = Modifier.weight(1f),
                     weightKg = state.latestBodyRecord?.weightKg,
+                    heightCm = state.profile.heightCm,
                     onRecordClick = onNavigateToRecordBodyStats
                 )
             }
@@ -238,6 +239,7 @@ private fun DailySummaryCard(
 private fun WeightCard(
     modifier: Modifier,
     weightKg: Float?,
+    heightCm: Float?,
     onRecordClick: () -> Unit
 ) {
     Column(
@@ -291,8 +293,10 @@ private fun WeightCard(
             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(text = "BMI", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = OnSurfaceVariant, letterSpacing = 0.3.sp)
                 val bmi = weightKg?.let { w ->
-                    val h = 1.75f // placeholder; real impl uses profile height
-                    w / (h * h)
+                    heightCm?.let { h ->
+                        val hm = h / 100f
+                        w / (hm * hm)
+                    }
                 }
                 Text(text = bmi?.let { "%.1f".format(it) } ?: "—", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = OnSurface)
             }
