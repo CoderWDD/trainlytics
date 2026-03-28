@@ -4,21 +4,54 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.csd.trainlytics.domain.model.MealType
 import com.csd.trainlytics.ui.onboarding.OnboardingScreen
+import com.csd.trainlytics.ui.shell.MainShell
+import com.csd.trainlytics.ui.today.TodayScreen
+
+// Routes that show the bottom nav shell
+private val shellRoutes = setOf(
+    NavRoutes.Today.route,
+    NavRoutes.History.route,
+    NavRoutes.Insights.route,
+    NavRoutes.Templates.route
+)
 
 @Composable
 fun TrainlyticsNavGraph(
     startDestination: String = NavRoutes.Onboarding.route
 ) {
     val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = backStackEntry?.destination?.route
+    val showShell = currentRoute in shellRoutes
 
+    if (showShell) {
+        MainShell(
+            navController = navController,
+            onFabClick = { /* TODO: open QuickAddSheet */ }
+        ) {
+            NavHostContent(navController = navController, startDestination = startDestination)
+        }
+    } else {
+        NavHostContent(navController = navController, startDestination = startDestination)
+    }
+}
+
+@Composable
+private fun NavHostContent(
+    navController: androidx.navigation.NavHostController,
+    startDestination: String
+) {
     NavHost(
         navController = navController,
         startDestination = startDestination
@@ -42,9 +75,13 @@ fun TrainlyticsNavGraph(
             PlaceholderScreen("Goal Setup")
         }
 
-        // ── Main Shell (Bottom Nav) ────────────────────────────────────────
+        // ── Bottom Tab roots ───────────────────────────────────────────────
         composable(NavRoutes.Today.route) {
-            PlaceholderScreen("Today Dashboard")
+            TodayScreen(
+                onNavigateToRecordBodyStats = { navController.navigate(NavRoutes.RecordBodyStats.route) },
+                onNavigateToRecordMeal = { navController.navigate(NavRoutes.RecordMeal.route) },
+                onNavigateToActiveWorkout = { navController.navigate(NavRoutes.ActiveWorkout.route) }
+            )
         }
         composable(NavRoutes.History.route) {
             PlaceholderScreen("History")
