@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.csd.trainlytics.ui.onboarding.OnboardingScreen
 
 @Composable
 fun TrainlyticsNavGraph(
@@ -24,7 +25,18 @@ fun TrainlyticsNavGraph(
     ) {
         // ── Launch ────────────────────────────────────────────────────────
         composable(NavRoutes.Onboarding.route) {
-            PlaceholderScreen("Onboarding")
+            OnboardingScreen(
+                onComplete = {
+                    navController.navigate(NavRoutes.Today.route) {
+                        popUpTo(NavRoutes.Onboarding.route) { inclusive = true }
+                    }
+                },
+                onSkip = {
+                    navController.navigate(NavRoutes.Today.route) {
+                        popUpTo(NavRoutes.Onboarding.route) { inclusive = true }
+                    }
+                }
+            )
         }
         composable(NavRoutes.GoalSetup.route) {
             PlaceholderScreen("Goal Setup")
