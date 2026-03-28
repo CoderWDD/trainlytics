@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.csd.trainlytics.domain.model.MealType
 import com.csd.trainlytics.ui.body.RecordBodyStatsScreen
+import com.csd.trainlytics.ui.history.HistoryDayDetailScreen
 import com.csd.trainlytics.ui.history.HistoryScreen
 import com.csd.trainlytics.ui.meal.RecordMealScreen
 import com.csd.trainlytics.ui.onboarding.OnboardingScreen
@@ -141,7 +142,7 @@ private fun NavHostContent(
             route = NavRoutes.HistoryDayDetail.route,
             arguments = listOf(navArgument("dateMillis") { type = NavType.LongType })
         ) {
-            PlaceholderScreen("History Day Detail")
+            HistoryDayDetailScreen(onBack = { navController.popBackStack() })
         }
         composable(NavRoutes.BackfillJournal.route) {
             PlaceholderScreen("Backfill Journal")
