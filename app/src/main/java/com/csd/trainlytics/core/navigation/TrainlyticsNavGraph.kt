@@ -17,8 +17,10 @@ import com.csd.trainlytics.domain.model.MealType
 import com.csd.trainlytics.ui.body.RecordBodyStatsScreen
 import com.csd.trainlytics.ui.history.HistoryDayDetailScreen
 import com.csd.trainlytics.ui.history.HistoryScreen
+import com.csd.trainlytics.ui.insights.InsightsDashboardScreen
 import com.csd.trainlytics.ui.meal.RecordMealScreen
 import com.csd.trainlytics.ui.onboarding.OnboardingScreen
+import com.csd.trainlytics.ui.templates.TemplateGalleryScreen
 import com.csd.trainlytics.ui.workout.ActiveWorkoutScreen
 import com.csd.trainlytics.ui.workout.WorkoutSummaryScreen
 import com.csd.trainlytics.ui.shell.MainShell
@@ -99,10 +101,17 @@ private fun NavHostContent(
             )
         }
         composable(NavRoutes.Insights.route) {
-            PlaceholderScreen("Insights")
+            InsightsDashboardScreen()
         }
         composable(NavRoutes.Templates.route) {
-            PlaceholderScreen("Templates")
+            TemplateGalleryScreen(
+                onNavigateToWorkoutTemplateEditor = { templateId ->
+                    navController.navigate(NavRoutes.WorkoutTemplateEditor.createRoute(templateId))
+                },
+                onNavigateToMealTemplateEditor = { templateId ->
+                    navController.navigate(NavRoutes.MealTemplateEditor.createRoute(templateId))
+                }
+            )
         }
 
         // ── Today sub-screens ──────────────────────────────────────────────
